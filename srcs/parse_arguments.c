@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 11:19:59 by root              #+#    #+#             */
-/*   Updated: 2020/06/30 17:42:34 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/01 17:07:52 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ static T_BOOL has_builtin(char *str)
     tab = ft_str_to_tab(str, ' ');
     while (tab[i])
     {
-        printf("is a builtin : %s ? --> %d\n", tab[i], (b_isvalid(tab[i])));
         if ((b_isvalid(tab[i])))
         return (TRUE);
         ++i;

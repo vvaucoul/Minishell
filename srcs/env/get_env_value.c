@@ -6,13 +6,13 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/26 18:24:23 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/06/29 18:34:29 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/01 17:44:10 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char		*get_home_line(char *str)
+static char		*get_cmd_line(char *str)
 {
 	char *line;
 	int i;
@@ -20,12 +20,12 @@ static char		*get_home_line(char *str)
 
 	i = 0;
 	while (str[i] != '=')
-		++i;
+	++i;
 	si = ++i;
 	while (str[i])
-		++i;
+	++i;
 	if (!(line = malloc(sizeof(char) * (i + 1))))
-		return (NULL);
+	return (NULL);
 	i = 0;
 	while (str[i])
 	{
@@ -37,17 +37,32 @@ static char		*get_home_line(char *str)
 	return (line);
 }
 
+static	T_BOOL	strdelcmnp(char *s1, char *s2, char del)
+{
+	int	i;
+
+	i = 0;
+	//printf("compare : %s with %s\n", s1, s2);
+	while ((s1[i] == s2[i]) && s1[i] && s2[i])
+	{
+		if (s1[i] == del || s2[i] == del)
+			return (0);
+		++i;
+	}
+	return (s1[i] - s2[i]);
+}
+
 char			*get_env_value(char *value, char **envp)
 {
 	int j;
 
 	j = 0;
 	if (!value)
-		return (NULL);
+	return (NULL);
 	while (envp[j])
 	{
-		if (!(ft_strncmp(envp[j], value, 3)))
-			return (get_home_line(envp[j]));
+		if (!(strdelcmnp(envp[j], ft_strcat(value, "="), '=')))
+			return (get_cmd_line(envp[j]));
 		++j;
 	}
 	return (NULL);

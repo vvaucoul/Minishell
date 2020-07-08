@@ -1,30 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   b_pwd.c                                            :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/26 18:34:32 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/02 16:07:41 by vvaucoul         ###   ########.fr       */
+/*   Created: 2020/07/01 18:08:24 by vvaucoul          #+#    #+#             */
+/*   Updated: 2020/07/01 18:16:41 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*
-**	Builtin PWD
-**	Affiche le chemin d'accès absolum
-*/
-
-int		b_pwd(char **envp, T_BOOL using_nl)
+char		*get_cmd_in_path(char *path)
 {
-	char *dir;
+	char *cmd;
+	int i;
+	int j;
+	int k;
 
-	dir = ft_strdup(get_env_value("PWD", envp));
-	ft_putstr_fd(dir, 1);
-	if (using_nl)
-	ft_putstr_fd("\n", 1);
-	free(dir);
-	return (0);
+	i = ft_strlen(path);
+	j = i;
+	k = 0;
+	while (path[i] != 47 && i > 0)
+		--i;
+	++i;
+	if (!(cmd = malloc(sizeof(char) * (j - i) + 1)))
+		return (NULL);
+	while (i < j)
+	{
+		cmd[k] = path[i];
+		++i;
+		++k;
+	}
+	cmd[k] = '\0';
+	return (cmd);
 }

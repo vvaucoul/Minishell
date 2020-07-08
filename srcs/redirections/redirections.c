@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 16:32:45 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/06/30 19:35:22 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/08 16:22:55 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,23 @@ static int		redirection_02(char **tab_exec, char *inputfile, char **envp)
 	int fd;
 	int fd2;
 
+
+	tab_exec = r_get_tab_without_redirection(tab_exec);
+	printf("tab_exec[0] = %s | tab_exec[1] = %s\n", tab_exec[0], tab_exec[1]);
+
+
+
+	if (!(fork()))
+	{
+		fd = open(tab_exec[1], O_RDONLY);
+		dup2(fd, 0);
+		close(fd);
+		printf("db redirection = infile = %s | tabexc[0] %s | tabexc[1] %s\n", inputfile, tab_exec[0], tab_exec[1]);
+		execve(tab_exec[0], tab_exec, envp);
+	}
+	return (0);
+
+	/*
 	printf("db 02\n");
 	tab_exec = r_get_tab_without_redirection(tab_exec);
 
@@ -102,26 +119,27 @@ static int		redirection_02(char **tab_exec, char *inputfile, char **envp)
 
 	if ((fd = open(inputfile, O_RDONLY)) == -1)
 	{
-		ft_putstr_fd("Error while creating/opening file\n", 1);
-		return (-1);
-	}
+	ft_putstr_fd("Error while creating/opening file\n", 1);
+	return (-1);
+}
 
-	printf("db 04\n");
-	pid = fork();
-	if (pid == 0)
-	{
-		dup2(fd2, 1);
-		if ((execve(tab_exec[0], tab_exec, envp)) < 0)
-		{
-			ft_putstr_fd("Error, wront command\n", 1);
-			return (-1);
-		}
-		close(fd2);
-	}
-	else
-		waitpid(pid, &state, WUNTRACED);
-	printf("db 05\n");
-	return (0);
+printf("db 04\n");
+pid = fork();
+if (pid == 0)
+{
+dup2(fd2, 1);
+if ((execve(tab_exec[0], tab_exec, envp)) < 0)
+{
+ft_putstr_fd("Error, wront command\n", 1);
+return (-1);
+}
+close(fd2);
+}
+else
+waitpid(pid, &state, WUNTRACED);
+printf("db 05\n");
+return (0);
+*/
 }
 
 /*

@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 17:40:16 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/06/30 19:44:52 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/08 16:29:23 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,19 +39,24 @@ int		r_get_redirection_pos(char **tab)
 
 char **r_get_tab_without_redirection(char **tab)
 {
+	char **n_tab;
 	int i;
+	int j;
 
 	i = 0;
+	j = 0;
+	n_tab = tab;
 	while (tab[i])
 	{
 		if (r_is_redirection(tab[i]))
-		{
-			tab[i] = NULL;
-			return (tab);
-		}
+			++i;
+		else
+			n_tab[j] = tab[i];
 		++i;
+		++j;
 	}
-	return (tab);
+	n_tab[j] = NULL;
+	return (n_tab);
 }
 
 char **r_get_tab_without_pipe(char **tab)

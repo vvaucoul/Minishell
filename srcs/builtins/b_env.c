@@ -6,20 +6,20 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/27 14:02:09 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/01 16:02:02 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/02 16:09:00 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		b_env(char **envp)
+int		b_env(t_mns *mns)
 {
 	int i;
 
 	i = 0;
-	while (envp[i])
+	while (mns->envp[i])
 	{
-		ft_putstr_fd(envp[i], 1);
+		ft_putstr_fd(mns->envp[i], 1);
 		ft_putchar_fd('\n', 1);
 		++i;
 	}

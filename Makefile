@@ -6,7 +6,7 @@
 #    By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/25 18:04:06 by vvaucoul          #+#    #+#              #
-#    Updated: 2020/06/30 19:00:30 by vvaucoul         ###   ########.fr        #
+#    Updated: 2020/07/01 18:11:00 by vvaucoul         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,8 @@ SRCS			=	$(wildcard srcs/*.c)			\
 					$(wildcard srcs/builtins/*.c)	\
 					$(wildcard srcs/env/*.c)		\
 					$(wildcard srcs/signals/*.c)	\
-					$(wildcard srcs/redirections/*.c)
+					$(wildcard srcs/redirections/*.c)	\
+					$(wildcard srcs/utils/*.c)	\
 
 ### OBJECTS ###
 OBJS			=         $(SRCS:.c=.o)

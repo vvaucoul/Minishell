@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/27 14:05:33 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/06/30 13:54:55 by root             ###   ########.fr       */
+/*   Updated: 2020/07/02 17:16:02 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,25 +48,38 @@ static char		*get_export_value(char *str)
 
 	i = 0;
 	j = 0;
+	if (!str)
+		return (NULL);
 	while (str[i] && str[i++] != ENV_DELIMITEUR);
+	if (i == ft_strlen(str))
+		return (NULL);
 	si = i;
-	//printf(COLOR_CYAN); //printf("\nexport value | si = %d |\n", si);
 	while (str[i++]);
 	if (!(value = malloc(sizeof(char) * ((i - si)))))
 	return (NULL);
-	//printf(COLOR_CYAN); //printf("export value | malloc = %d |\n", ((i - si)));
-
-	//printf(COLOR_CYAN); //printf("export value | si = %d | j = %d |\n", si, j);
 	while (str[si])
 	{
 		value[j] = str[si];
 		++j;
 		++si;
 	}
-	//printf(COLOR_CYAN); //printf("export value | value = %s |\n\n", value);
-
 	value[j] = '\0';
+	if (j == 0)
+		return (NULL);
 	return (value);
+}
+
+static	T_BOOL	value_already_existing(char **envp, char *str)
+{
+	int i;
+
+	while (envp[i])
+	{
+		if (!(ft_strncmp(envp[i], str, ft_strlen(str))))
+		return (TRUE);
+		++i;
+	}
+	return (FALSE);
 }
 
 /*
@@ -157,7 +170,7 @@ static int		realloc_envp(char *cmd, char *value, char ***envp)
 	nenvp[i + 1] = NULL;
 
 	if (!(envp[0] = malloc(sizeof(char *) * (((size[0] + 1) + (size[1] + 1)) + 1))))
-		return (-1);
+	return (-1);
 	//printf("malloc envp\n");
 	set_envp_tab(size, nenvp, envp);
 	//printf("end set env\n");
@@ -166,17 +179,17 @@ static int		realloc_envp(char *cmd, char *value, char ***envp)
 	return (0);
 }
 
-static int		set_envp_value(char *cmd, char *value, char ***envp)
+static int		set_envp_value(char *cmd, char *value, T_BOOL already_existing, char ***envp)
 {
 	int line;
 
 	line = get_envp_line(cmd, envp[0]);
-	//printf(COLOR_YELLOW); //printf("- LINE = %d\n", line);
-
 	if (line < 0)
 		realloc_envp(cmd, value, envp);
 	else
 	{
+		if (already_existing && !value)
+			return (0);
 		cmd = ft_strcat(cmd, "=");
 		envp[0][line] = ft_strdup(ft_strcat(cmd, value));
 	}
@@ -190,19 +203,21 @@ static int		set_envp_value(char *cmd, char *value, char ***envp)
 static int		place_env(char *line, char ***envp)
 {
 	T_BOOL 	has_equal;
+	T_BOOL	already_existing;
 	char	*cmd;
 	char	*value;
 
 	has_equal = str_has_equal(line);
 	cmd = get_export_cmd(line);
 	value = get_export_value(line);
+	already_existing = value_already_existing(envp[0], cmd);
 
-	//printf(COLOR_YELLOW); //printf("- Has equal = %d\n", has_equal);
-	//printf(COLOR_YELLOW); //printf("- CMD = %s\n", cmd);
-	//printf(COLOR_YELLOW); //printf("- Value = %s\n\n", value);
+	printf(COLOR_YELLOW); printf("- Has equal = %d\n", has_equal);
+	printf(COLOR_YELLOW); printf("- CMD = %s\n", cmd);
+	printf(COLOR_YELLOW); printf("- Value = %s\n\n", value);
+	printf(COLOR_YELLOW); printf("- Already_existing = %d\n\n", already_existing);
 
-	set_envp_value(cmd, value, envp);
-	//printf("check envp 02 | envp[63] = %s\n", envp[0][63]);
+	set_envp_value(cmd, value, already_existing,envp);
 	return (0);
 }
 
@@ -211,9 +226,15 @@ int				b_export(t_mns *mns, char **tab)
 	int i;
 
 	i = 0;
-	//printf(COLOR_YELLOW); //printf("Export\n");
+
+	tab = remove_builtin_in_tab(tab);
+
+	printf(COLOR_YELLOW); printf("Export\n");
+	printf(COLOR_GREEN); printf("Found [%s]\n", tab[i]);
+
 	while (tab[i])
 	{
+		printf(COLOR_GREEN); printf("Found [%s]\n", tab[i]);
 		place_env(tab[i], &mns->envp);
 		++i;
 	}

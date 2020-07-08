@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 18:03:46 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/01 15:47:48 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/02 16:13:28 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	*create_path(char **envp, char *cmd)
 		return (path);
 		++i;
 	}
-	return (NULL);
+	return (cmd);
 }
 
 int		minishell(t_mns *mns)

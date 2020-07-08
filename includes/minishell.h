@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/25 18:03:44 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/01 15:48:25 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/02 17:22:39 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 #include <sys/types.h>
 #include <sys/uio.h>
 #include <sys/wait.h>
+#include <dirent.h>
 
 #include <stdio.h>
 #include <string.h>
@@ -69,6 +70,7 @@ int   	*parse_arguments(char **args);
 */
 
 T_BOOL		b_isvalid(char *str);
+char		**remove_builtin_in_tab(char **tab);
 
 int		b_echo(char **tab, T_BOOL has_argument);
 
@@ -77,9 +79,11 @@ int		b_cd(t_mns *mns, char *path);
 int		b_pwd(char **envp, T_BOOL using_nl);
 int		b_exit();
 
-int		b_env(char **envp);
+int		b_env(t_mns *mns);
 int		b_export(t_mns *mns, char **tab);
 int		b_unset(char **tab, char **envp);
+
+
 
 /*
 **	Execve
@@ -117,8 +121,14 @@ int		r_get_redirection_pos(char **tab);
 T_BOOL	r_is_redirection(char *str);
 char	**r_get_tab_without_redirection(char **tab);
 
-int		p_pipe(char *cmd, char **tab, char **envp);
+int		p_pipe(char **tab, char **envp);
 char	**r_get_tab_without_pipe(char **tab);
+
+/*
+**	UTILS
+*/
+
+char		*get_cmd_in_path(char *path);
 
 /*
 **	TODO
@@ -129,9 +139,9 @@ char	**r_get_tab_without_pipe(char **tab);
 [V] cd uniquement avec un chemin absolu ou relatif
 [V] pwd sans aucune option
 [V] export sans aucune option
-[X] unset sans aucune option			(reste a checker les caracteres)
+[V] unset sans aucune option
 [V] env sans aucune option ni argument
-[V] exit sans aucune option
+[X] exit sans aucune option
 
 [V] execve
 */
@@ -152,7 +162,7 @@ REDIRECTIONS:
 [V] >
 [V] >>
 [X] <
-[X] |
+[X] |	(reste a faire les multiple pipes)
 
 */
 

@@ -1,1 +1,12 @@
-test 123
+Makefile
+compil.sh
+includes
+libft
+libft.a
+libraries
+minishell
+minishell.dSYM
+obj
+srcs
+tmp
+toto
