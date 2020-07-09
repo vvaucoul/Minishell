@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 19:23:09 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/08 16:15:51 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/08 19:45:00 by mle-faou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,9 @@ static void 	do_pipes(char ***tab, char **envp)
 	int		p[2];
 	pid_t	pid;
 	int		fd_in = 0;
-	int state;
+	// int		state;
+
+	(void)envp; //todo rm
 
 	while (*tab != NULL)
 	{

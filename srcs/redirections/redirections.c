@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 16:32:45 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/08 16:22:55 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/08 19:45:55 by mle-faou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,10 +88,10 @@ static int		redirection_01(char **tab_exec, char *output_file, char **envp, T_BO
 
 static int		redirection_02(char **tab_exec, char *inputfile, char **envp)
 {
-	int pid;
-	int state;
+	// int pid;
+	// int state;
 	int fd;
-	int fd2;
+	// int fd2;
 
 
 	tab_exec = r_get_tab_without_redirection(tab_exec);
@@ -149,6 +149,8 @@ return (0);
 int		main_redirections(char *cmd, char **tab, char **envp)
 {
 	int	r_pos;
+
+	(void)cmd;
 
 	printf("db 00\n");
 	r_pos = r_get_redirection_pos(tab);

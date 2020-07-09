@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_export.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/27 14:05:33 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/02 17:16:02 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/08 19:42:20 by mle-faou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static char		*get_export_value(char *str)
 	if (!str)
 		return (NULL);
 	while (str[i] && str[i++] != ENV_DELIMITEUR);
-	if (i == ft_strlen(str))
+	if (i == (int)ft_strlen(str))
 		return (NULL);
 	si = i;
 	while (str[i++]);
@@ -73,6 +73,7 @@ static	T_BOOL	value_already_existing(char **envp, char *str)
 {
 	int i;
 
+	i = 0;
 	while (envp[i])
 	{
 		if (!(ft_strncmp(envp[i], str, ft_strlen(str))))
@@ -129,7 +130,7 @@ static int		*get_envp_len(char **envp)
 	return (size);
 }
 
-static int		set_envp_tab(int *size, char **nenvp, char ***envp)
+static int		set_envp_tab(char **nenvp, char ***envp)
 {
 	int i;
 
@@ -172,7 +173,7 @@ static int		realloc_envp(char *cmd, char *value, char ***envp)
 	if (!(envp[0] = malloc(sizeof(char *) * (((size[0] + 1) + (size[1] + 1)) + 1))))
 	return (-1);
 	//printf("malloc envp\n");
-	set_envp_tab(size, nenvp, envp);
+	set_envp_tab(nenvp, envp);
 	//printf("end set env\n");
 	free(size);
 	//printf(COLOR_YELLOW); //printf("\nadded new line\n");

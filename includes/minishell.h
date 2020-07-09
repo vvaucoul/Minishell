@@ -1,40 +1,37 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/25 18:03:44 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/02 17:22:39 by vvaucoul         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef MINISHELL_H
-# define MINISHELL_H
+#define MINISHELL_H
 
-#include <unistd.h>
+//malloc, free, exit
 #include <stdlib.h>
-#include <signal.h>
-#include <fcntl.h>
+//write, read, close, fork, getcwd, chdir, stat, lstat, fstat, execve, dup, dup2, pipe
+#include <unistd.h>
+//open, wait, waitpid, kill, stat, lstat, fstat, opendir, closedir
 #include <sys/types.h>
-#include <sys/uio.h>
+//open, stat, lstat, fstat
+#include <sys/stat.h>
+//open
+#include <fcntl.h>
+//wait, waitpid, wait3, wait4
 #include <sys/wait.h>
+//wait3, wait4
+#include <sys/time.h>
+//wait3, wait4
+#include <sys/resource.h>
+//wait3, wait4
+#include <sys/wait.h>
+//signal, kill
+#include <signal.h>
+//opendir, readdir, closedir
 #include <dirent.h>
-
-#include <stdio.h>
+//strerror
 #include <string.h>
-#include "libft.h"
-#include "libft_up.h"
+//errno
+#include <errno.h>
 
-#define PROMPT_STRING "$> "
-#define MAX_CHAR_IN_PROMPT	4096
 
-#define ENV_DELIMITEUR '='
-
-typedef int T_BOOL;
-#define TRUE 1
-#define FALSE 0
+//bonus
+// #include <curses.h>
+// #include <term.h>
 
 /*
 **	COLORS
@@ -52,118 +49,84 @@ typedef int T_BOOL;
 # define COLOR_CYAN        "\033[1;36m"
 # define COLOR_WHITE       "\033[1;37m"
 
+typedef int T_BOOL;
+#define TRUE 1
+#define FALSE 0
+
+#define MAX_CHAR_IN_PROMPT 4096 //todo rm
+#define ENV_DELIMITEUR '=' //todo rm
+
+#include "../libft/libft.h"
+
+#include <stdio.h> //todo rm
+
 typedef struct	s_mns
 {
-	T_BOOL		is_running;
 	char		**envp;
+	int			last_return;
 }				t_mns;
 
-/*
-**	MINISHELL FUNCTIONS
-*/
+//main.c
+// int			main(int argc, char const *argv[], char **envp);
+char			*check_homedollar(char **str, t_mns *mns);
 
-int		minishell(t_mns *mns);
-int   	*parse_arguments(char **args);
+// get_input.c
+int				get_input(char **input, t_mns *mns);
 
-/*
-**	BUILTINS Functions
-*/
+//util1.c
+void			exit_shell(void);
+int				init_mns(t_mns *mns, char **envp, int argc, char const *argv[]);
+int				is_in_quotes(char *str, int pos);
+char			*get_cmd_in_path(char *path);
+char			**remove_builtin_in_tab(char **tab);
+T_BOOL			b_isvalid(char *str);
 
-T_BOOL		b_isvalid(char *str);
-char		**remove_builtin_in_tab(char **tab);
+//exec_builtins.c
+int				exec_builtins(char **command, t_mns *mns);
 
-int		b_echo(char **tab, T_BOOL has_argument);
+//envp.c
+char			*get_env_var(char **envp, char *to_find, int free_to_find);
+char			*get_env_name(char *str, int i);
+char			*get_env_value(char *value, char **envp);
 
-int		b_cd(t_mns *mns, char *path);
+//exec_exe.c
+int				exec_system(char **command, t_mns *mns);
 
-int		b_pwd(char **envp, T_BOOL using_nl);
-int		b_exit();
+// quotesplit.c
+char			**quotesplit(char *str, char c);
 
-int		b_env(t_mns *mns);
-int		b_export(t_mns *mns, char **tab);
-int		b_unset(char **tab, char **envp);
+//bonus
+//termcaps_bonus.c
+// int				init_termcaps(t_mns *mns);
+
+/// vv
+int				b_echo(char **tab, T_BOOL has_argument);
+int				b_cd(t_mns *mns, char *path);
+int				b_pwd(char **envp, T_BOOL using_nl);
+int				b_exit();
+int				b_env(t_mns *mns);
+int				b_export(t_mns *mns, char **tab);
+int				b_unset(char **tab, char **envp);
+int				run(t_mns *mns, char *path, char **args, char **envp);
+int				*parse_arguments(char **args);
+T_BOOL			r_is_redirection(char *str);
+int				main_redirections(char *cmd, char **tab, char **envp);
+int				p_pipe(char **tab, char **envp);
+int				exec(char **tab, char **envp);
+char			**r_get_tab_without_redirection(char **tab);
+int				r_get_redirection_pos(char **tab);
+
+
+// int				minishell(t_mns *mns);
+// int				*parse_arguments(char **args);
+
+// T_BOOL			b_isvalid(char *str);
 
 
 
-/*
-**	Execve
-*/
+// int				init_signals_handle();
 
-int		run(t_mns *mns, char *path, char **args, char **envp);
-/*
-RUN :
-- path = /bin/ls
-- args[0] = ls
-- args[1] = -l
-- args[2] = etc...
-*/
+// char			**r_get_tab_without_pipe(char **tab);
 
-int		exec(char **tab, char **envp);
-
-/*
-**	ENV Functions
-*/
-
-char	*get_env_value(char *value, char **envp);
-
-/*
-** SIGNAUX
-*/
-
-int		init_signals_handle();
-
-/*
-**	REDIRECTIONS
-*/
-
-int		main_redirections(char *cmd, char **tab, char **envp);
-int		r_get_redirection_pos(char **tab);
-T_BOOL	r_is_redirection(char *str);
-char	**r_get_tab_without_redirection(char **tab);
-
-int		p_pipe(char **tab, char **envp);
-char	**r_get_tab_without_pipe(char **tab);
-
-/*
-**	UTILS
-*/
-
-char		*get_cmd_in_path(char *path);
-
-/*
-**	TODO
-*/
-
-/*
-[V] echo et l’option ’-n’
-[V] cd uniquement avec un chemin absolu ou relatif
-[V] pwd sans aucune option
-[V] export sans aucune option
-[V] unset sans aucune option
-[V] env sans aucune option ni argument
-[X] exit sans aucune option
-
-[V] execve
-*/
-
-/*
-SIGNAUX:
-
-[V] CTRL + C = SIGINT
-[V] CTRL + \ = SIGQUIT
-[X] CTRL + D n'est pas un signal mais un EOF
-
-[X] Ne pas afficher les catch (^C ^D ^\)
-*/
-
-/*
-REDIRECTIONS:
-
-[V] >
-[V] >>
-[X] <
-[X] |	(reste a faire les multiple pipes)
-
-*/
 
 #endif

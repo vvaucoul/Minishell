@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_arguments.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 11:19:59 by root              #+#    #+#             */
-/*   Updated: 2020/07/01 17:07:52 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/08 16:57:08 by mle-faou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static T_BOOL has_builtin(char *str)
     int     i;
 
     i = 0;
-    tab = ft_str_to_tab(str, ' ');
+    tab = ft_split(str, ' ');
     while (tab[i])
     {
         if ((b_isvalid(tab[i])))
@@ -35,7 +35,7 @@ static T_BOOL has_redirection(char *str)
     int     i;
 
     i = 0;
-    tab = ft_str_to_tab(str, ' ');
+    tab = ft_split(str, ' ');
     while (tab[i])
     {
         if (r_is_redirection(tab[i]))
@@ -52,7 +52,7 @@ static T_BOOL has_pipe(char *str)
     int     i;
 
     i = 0;
-    tab = ft_str_to_tab(str, ' ');
+    tab = ft_split(str, ' ');
     while (tab[i])
     {
         if (!(ft_strcmp(tab[i], "|")))

@@ -1,0 +1,6 @@
+
+Sur les macs de l'Ecole :
+
+curl -fsSL https://rawgit.com/kube/42homebrew/master/install.sh
+zsh
+brw install ncurses

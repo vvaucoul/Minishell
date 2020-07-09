@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_cd.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/26 16:40:05 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/01 17:56:11 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/08 19:34:52 by mle-faou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,6 @@ static	int		change_dir(char *path, char *error)
 int				b_cd(t_mns *mns, char *path)
 {
 	char	old_path[4096];
-	int pid;
-	int state;
 
 	getcwd(old_path, sizeof(old_path));
 	if (!(ft_strcmp(path, "-")))

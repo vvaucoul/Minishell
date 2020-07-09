@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 18:03:46 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/02 16:13:28 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/08 16:56:46 by mle-faou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char	*create_path(char **envp, char *cmd)
 	int		i;
 
 	i = 0;
-	all_path = ft_str_to_tab(get_env_value("PATH", envp), ':');
+	all_path = ft_split(get_env_value("PATH", envp), ':');
 	while (all_path[i])
 	{
 		path = malloc(sizeof(char) * MAX_CHAR_IN_PROMPT);
@@ -69,7 +69,7 @@ int		minishell(t_mns *mns)
 	char	*path;
 
 	init_signals_handle();
-	while (mns->is_running)
+	while (1)
 	{
 		if (!(line = malloc(sizeof(char) * MAX_CHAR_IN_PROMPT)))
 		return (-1);
@@ -77,7 +77,7 @@ int		minishell(t_mns *mns)
 		display_prompt(mns->envp);
 
 		line = get_line(line);
-		tab_line = ft_str_to_tab(line, ' ');
+		tab_line = ft_split(line, ' ');
 
 		path = create_path(mns->envp, tab_line[0]);
 

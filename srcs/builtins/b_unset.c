@@ -3,30 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   b_unset.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/27 16:30:05 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/06/30 17:45:01 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/08 19:42:49 by mle-faou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static	T_BOOL is_valid_parameter(char *str)
-{
-	int i;
+// static	T_BOOL is_valid_parameter(char *str)
+// {
+// 	int i;
 
-	i = 0;
-	while (str[i])
-	{
-		if ((str[i] >= 'A' && str[i] <= 'Z') || (str[i] >= 'a' && str[i] <= 'z')
-		|| (str[i] >= '0' && str[i] <= '9'))
-		++i;
-		else
-		return (FALSE);
-	}
-	return (TRUE);
-}
+// 	i = 0;
+// 	while (str[i])
+// 	{
+// 		if ((str[i] >= 'A' && str[i] <= 'Z') || (str[i] >= 'a' && str[i] <= 'z')
+// 		|| (str[i] >= '0' && str[i] <= '9'))
+// 		++i;
+// 		else
+// 		return (FALSE);
+// 	}
+// 	return (TRUE);
+// }
 
 /*
 **	Tab envp functions
