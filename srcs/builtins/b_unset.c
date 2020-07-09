@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_unset.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/27 16:30:05 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/08 19:42:49 by mle-faou         ###   ########.fr       */
+/*   Updated: 2020/07/09 19:22:33 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int		unset_remove(char *line, char **envp)
 	int envp_line;
 
 	envp_line = get_envp_line(line, envp);
-	printf(COLOR_CYAN); printf("Unset | Line = %d |\n", envp_line);
+	//printf(COLOR_CYAN); printf("Unset | Line = %d |\n", envp_line);
 
 
 	envp[envp_line] = NULL;
@@ -65,7 +65,7 @@ int		b_unset(char **tab, char **envp)
 	int i;
 
 	i = 0;
-	printf(COLOR_CYAN); printf("UNSET");
+	//printf(COLOR_CYAN); printf("UNSET");
 	while (tab[i])
 	{
 

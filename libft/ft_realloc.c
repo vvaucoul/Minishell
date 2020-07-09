@@ -6,7 +6,7 @@
 /*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/26 15:18:22 by mle-faou          #+#    #+#             */
-/*   Updated: 2020/07/08 19:32:05 by mle-faou         ###   ########.fr       */
+/*   Updated: 2020/07/09 19:06:39 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,5 @@ char	*ft_realloc(char *ptr, size_t size)
 		}
 		new_ptr[i] = '\0';
 	}
-	free(ptr);
 	return (new_ptr);
 }

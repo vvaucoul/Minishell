@@ -1,35 +1,51 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/09 18:10:28 by vvaucoul          #+#    #+#             */
+/*   Updated: 2020/07/09 19:46:57 by vvaucoul         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 #define MINISHELL_H
 
-//malloc, free, exit
+/*
+** Includes
+*/
+
 #include <stdlib.h>
-//write, read, close, fork, getcwd, chdir, stat, lstat, fstat, execve, dup, dup2, pipe
 #include <unistd.h>
-//open, wait, waitpid, kill, stat, lstat, fstat, opendir, closedir
 #include <sys/types.h>
-//open, stat, lstat, fstat
 #include <sys/stat.h>
-//open
 #include <fcntl.h>
-//wait, waitpid, wait3, wait4
 #include <sys/wait.h>
-//wait3, wait4
 #include <sys/time.h>
-//wait3, wait4
 #include <sys/resource.h>
-//wait3, wait4
 #include <sys/wait.h>
-//signal, kill
 #include <signal.h>
-//opendir, readdir, closedir
 #include <dirent.h>
-//strerror
-#include <string.h>
-//errno
 #include <errno.h>
 
+/*
+** LIBS Includes
+*/
+#include "libft.h"
 
-//bonus
+/*
+**	Debug/TMP Includes
+*/
+
+#include <string.h>
+#include <stdio.h>
+
+/*
+**	Bonus Includes
+*/
+
 // #include <curses.h>
 // #include <term.h>
 
@@ -49,16 +65,21 @@
 # define COLOR_CYAN        "\033[1;36m"
 # define COLOR_WHITE       "\033[1;37m"
 
+/*
+**	Utils Defines
+*/
+
 typedef int T_BOOL;
 #define TRUE 1
 #define FALSE 0
 
-#define MAX_CHAR_IN_PROMPT 4096 //todo rm
-#define ENV_DELIMITEUR '=' //todo rm
+#define MAX_CHAR_IN_PROMPT 4096
+#define ENV_DELIMITEUR '='
+#define ENV_STRING_DELIMITEUR "="
 
-#include "../libft/libft.h"
-
-#include <stdio.h> //todo rm
+/*
+**	Main Struct
+*/
 
 typedef struct	s_mns
 {
@@ -66,67 +87,90 @@ typedef struct	s_mns
 	int			last_return;
 }				t_mns;
 
-//main.c
-// int			main(int argc, char const *argv[], char **envp);
-char			*check_homedollar(char **str, t_mns *mns);
+/*
+**	Functions Definitions
+*/
 
-// get_input.c
+/*
+**	Minishell
+*/
+
+int				minishell(t_mns *mns);
+
+/*
+**	Exec
+*/
+
+int			exec_input(char **commands, t_mns *mns);
+int			exec_command(char *line, t_mns *mns);
+int			exec_builtins(char **command, t_mns *mns);
+int			exec_system(char **command, t_mns *mns);
+int			run(t_mns *mns, char *path, char **args, char **envp);
+int			exec(char **tab, char **envp);
+
+/*
+**	Parsing
+*/
+
+char			*check_homedollar(char **str, t_mns *mns);
+char			**quotesplit(char *str, char c);
+int				*parse_arguments(char **args);
+
+/*
+**	Input
+*/
+
 int				get_input(char **input, t_mns *mns);
 
-//util1.c
+/*
+**	Utils
+*/
+
 void			exit_shell(void);
-int				init_mns(t_mns *mns, char **envp, int argc, char const *argv[]);
 int				is_in_quotes(char *str, int pos);
+
+/*
+**	Utils Builtins
+*/
+
 char			*get_cmd_in_path(char *path);
 char			**remove_builtin_in_tab(char **tab);
 T_BOOL			b_isvalid(char *str);
 
-//exec_builtins.c
-int				exec_builtins(char **command, t_mns *mns);
+/*
+**	Utils Envp
+*/
 
-//envp.c
 char			*get_env_var(char **envp, char *to_find, int free_to_find);
 char			*get_env_name(char *str, int i);
 char			*get_env_value(char *value, char **envp);
 
-//exec_exe.c
-int				exec_system(char **command, t_mns *mns);
+/*
+**	Builtins
+*/
 
-// quotesplit.c
-char			**quotesplit(char *str, char c);
-
-//bonus
-//termcaps_bonus.c
-// int				init_termcaps(t_mns *mns);
-
-/// vv
 int				b_echo(char **tab, T_BOOL has_argument);
 int				b_cd(t_mns *mns, char *path);
-int				b_pwd(char **envp, T_BOOL using_nl);
+int				b_pwd(t_mns *mns, T_BOOL using_nl);
 int				b_exit();
 int				b_env(t_mns *mns);
 int				b_export(t_mns *mns, char **tab);
 int				b_unset(char **tab, char **envp);
-int				run(t_mns *mns, char *path, char **args, char **envp);
-int				*parse_arguments(char **args);
+
+/*
+**	Redirections
+*/
+
 T_BOOL			r_is_redirection(char *str);
 int				main_redirections(char *cmd, char **tab, char **envp);
 int				p_pipe(char **tab, char **envp);
-int				exec(char **tab, char **envp);
 char			**r_get_tab_without_redirection(char **tab);
 int				r_get_redirection_pos(char **tab);
 
+/*
+**	Signaux
+*/
 
-// int				minishell(t_mns *mns);
-// int				*parse_arguments(char **args);
-
-// T_BOOL			b_isvalid(char *str);
-
-
-
-// int				init_signals_handle();
-
-// char			**r_get_tab_without_pipe(char **tab);
-
+int		init_signals_handle();
 
 #endif

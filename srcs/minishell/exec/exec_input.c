@@ -1,30 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   b_pwd.c                                            :+:      :+:    :+:   */
+/*   exec_input.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/26 18:34:32 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/09 19:07:26 by vvaucoul         ###   ########.fr       */
+/*   Created: 2020/07/09 18:43:39 by vvaucoul          #+#    #+#             */
+/*   Updated: 2020/07/09 18:43:44 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*
-**	Builtin PWD
-**	Affiche le chemin d'accès absolum
-*/
-
-int		b_pwd(t_mns *mns, T_BOOL using_nl)
+int			exec_input(char **commands, t_mns *mns)
 {
-	char *dir;
+	int ret;
+	int i;
 
-	dir = ft_strdup(get_env_value("PWD", mns->envp));
-	ft_putstr_fd(dir, 1);
-	if (using_nl)
-	ft_putstr_fd("\n", 1);
-	free(dir);
-	return (0);
+	ret = 0;
+	i = 0;
+	while (commands[i])
+	{
+		ret = exec_command(commands[i], mns);
+		if (ret == -1)
+			break ;
+		i++;
+	}
+	return (ret);
 }

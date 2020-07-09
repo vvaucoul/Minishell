@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/26 15:27:30 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/01 18:20:31 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/09 19:29:51 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int		b_echo(char **tab, T_BOOL has_argument)
 
 	if (!tab)
 		return (-1);
-	tab[0] = get_cmd_in_path(tab[0]);
+	// tab[0] = get_cmd_in_path(tab[0]);
 	i = find_first_arg(tab, has_argument);
 	if (!tab[i] && has_argument)
 		return (0);

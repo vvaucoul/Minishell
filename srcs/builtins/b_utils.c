@@ -1,30 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   b_pwd.c                                            :+:      :+:    :+:   */
+/*   b_utils.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/26 18:34:32 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/09 19:07:26 by vvaucoul         ###   ########.fr       */
+/*   Created: 2020/07/02 16:14:45 by vvaucoul          #+#    #+#             */
+/*   Updated: 2020/07/08 19:44:53 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*
-**	Builtin PWD
-**	Affiche le chemin d'accès absolum
-*/
-
-int		b_pwd(t_mns *mns, T_BOOL using_nl)
+static	char **sort_tab(char **tab, int size, int i)
 {
-	char *dir;
+	int si;
 
-	dir = ft_strdup(get_env_value("PWD", mns->envp));
-	ft_putstr_fd(dir, 1);
-	if (using_nl)
-	ft_putstr_fd("\n", 1);
-	free(dir);
-	return (0);
+	si = 0;
+	tab[i] = NULL;
+	++i;
+	while (si < size)
+	{
+		tab[si] = tab[si + 1];
+		++si;
+	}
+	tab[si] = NULL;
+	return (tab);
+}
+
+char	**remove_builtin_in_tab(char **tab)
+{
+	int i;
+	int j;
+
+	i = 0;
+	j = 0;
+	while (tab[j++]);
+	--j;
+	while (tab[i])
+	{
+		if (b_isvalid(tab[i]))
+		return (sort_tab(tab, j, i));
+		++i;
+	}
+	return (tab);
 }

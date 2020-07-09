@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_export.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/27 14:05:33 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/08 19:42:20 by mle-faou         ###   ########.fr       */
+/*   Updated: 2020/07/09 18:05:09 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,10 +213,10 @@ static int		place_env(char *line, char ***envp)
 	value = get_export_value(line);
 	already_existing = value_already_existing(envp[0], cmd);
 
-	printf(COLOR_YELLOW); printf("- Has equal = %d\n", has_equal);
-	printf(COLOR_YELLOW); printf("- CMD = %s\n", cmd);
-	printf(COLOR_YELLOW); printf("- Value = %s\n\n", value);
-	printf(COLOR_YELLOW); printf("- Already_existing = %d\n\n", already_existing);
+	//printf(COLOR_YELLOW); printf("- Has equal = %d\n", has_equal);
+	//printf(COLOR_YELLOW); printf("- CMD = %s\n", cmd);
+	//printf(COLOR_YELLOW); printf("- Value = %s\n\n", value);
+	//printf(COLOR_YELLOW); printf("- Already_existing = %d\n\n", already_existing);
 
 	set_envp_value(cmd, value, already_existing,envp);
 	return (0);
@@ -230,12 +230,12 @@ int				b_export(t_mns *mns, char **tab)
 
 	tab = remove_builtin_in_tab(tab);
 
-	printf(COLOR_YELLOW); printf("Export\n");
-	printf(COLOR_GREEN); printf("Found [%s]\n", tab[i]);
+	//printf(COLOR_YELLOW); printf("Export\n");
+	//printf(COLOR_GREEN); printf("Found [%s]\n", tab[i]);
 
 	while (tab[i])
 	{
-		printf(COLOR_GREEN); printf("Found [%s]\n", tab[i]);
+		//printf(COLOR_GREEN); printf("Found [%s]\n", tab[i]);
 		place_env(tab[i], &mns->envp);
 		++i;
 	}
