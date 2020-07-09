@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 19:23:09 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/09 19:47:05 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/09 19:52:29 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,33 +25,21 @@ static void 	do_pipes(char ***tab, char **envp)
 		exit(EXIT_FAILURE);
 		else if (!pid)
 		{
-
 			dup2(fd_in, 0);
-
-
 			if (*(tab + 1) != NULL)
-			{
-
 				dup2(p[1], 1);
-
-			}
-
 			close(p[0]);
 			execve((*tab)[0], *tab, envp); // fonctionne bien
 			//execvp((*tab)[0], *tab); // tmp pour ne pas mettre les /bin/etc a la commande
-
 			exit(EXIT_FAILURE);
 		}
 		else
 		{
-
 			wait(NULL);
 			close(p[1]);
-
 			fd_in = p[0];
 			tab++;
 		}
-
 	}
 }
 
