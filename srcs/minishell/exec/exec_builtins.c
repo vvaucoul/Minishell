@@ -6,7 +6,7 @@
 /*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/27 14:19:30 by mle-faou          #+#    #+#             */
-/*   Updated: 2020/07/10 16:50:15 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/10 19:56:25 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,7 @@ int			exec_builtins(char **command, t_mns *mns)
 			// printf("echo commande[%d] : [%s]\n", i, command[i]);
 			i++;
 		}
-		printf("test1\n");
 		b_echo(command);
-		// exit(0);
-		printf("test2\n");
 		return (1);
 	}
 	if (ft_strequ(command[0], "cd")) // crash
@@ -54,10 +51,8 @@ int			exec_builtins(char **command, t_mns *mns)
 			//printf("command[%d] : [%s]\n", i, command[i]);
 			i++;
 		}
-		printf("test1\n");
 		b_export(mns, command);
 		// exit(0);
-		printf("test2\n");
 		return (1);
 	}
 	if (ft_strequ(command[0], "unset")) // okay fuite de couleur

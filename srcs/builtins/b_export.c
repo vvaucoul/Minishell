@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/27 14:05:33 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/09 18:05:09 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/10 19:57:50 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,8 +228,10 @@ int				b_export(t_mns *mns, char **tab)
 
 	i = 0;
 
-	tab = remove_builtin_in_tab(tab);
+	printf("tab[0] = %s\n", tab[0]);
+	printf("tab[1] = %s\n", tab[1]);
 
+	tab = remove_builtin_in_tab(tab);
 	//printf(COLOR_YELLOW); printf("Export\n");
 	//printf(COLOR_GREEN); printf("Found [%s]\n", tab[i]);
 
