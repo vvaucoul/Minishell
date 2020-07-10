@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 15:34:18 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/09 19:05:13 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/10 16:50:42 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static	int		run_builtins(t_mns *mns, char *cmd, char **args, char **envp)
 	ret = b_cd(mns, args[1]);
 
 	if (!(ft_strcmp(cmd, "echo")))
-	ret = b_echo(args, ((!(ft_strcmp(args[1], "-n"))) ? TRUE : FALSE));
+	ret = b_echo(args);
 
 	if (!(ft_strcmp(cmd, "export")))
 	ret = b_export(mns, args);

@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/26 16:40:05 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/09 19:37:55 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/10 16:49:26 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,13 @@ static int			export_old_path(t_mns *mns, char *old_path)
 
 	export_path[0] = ft_strcat("OLD_PWD=", ft_strdup(old_path));
 	export_path[1] = NULL;
-	// printf(COLOR_RED); printf("export OLD_PWD = %s\n\n", export_path[0]); printf(COLOR_NOC);
 	b_export(mns, export_path);
 	return (0);
 }
 
 static		int back_to_previous_dir(t_mns *mns)
 {
-	// printf(COLOR_GREEN); printf("Go TO old pwd = %s\n\n", get_env_value("OLD_PWD", mns->envp)); printf(COLOR_NOC);
-	if (chdir(get_env_value("OLD_PWD", mns->envp)) < 0)
-	return (-1);
+	chdir(get_env_value("OLD_PWD", mns->envp));
 	return (0);
 }
 
@@ -39,25 +36,26 @@ static	int		set_pwd(t_mns *mns)
 	getcwd(actu_dir, sizeof(actu_dir));
 	export_path[0] = ft_strcat("PWD=", ft_strdup(actu_dir));
 	export_path[1] = NULL;
-	// printf(COLOR_YELLOW); printf("export PWD = %s\n\n", export_path[0]); printf(COLOR_NOC);
 	b_export(mns, export_path);
 	return (0);
 }
 
 static	int		change_dir(char *path, char *error)
 {
-	if (opendir(path) >= 0)
+	struct stat sb;
+
+	if (stat(path, &sb) == 0 && S_ISDIR(sb.st_mode))
 	{
 		if (chdir(path) < 0)
 		{
 			ft_putstr_fd(error, 1);
-			return (-1);
+			return (0);
 		}
 	}
 	else
 	{
 		ft_putstr_fd("cd: Can't access to this directory", 1);
-		return (-1);
+		return (0);
 	}
 	return (0);
 }
@@ -71,11 +69,11 @@ int				b_cd(t_mns *mns, char *path)
 	{
 		if (!(ft_strcmp(path, "-")))
 		{
-			// printf(COLOR_YELLOW); printf("\n  [1]\n"); printf(COLOR_NOC);
+
 			if (back_to_previous_dir(mns) < 0)
 			{
-				ft_putstr_fd("cd: aucun dossier valide\n", 1);
-				return (-1);
+				ft_putstr_fd(ft_strcat("cd: aucun dossier valide: " , ft_strcat(path, "\n")), 1);
+				return (0);
 			}
 			export_old_path(mns, old_path);
 			set_pwd(mns);
@@ -84,17 +82,17 @@ int				b_cd(t_mns *mns, char *path)
 	}
 	if (!path)
 	{
-		// printf(COLOR_YELLOW); printf("\n  [2]\n"); printf(COLOR_NOC);
+
 		if (change_dir(get_env_value("HOME", mns->envp), "cd: Home indefini\n") < 0)
-		return (-1);
+		return (0);
 		export_old_path(mns, old_path);
 		set_pwd(mns);
 	}
 	else
 	{
-		// printf(COLOR_YELLOW); printf("\n  [3]\n"); printf(COLOR_NOC);
-		if (change_dir(path, "cd: aucun dossier valide\n") < 0)
-		return (-1);
+
+		if (change_dir(path, ft_strcat("cd: aucun dossier valide: " , ft_strcat(path, "\n"))) < 0)
+		return (0);
 		export_old_path(mns, old_path);
 		set_pwd(mns);
 	}

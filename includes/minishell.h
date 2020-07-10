@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 18:10:28 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/10 16:17:28 by mle-faou         ###   ########.fr       */
+/*   Updated: 2020/07/10 16:50:05 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,7 @@ char			*get_env_value(char *value, char **envp);
 **	Builtins
 */
 
-int				b_echo(char **tab, T_BOOL has_argument);
+int				b_echo(char **tab);
 int				b_cd(t_mns *mns, char *path);
 int				b_pwd(t_mns *mns, T_BOOL using_nl);
 int				b_exit();
