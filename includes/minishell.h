@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 18:10:28 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/09 19:46:57 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/10 16:17:28 by mle-faou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,12 +101,12 @@ int				minishell(t_mns *mns);
 **	Exec
 */
 
-int			exec_input(char **commands, t_mns *mns);
-int			exec_command(char *line, t_mns *mns);
-int			exec_builtins(char **command, t_mns *mns);
-int			exec_system(char **command, t_mns *mns);
-int			run(t_mns *mns, char *path, char **args, char **envp);
-int			exec(char **tab, char **envp);
+int				exec_input(char **commands, t_mns *mns);
+int				exec_command(char *line, t_mns *mns);
+int				exec_builtins(char **command, t_mns *mns);
+int				exec_system(char **command, t_mns *mns);
+int				run(t_mns *mns, char *path, char **args, char **envp);
+int				exec(char **tab, char **envp);
 
 /*
 **	Parsing
@@ -171,6 +171,6 @@ int				r_get_redirection_pos(char **tab);
 **	Signaux
 */
 
-int		init_signals_handle();
+int				init_signals_handle();
 
 #endif

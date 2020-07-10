@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_command.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 18:43:13 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/09 19:21:44 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/10 16:34:30 by mle-faou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,13 @@ int			exec_command(char *line, t_mns *mns)
 	if (!(command = quotesplit(line, ' ')))
 		return (-1);
 
-
-
-	int i = 0;
-	while (command[i])
-	{
-		// printf("~ command[%d] : [%s]\n", i, command[i]);
-		i++;
-	}
+	// int i = 0;
+	// while (command[i])
+	// {
+	// 	printf("~ command[%d] : [%s]\n", i, command[i]);
+	// 	i++;
+	// }
 	// printf("test???????????\n");
-
 
 	if ((did_something = exec_builtins(command, mns)) != 1)
 		return (did_something);
