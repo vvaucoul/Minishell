@@ -6,3 +6,7 @@
 - export crash (get_input)
 
 - ajouter ("| > >> <") dans les commandes reconnues
+
+- variables env miniscules
+
+- cd protection, verifier dossier valide ou pas
