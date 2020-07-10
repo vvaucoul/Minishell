@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/26 16:40:05 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/10 16:49:26 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/10 16:56:04 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static	int		change_dir(char *path, char *error)
 	}
 	else
 	{
-		ft_putstr_fd("cd: Can't access to this directory", 1);
+		ft_putstr_fd(error, 1);
 		return (0);
 	}
 	return (0);
@@ -72,7 +72,7 @@ int				b_cd(t_mns *mns, char *path)
 
 			if (back_to_previous_dir(mns) < 0)
 			{
-				ft_putstr_fd(ft_strcat("cd: aucun dossier valide: " , ft_strcat(path, "\n")), 1);
+				ft_putstr_fd(ft_strcat("cd: aucun dossier valide: ", ft_strcat(path, "\n")), 1);
 				return (0);
 			}
 			export_old_path(mns, old_path);
@@ -91,7 +91,7 @@ int				b_cd(t_mns *mns, char *path)
 	else
 	{
 
-		if (change_dir(path, ft_strcat("cd: aucun dossier valide: " , ft_strcat(path, "\n"))) < 0)
+		if (change_dir(path, ft_strcat("cd: aucun dossier valide: ", ft_strcat(path, "\n"))) < 0)
 		return (0);
 		export_old_path(mns, old_path);
 		set_pwd(mns);
