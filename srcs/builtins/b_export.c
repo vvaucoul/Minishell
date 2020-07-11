@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/27 14:05:33 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/11 16:08:47 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/11 16:18:55 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,7 +160,6 @@ static int		realloc_envp(char *cmd, char *value, char ***envp)
 		++i;
 	}
 	cmd = ft_strcat(cmd, "=");
-	printf("strdup value = %s\n", value);
 	if (value)
 	nenvp[i] = ft_strdup(ft_strcat(cmd, value));
 	else
@@ -205,15 +204,9 @@ static int		place_env(t_mns *mns, char *line)
 	cmd = get_export_cmd(line);
 	value = get_export_value(line);
 	already_existing = value_already_existing(mns->envp, cmd);
-
-	printf(COLOR_YELLOW); printf("- Has equal = %d\n", has_equal);
-	printf(COLOR_YELLOW); printf("- CMD = %s\n", cmd);
-	printf(COLOR_YELLOW); printf("- Value = %s\n\n", value);
-	printf(COLOR_YELLOW); printf("- Already_existing = %d\n\n", already_existing);
-
 	if (!has_equal && !already_existing)
 		return (0);
-	set_envp_value(cmd, value, already_existing, &mns->envp);
+	set_envp_value(epur_b_str(cmd), epur_b_str(value), already_existing, &mns->envp);
 	return (0);
 }
 
@@ -222,17 +215,9 @@ int				b_export(t_mns *mns, char **tab)
 	int i;
 
 	i = 0;
-
-	printf("tab[0] = %s\n", tab[0]);
-	printf("tab[1] = %s\n", tab[1]);
-
 	tab = remove_builtin_in_tab(tab);
-	printf(COLOR_YELLOW); printf("Export\n");
-	printf(COLOR_GREEN); printf("Found [%s]\n", tab[i]);
-
 	while (tab[i])
 	{
-		printf(COLOR_GREEN); printf("Found [%s]\n", tab[i]);
 		place_env(mns, tab[i]);
 		++i;
 	}
