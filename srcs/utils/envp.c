@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   envp.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 18:34:22 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/09 19:20:10 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/11 16:56:45 by mle-faou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,27 @@
 
 char		*get_env_var(char **envp, char *to_find, int free_to_find)
 {
-	int		i;
 	char	*ret;
+	int		i;
 
-	// printf("get env var\n");
+	// printf("test\n");
+	ret = ft_strdup("");
 	i = 0;
 	while(envp && envp[i])
 	{
-		// printf("env : [%s]\n", envp[i]);
-		// printf("to find : [%s]\n", ft_strjoin(to_find, ENV_STRING_DELIMITEUR));
-		if (ft_strstartswith(envp[i], ft_strjoin(to_find, ENV_STRING_DELIMITEUR), 0, 1))
+		if (ft_strstartswith(envp[i], ft_strjoin(to_find, "="), 0, 0))
 		{
-			// printf("I'm in boys\n");
+			free(ret);
 			if (!(ret = ft_strcut(envp[i], ENV_DELIMITEUR)))
 				return (NULL);
-			return (ret);
+			break ;
 		}
 		i++;
 	}
 	if (free_to_find)
 		free(to_find);
-	return (NULL);
+	// printf("ret : %s\n", ret);
+	return (ret);
 }
 
 char		*get_env_name(char *str, int i)
@@ -44,7 +44,8 @@ char		*get_env_name(char *str, int i)
 	if (!(name = ft_strnew(1)))
 		return (NULL);
 	name[0] = '\0';
-	while (str[i] && ft_isupper(str[i]))
+	while (str[i] && (str[i] == '_' || ft_isalpha(str[i]) ||
+		ft_isdigit(str[i])))
 	{
 		if (!(name = ft_straddchar(name, str[i])))
 			return (NULL);
