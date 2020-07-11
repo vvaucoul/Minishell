@@ -6,7 +6,7 @@
 /*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/27 14:19:30 by mle-faou          #+#    #+#             */
-/*   Updated: 2020/07/10 19:56:25 by root             ###   ########.fr       */
+/*   Updated: 2020/07/11 14:34:15 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,8 @@ int			exec_builtins(char **command, t_mns *mns)
 			//printf("command[%d] : [%s]\n", i, command[i]);
 			i++;
 		}
-		b_export(mns, command);
 		// exit(0);
-		return (1);
+		return (b_export(mns, command));
 	}
 	if (ft_strequ(command[0], "unset")) // okay fuite de couleur
 	{
