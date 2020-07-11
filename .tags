@@ -162,6 +162,17 @@ epur_b_str	/home/user42/Delivery/minishell/srcs/utils/b_utils.c	/^char	*epur_b_s
 tab_has_pipe	/home/user42/Delivery/minishell/srcs/utils/b_utils.c	/^T_BOOL	tab_has_pipe(char **tab)$/;"	function	line:42	signature:(char **tab)
 tab_has_redirection	/home/user42/Delivery/minishell/srcs/utils/b_utils.c	/^T_BOOL	tab_has_redirection(char **tab)$/;"	function	line:56	signature:(char **tab)
 tab_len	/home/user42/Delivery/minishell/srcs/utils/b_utils.c	/^int		tab_len(char **tab)$/;"	function	line:70	signature:(char **tab)
+r_is_redirection	/home/user42/Delivery/minishell/srcs/redirections/redirections_utils.c	/^T_BOOL	r_is_redirection(char *str)$/;"	function	line:20	signature:(char *str)
+r_get_redirection_pos	/home/user42/Delivery/minishell/srcs/redirections/redirections_utils.c	/^int		r_get_redirection_pos(char **tab)$/;"	function	line:31	signature:(char **tab)
+r_get_tab_without_redirection	/home/user42/Delivery/minishell/srcs/redirections/redirections_utils.c	/^char **r_get_tab_without_redirection(char **tab)$/;"	function	line:45	signature:(char **tab)
+r_get_tab_before_redirection	/home/user42/Delivery/minishell/srcs/redirections/redirections_utils.c	/^char	**r_get_tab_before_redirection(char **tab)$/;"	function	line:67	signature:(char **tab)
+r_get_tab_after_redirection	/home/user42/Delivery/minishell/srcs/redirections/redirections_utils.c	/^char	**r_get_tab_after_redirection(char **tab)$/;"	function	line:86	signature:(char **tab)
+r_update_pipe_tab_make_path	/home/user42/Delivery/minishell/srcs/redirections/redirections_utils.c	/^static	char *r_update_pipe_tab_make_path(char **sysbin_loc, char *str)$/;"	function	line:114	file:	signature:(char **sysbin_loc, char *str)
+r_update_pipe_tab	/home/user42/Delivery/minishell/srcs/redirections/redirections_utils.c	/^char	**r_update_pipe_tab(char **tab, char **envp)$/;"	function	line:138	signature:(char **tab, char **envp)
+r_get_tab_without_pipe	/home/user42/Delivery/minishell/srcs/redirections/redirections_utils.c	/^char 	**r_get_tab_without_pipe(char **tab)$/;"	function	line:157	signature:(char **tab)
+do_pipes	/home/user42/Delivery/minishell/srcs/redirections/pipe.c	/^static void 	do_pipes(char ***tab, char **envp)$/;"	function	line:15	file:	signature:(char ***tab, char **envp)
+make_pipe_tab	/home/user42/Delivery/minishell/srcs/redirections/pipe.c	/^static char	***make_pipe_tab(char **tab_exec, int maxsize)$/;"	function	line:46	file:	signature:(char **tab_exec, int maxsize)
+p_pipe	/home/user42/Delivery/minishell/srcs/redirections/pipe.c	/^int		p_pipe(char **tab_exec, char **envp)$/;"	function	line:85	signature:(char **tab_exec, char **envp)
 MINISHELL_H	/home/user42/Delivery/minishell/includes/minishell.h	/^#define MINISHELL_H$/;"	macro	line:14
 COLOR_NOC	/home/user42/Delivery/minishell/includes/minishell.h	/^# define COLOR_NOC /;"	macro	line:56
 COLOR_BOLD	/home/user42/Delivery/minishell/includes/minishell.h	/^# define COLOR_BOLD /;"	macro	line:57
@@ -184,14 +195,3 @@ s_mns	/home/user42/Delivery/minishell/includes/minishell.h	/^typedef struct	s_mn
 envp	/home/user42/Delivery/minishell/includes/minishell.h	/^	char		**envp;$/;"	member	line:86	struct:s_mns
 last_return	/home/user42/Delivery/minishell/includes/minishell.h	/^	int			last_return;$/;"	member	line:87	struct:s_mns
 t_mns	/home/user42/Delivery/minishell/includes/minishell.h	/^}				t_mns;$/;"	typedef	line:88	typeref:struct:s_mns
-do_pipes	/home/user42/Delivery/minishell/srcs/redirections/pipe.c	/^static void 	do_pipes(char ***tab, char **envp)$/;"	function	line:15	file:	signature:(char ***tab, char **envp)
-make_pipe_tab	/home/user42/Delivery/minishell/srcs/redirections/pipe.c	/^static char	***make_pipe_tab(char **tab_exec, int maxsize)$/;"	function	line:46	file:	signature:(char **tab_exec, int maxsize)
-p_pipe	/home/user42/Delivery/minishell/srcs/redirections/pipe.c	/^int		p_pipe(char **tab_exec, char **envp)$/;"	function	line:85	signature:(char **tab_exec, char **envp)
-r_is_redirection	/home/user42/Delivery/minishell/srcs/redirections/redirections_utils.c	/^T_BOOL	r_is_redirection(char *str)$/;"	function	line:20	signature:(char *str)
-r_get_redirection_pos	/home/user42/Delivery/minishell/srcs/redirections/redirections_utils.c	/^int		r_get_redirection_pos(char **tab)$/;"	function	line:31	signature:(char **tab)
-r_get_tab_without_redirection	/home/user42/Delivery/minishell/srcs/redirections/redirections_utils.c	/^char **r_get_tab_without_redirection(char **tab)$/;"	function	line:45	signature:(char **tab)
-r_get_tab_before_redirection	/home/user42/Delivery/minishell/srcs/redirections/redirections_utils.c	/^char	**r_get_tab_before_redirection(char **tab)$/;"	function	line:67	signature:(char **tab)
-r_get_tab_after_redirection	/home/user42/Delivery/minishell/srcs/redirections/redirections_utils.c	/^char	**r_get_tab_after_redirection(char **tab)$/;"	function	line:86	signature:(char **tab)
-r_update_pipe_tab_make_path	/home/user42/Delivery/minishell/srcs/redirections/redirections_utils.c	/^static	char *r_update_pipe_tab_make_path(char **sysbin_loc, char *str)$/;"	function	line:114	file:	signature:(char **sysbin_loc, char *str)
-r_update_pipe_tab	/home/user42/Delivery/minishell/srcs/redirections/redirections_utils.c	/^char	**r_update_pipe_tab(char **tab, char **envp)$/;"	function	line:138	signature:(char **tab, char **envp)
-r_get_tab_without_pipe	/home/user42/Delivery/minishell/srcs/redirections/redirections_utils.c	/^char 	**r_get_tab_without_pipe(char **tab)$/;"	function	line:157	signature:(char **tab)

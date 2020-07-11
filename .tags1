@@ -4,11 +4,25 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
-r_is_redirection	/home/user42/Delivery/minishell/srcs/redirections/redirections_utils.c	/^T_BOOL	r_is_redirection(char *str)$/;"	function	line:20	signature:(char *str)
-r_get_redirection_pos	/home/user42/Delivery/minishell/srcs/redirections/redirections_utils.c	/^int		r_get_redirection_pos(char **tab)$/;"	function	line:31	signature:(char **tab)
-r_get_tab_without_redirection	/home/user42/Delivery/minishell/srcs/redirections/redirections_utils.c	/^char **r_get_tab_without_redirection(char **tab)$/;"	function	line:45	signature:(char **tab)
-r_get_tab_before_redirection	/home/user42/Delivery/minishell/srcs/redirections/redirections_utils.c	/^char	**r_get_tab_before_redirection(char **tab)$/;"	function	line:67	signature:(char **tab)
-r_get_tab_after_redirection	/home/user42/Delivery/minishell/srcs/redirections/redirections_utils.c	/^char	**r_get_tab_after_redirection(char **tab)$/;"	function	line:86	signature:(char **tab)
-r_update_pipe_tab_make_path	/home/user42/Delivery/minishell/srcs/redirections/redirections_utils.c	/^static	char *r_update_pipe_tab_make_path(char **sysbin_loc, char *str)$/;"	function	line:114	file:	signature:(char **sysbin_loc, char *str)
-r_update_pipe_tab	/home/user42/Delivery/minishell/srcs/redirections/redirections_utils.c	/^char	**r_update_pipe_tab(char **tab, char **envp)$/;"	function	line:138	signature:(char **tab, char **envp)
-r_get_tab_without_pipe	/home/user42/Delivery/minishell/srcs/redirections/redirections_utils.c	/^char 	**r_get_tab_without_pipe(char **tab)$/;"	function	line:157	signature:(char **tab)
+MINISHELL_H	/home/user42/Delivery/minishell/includes/minishell.h	/^#define MINISHELL_H$/;"	macro	line:14
+COLOR_NOC	/home/user42/Delivery/minishell/includes/minishell.h	/^# define COLOR_NOC /;"	macro	line:56
+COLOR_BOLD	/home/user42/Delivery/minishell/includes/minishell.h	/^# define COLOR_BOLD /;"	macro	line:57
+COLOR_UNDERLINE	/home/user42/Delivery/minishell/includes/minishell.h	/^# define COLOR_UNDERLINE /;"	macro	line:58
+COLOR_BLACK	/home/user42/Delivery/minishell/includes/minishell.h	/^# define COLOR_BLACK /;"	macro	line:59
+COLOR_RED	/home/user42/Delivery/minishell/includes/minishell.h	/^# define COLOR_RED /;"	macro	line:60
+COLOR_GREEN	/home/user42/Delivery/minishell/includes/minishell.h	/^# define COLOR_GREEN /;"	macro	line:61
+COLOR_YELLOW	/home/user42/Delivery/minishell/includes/minishell.h	/^# define COLOR_YELLOW /;"	macro	line:62
+COLOR_BLUE	/home/user42/Delivery/minishell/includes/minishell.h	/^# define COLOR_BLUE /;"	macro	line:63
+COLOR_VIOLET	/home/user42/Delivery/minishell/includes/minishell.h	/^# define COLOR_VIOLET /;"	macro	line:64
+COLOR_CYAN	/home/user42/Delivery/minishell/includes/minishell.h	/^# define COLOR_CYAN /;"	macro	line:65
+COLOR_WHITE	/home/user42/Delivery/minishell/includes/minishell.h	/^# define COLOR_WHITE /;"	macro	line:66
+T_BOOL	/home/user42/Delivery/minishell/includes/minishell.h	/^typedef int T_BOOL;$/;"	typedef	line:72
+TRUE	/home/user42/Delivery/minishell/includes/minishell.h	/^#define TRUE /;"	macro	line:73
+FALSE	/home/user42/Delivery/minishell/includes/minishell.h	/^#define FALSE /;"	macro	line:74
+MAX_CHAR_IN_PROMPT	/home/user42/Delivery/minishell/includes/minishell.h	/^#define MAX_CHAR_IN_PROMPT /;"	macro	line:76
+ENV_DELIMITEUR	/home/user42/Delivery/minishell/includes/minishell.h	/^#define ENV_DELIMITEUR /;"	macro	line:77
+ENV_STRING_DELIMITEUR	/home/user42/Delivery/minishell/includes/minishell.h	/^#define ENV_STRING_DELIMITEUR /;"	macro	line:78
+s_mns	/home/user42/Delivery/minishell/includes/minishell.h	/^typedef struct	s_mns$/;"	struct	line:84
+envp	/home/user42/Delivery/minishell/includes/minishell.h	/^	char		**envp;$/;"	member	line:86	struct:s_mns
+last_return	/home/user42/Delivery/minishell/includes/minishell.h	/^	int			last_return;$/;"	member	line:87	struct:s_mns
+t_mns	/home/user42/Delivery/minishell/includes/minishell.h	/^}				t_mns;$/;"	typedef	line:88	typeref:struct:s_mns
