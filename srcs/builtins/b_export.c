@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/27 14:05:33 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/11 11:20:06 by root             ###   ########.fr       */
+/*   Updated: 2020/07/11 16:08:47 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ static int		get_envp_line(char *cmd, char **envp)
 	while (envp[i])
 	{
 		if (!(ft_strncmp(cmd, envp[i], ft_strlen(cmd))))
-		return (i);
+			return (i);
 		++i;
 	}
 	return (-1);
@@ -134,12 +134,10 @@ static int		set_envp_tab(char **nenvp, char ***envp)
 {
 	int i;
 
-	//printf(COLOR_YELLOW); //printf("Change envp\n");
 	i = 0;
 	while (nenvp[i])
 	{
 		envp[0][i] = ft_strdup(nenvp[i]);
-		//printf(COLOR_CYAN);	//printf("envp[0][%d] = %s\n", i, envp[0][i]);
 		++i;
 	}
 	envp[0][i] = NULL;
@@ -154,29 +152,24 @@ static int		realloc_envp(char *cmd, char *value, char ***envp)
 
 	i = 0;
 	size = get_envp_len(envp[0]);
-
-	//printf(COLOR_VIOLET); //printf("\nrealloc envp : size[0] = %d | size[1] = %d\n", size[0], size[1]);
-
 	if (!(nenvp = malloc(sizeof(char *) * (((size[0] + 1) + (size[1] + 1)) + 1))))
-	return (-1);
+		return (-1);
 	while (envp[0][i])
 	{
 		nenvp[i] = ft_strdup(envp[0][i]);
 		++i;
 	}
-	//printf(COLOR_VIOLET); //printf("realloc envp : added %d lines\n", i);
 	cmd = ft_strcat(cmd, "=");
+	printf("strdup value = %s\n", value);
+	if (value)
 	nenvp[i] = ft_strdup(ft_strcat(cmd, value));
-	//printf(COLOR_VIOLET); //printf("realloc envp : last line = %s\n", nenvp[i]);
+	else
+	nenvp[i] = ft_strdup(cmd);
 	nenvp[i + 1] = NULL;
-
 	if (!(envp[0] = malloc(sizeof(char *) * (((size[0] + 1) + (size[1] + 1)) + 1))))
-	return (-1);
-	//printf("malloc envp\n");
+		return (-1);
 	set_envp_tab(nenvp, envp);
-	//printf("end set env\n");
 	free(size);
-	//printf(COLOR_YELLOW); //printf("\nadded new line\n");
 	return (0);
 }
 
@@ -213,11 +206,13 @@ static int		place_env(t_mns *mns, char *line)
 	value = get_export_value(line);
 	already_existing = value_already_existing(mns->envp, cmd);
 
-	//printf(COLOR_YELLOW); printf("- Has equal = %d\n", has_equal);
-	//printf(COLOR_YELLOW); printf("- CMD = %s\n", cmd);
-	//printf(COLOR_YELLOW); printf("- Value = %s\n\n", value);
-	//printf(COLOR_YELLOW); printf("- Already_existing = %d\n\n", already_existing);
+	printf(COLOR_YELLOW); printf("- Has equal = %d\n", has_equal);
+	printf(COLOR_YELLOW); printf("- CMD = %s\n", cmd);
+	printf(COLOR_YELLOW); printf("- Value = %s\n\n", value);
+	printf(COLOR_YELLOW); printf("- Already_existing = %d\n\n", already_existing);
 
+	if (!has_equal && !already_existing)
+		return (0);
 	set_envp_value(cmd, value, already_existing, &mns->envp);
 	return (0);
 }
