@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 18:03:46 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/10 19:35:23 by root             ###   ########.fr       */
+/*   Updated: 2020/07/11 16:39:17 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,10 @@
 static void 	display_prompt(t_mns *mns)
 {
 	ft_putstr_fd(COLOR_GREEN, 1);
+	ft_putstr_fd("🛠️  ", 1);
 	b_pwd(mns, FALSE);
 	ft_putstr_fd(COLOR_CYAN, 1);
-	ft_putstr_fd(" ➜  ", 1);
+	ft_putstr_fd(" 🖥️  ➜  ", 1);
 	ft_putstr_fd(COLOR_NOC, 1);
 }
 

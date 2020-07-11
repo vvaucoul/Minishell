@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 18:43:13 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/10 19:52:23 by root             ###   ########.fr       */
+/*   Updated: 2020/07/11 16:41:04 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,10 @@ int			exec_command(char *line, t_mns *mns)
 			return (run(mns, command[0], command, mns->envp)); // check return
 		}
 	}
-	ft_putstr("minishell: command not found: ");
+	ft_putstr(COLOR_RED);
+	ft_putstr("[❌] minishell 💥: command not found: ");
 	ft_putstr(command[0]);
+	ft_putstr(COLOR_NOC);
 	write(1, "\n", 1);
 	ft_freetab(command);
 	return (0);

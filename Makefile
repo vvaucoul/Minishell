@@ -6,7 +6,7 @@
 #    By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/17 10:12:54 by mle-faou          #+#    #+#              #
-#    Updated: 2020/07/09 18:47:11 by vvaucoul         ###   ########.fr        #
+#    Updated: 2020/07/11 16:35:30 by vvaucoul         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ SRCS			=	$(wildcard srcs/*.c)			\
 					$(wildcard srcs/minishell/parsing/*.c)	\
 					$(wildcard srcs/minishell/input/*.c)	\
 					$(wildcard srcs/minishell/exec/*.c)	\
+					$(wildcard srcs/bonus/*.c)	\
 					libft/libft.a
 
 					# libft/libft.a \
