@@ -6,7 +6,7 @@
 /*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/27 14:19:30 by mle-faou          #+#    #+#             */
-/*   Updated: 2020/07/11 14:34:15 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/11 14:37:18 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,7 @@ int			exec_builtins(char **command, t_mns *mns)
 			// printf("echo commande[%d] : [%s]\n", i, command[i]);
 			i++;
 		}
-		b_echo(command);
-		return (1);
+		return (b_echo(command));
 	}
 	if (ft_strequ(command[0], "cd")) // crash
 	{
