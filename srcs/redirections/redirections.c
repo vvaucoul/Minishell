@@ -6,7 +6,7 @@
 /*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 16:32:45 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/11 16:55:16 by mle-faou         ###   ########.fr       */
+/*   Updated: 2020/07/08 19:45:55 by mle-faou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ static int		redirection_02(char **tab_exec, char *inputfile, char **envp)
 	int fd;
 	// int fd2;
 
-	(void)inputfile;
+
 	tab_exec = r_get_tab_without_redirection(tab_exec);
 	//printf("tab_exec[0] = %s | tab_exec[1] = %s\n", tab_exec[0], tab_exec[1]);
 

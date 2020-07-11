@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_home.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 18:44:01 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/11 17:00:37 by mle-faou         ###   ########.fr       */
+/*   Updated: 2020/07/09 18:44:11 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ char		*check_homedollar(char **str, t_mns *mns)
 		// printf("i : %d, new char : '%c'\n", i, str[0][i]);
 		if (str[0][i] == '$')
 		{
+			// printf("lol $\n");
 			if (str[0][i + 1] == '?')
 			{
 				if (!(new = ft_straddstr(new, ft_itoa(mns->last_return), 1)))
@@ -34,10 +35,11 @@ char		*check_homedollar(char **str, t_mns *mns)
 				i++;
 				continue ;
 			}
-			if (!(new = ft_straddstr(new, get_env_var(mns->envp, get_env_name(*str, i + 1), 1), 1)))
+			if (!(new = ft_straddstr(new, get_env_var(mns->envp,
+				get_env_name(*str, i + 1), 1), 1)))
 				return (NULL);
-			i++;
-			while (str[0][i] && (str[0][i] == '_' || ft_isalpha(str[0][i]) || ft_isdigit(str[0][i])))
+			// printf("test1\n");
+			while (str[0][i] && ft_isupper(str[0][i]))
 				i++;
 		}
 		else if (str[0][i] == '~'

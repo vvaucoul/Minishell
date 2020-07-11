@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 18:10:28 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/11 16:16:04 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/11 18:08:44 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ int				get_input(char **input, t_mns *mns);
 void			exit_shell(void);
 int				is_in_quotes(char *str, int pos);
 char			*epur_b_str(char *str);
+int				display_error(char *str);
 
 /*
 **	Utils Builtins

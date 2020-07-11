@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   envp.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 18:34:22 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/11 16:56:45 by mle-faou         ###   ########.fr       */
+/*   Updated: 2020/07/09 19:20:10 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,27 @@
 
 char		*get_env_var(char **envp, char *to_find, int free_to_find)
 {
-	char	*ret;
 	int		i;
+	char	*ret;
 
-	// printf("test\n");
-	ret = ft_strdup("");
+	// printf("get env var\n");
 	i = 0;
 	while(envp && envp[i])
 	{
-		if (ft_strstartswith(envp[i], ft_strjoin(to_find, "="), 0, 0))
+		// printf("env : [%s]\n", envp[i]);
+		// printf("to find : [%s]\n", ft_strjoin(to_find, ENV_STRING_DELIMITEUR));
+		if (ft_strstartswith(envp[i], ft_strjoin(to_find, ENV_STRING_DELIMITEUR), 0, 1))
 		{
-			free(ret);
+			// printf("I'm in boys\n");
 			if (!(ret = ft_strcut(envp[i], ENV_DELIMITEUR)))
 				return (NULL);
-			break ;
+			return (ret);
 		}
 		i++;
 	}
 	if (free_to_find)
 		free(to_find);
-	// printf("ret : %s\n", ret);
-	return (ret);
+	return (NULL);
 }
 
 char		*get_env_name(char *str, int i)
@@ -44,8 +44,7 @@ char		*get_env_name(char *str, int i)
 	if (!(name = ft_strnew(1)))
 		return (NULL);
 	name[0] = '\0';
-	while (str[i] && (str[i] == '_' || ft_isalpha(str[i]) ||
-		ft_isdigit(str[i])))
+	while (str[i] && ft_isupper(str[i]))
 	{
 		if (!(name = ft_straddchar(name, str[i])))
 			return (NULL);
