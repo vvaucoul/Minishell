@@ -6,7 +6,7 @@
 /*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 16:32:45 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/08 19:45:55 by mle-faou         ###   ########.fr       */
+/*   Updated: 2020/07/11 18:42:45 by mle-faou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,18 +146,14 @@ return (0);
 **	Switch between all redirections
 */
 
-int		main_redirections(char *cmd, char **tab, char **envp)
+int		main_redirections(char **tab, char **envp)
 {
 	int	r_pos;
-
-	(void)cmd;
 
 	//printf("db 00\n");
 	r_pos = r_get_redirection_pos(tab);
 	//printf("db 01\n");
-
 	//printf("rpos = %d\n", r_pos);
-
 	if (!(ft_strcmp(tab[r_pos], ">")))
 	return (redirection_01(tab, tab[r_pos + 1], envp, FALSE));
 	if (!(ft_strcmp(tab[r_pos], ">>")))

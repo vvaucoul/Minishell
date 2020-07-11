@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 18:10:28 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/11 18:08:44 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/11 18:47:07 by mle-faou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,7 @@ void			exit_shell(void);
 int				is_in_quotes(char *str, int pos);
 char			*epur_b_str(char *str);
 int				display_error(char *str);
+int				display_error_cmd(char *str);
 
 /*
 **	Utils Builtins
@@ -164,10 +165,10 @@ int				b_unset(char **tab, char **envp);
 */
 
 T_BOOL			r_is_redirection(char *str);
-int				main_redirections(char *cmd, char **tab, char **envp);
 int				p_pipe(char **tab, char **envp);
 char			**r_get_tab_without_redirection(char **tab);
 int				r_get_redirection_pos(char **tab);
+int				main_redirections(char **tab, char **envp);
 
 /*
 **	Signaux

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 15:34:18 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/10 19:54:34 by root             ###   ########.fr       */
+/*   Updated: 2020/07/11 18:43:11 by mle-faou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int		run(t_mns *mns, char *cmd, char **args, char **envp)
 	cmd = tmp;
 	if (contain_args[1])
 	{
-		main_redirections(cmd, args, envp);
+		main_redirections(args, envp);
 		return (0);
 	}
 	else if (contain_args[2])
