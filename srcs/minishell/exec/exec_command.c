@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 18:43:13 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/11 19:17:22 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/11 20:29:39 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,18 @@ int			exec_command(char *line, t_mns *mns)
 
 
 
-	printf("test1\n");
 	if (ft_strchr(line, '<' || ft_strchr(line, '>')))
 	{
 		printf("redirections\n");
 		main_redirections(command, mns->envp);
 	}
-	printf("test2\n");
+
 	if (ft_strchr(line, '|'))
 	{
 		printf("pipes\n");
 		p_pipe(command, mns->envp);
 	}
-	printf("test3\n");
+
 	// free(line);
 
 

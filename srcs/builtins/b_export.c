@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/27 14:05:33 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/11 20:23:44 by root             ###   ########.fr       */
+/*   Updated: 2020/07/11 20:28:09 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,7 +205,7 @@ static int		place_env(t_mns *mns, char *line)
 	value = get_export_value(line);
 	already_existing = value_already_existing(mns->envp, cmd);
 	if (!has_equal && !already_existing)
-	return (0);
+		return (0);
 	set_envp_value(epur_b_str(cmd), epur_b_str(value), already_existing, &mns->envp);
 	return (0);
 }
@@ -215,7 +215,6 @@ int				b_export(t_mns *mns, char **tab)
 	int i;
 
 	i = 0;
-	// to do, crash (ex export toto=)
 	tab = remove_builtin_in_tab(tab);
 	while (tab[i])
 	{

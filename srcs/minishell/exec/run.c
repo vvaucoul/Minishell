@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 15:34:18 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/11 18:43:11 by mle-faou         ###   ########.fr       */
+/*   Updated: 2020/07/11 20:30:28 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,15 +77,14 @@ int		exec(char **tab, char **envp)
 	int ret;
 
 	pid = fork();
-
 	if (pid == 0)
-	ret = execve(tab[0], tab, envp);
+		ret = execve(tab[0], tab, envp);
 	else if (pid > 0)
-	waitpid(pid, &state, WUNTRACED);
+		waitpid(pid, &state, WUNTRACED);
 	else
 	{
 		ft_putstr_fd("Error fork", 1);
 		return (-1);
 	}
-	return (1);
+	return (0);
 }
