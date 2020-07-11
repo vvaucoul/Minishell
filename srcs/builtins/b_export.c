@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/27 14:05:33 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/11 18:31:03 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/11 20:23:44 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@ static char		*get_export_value(char *str)
 	i = 0;
 	j = 0;
 	if (!str)
-		return (NULL);
+	return (NULL);
 	while (str[i] && str[i++] != ENV_DELIMITEUR);
 	if (i == (int)ft_strlen(str))
-		return (NULL);
+	return (NULL);
 	si = i;
 	while (str[i++]);
 	if (!(value = malloc(sizeof(char) * ((i - si)))))
@@ -65,7 +65,7 @@ static char		*get_export_value(char *str)
 	}
 	value[j] = '\0';
 	if (j == 0)
-		return (NULL);
+	return (NULL);
 	return (value);
 }
 
@@ -95,7 +95,7 @@ static int		get_envp_line(char *cmd, char **envp)
 	while (envp[i])
 	{
 		if (!(ft_strncmp(cmd, envp[i], ft_strlen(cmd))))
-			return (i);
+		return (i);
 		++i;
 	}
 	return (-1);
@@ -153,7 +153,7 @@ static int		realloc_envp(char *cmd, char *value, char ***envp)
 	i = 0;
 	size = get_envp_len(envp[0]);
 	if (!(nenvp = malloc(sizeof(char *) * (((size[0] + 1) + (size[1] + 1)) + 1))))
-		return (-1);
+	return (-1);
 	while (envp[0][i])
 	{
 		nenvp[i] = ft_strdup(envp[0][i]);
@@ -166,7 +166,7 @@ static int		realloc_envp(char *cmd, char *value, char ***envp)
 	nenvp[i] = ft_strdup(cmd);
 	nenvp[i + 1] = NULL;
 	if (!(envp[0] = malloc(sizeof(char *) * (((size[0] + 1) + (size[1] + 1)) + 1))))
-		return (-1);
+	return (-1);
 	set_envp_tab(nenvp, envp);
 	free(size);
 	return (0);
@@ -178,11 +178,11 @@ static int		set_envp_value(char *cmd, char *value, T_BOOL already_existing, char
 
 	line = get_envp_line(cmd, envp[0]);
 	if (line < 0)
-		realloc_envp(cmd, value, envp);
+	realloc_envp(cmd, value, envp);
 	else
 	{
 		if (already_existing && !value)
-			return (0);
+		return (0);
 		cmd = ft_strcat(cmd, "=");
 		envp[0][line] = ft_strdup(ft_strcat(cmd, value));
 	}
@@ -205,7 +205,7 @@ static int		place_env(t_mns *mns, char *line)
 	value = get_export_value(line);
 	already_existing = value_already_existing(mns->envp, cmd);
 	if (!has_equal && !already_existing)
-		return (0);
+	return (0);
 	set_envp_value(epur_b_str(cmd), epur_b_str(value), already_existing, &mns->envp);
 	return (0);
 }

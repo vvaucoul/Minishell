@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 16:15:20 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/11 16:16:02 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/11 20:26:29 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ char	*epur_b_str(char *str)
 	i = 0;
 	j = 0;
 
+	if (!str)
+		return (NULL);
 	if (!(new_str = malloc(sizeof(char) * (ft_strlen(str) + 1))))
 		return (NULL);
 	while (str[i])
@@ -33,5 +35,6 @@ char	*epur_b_str(char *str)
 		++i;
 	}
 	new_str[j] = '\0';
+	free(str);
 	return (new_str);
 }
