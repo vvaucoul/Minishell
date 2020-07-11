@@ -6,7 +6,7 @@
 /*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/26 15:22:26 by mle-faou          #+#    #+#             */
-/*   Updated: 2020/07/09 18:38:11 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/11 16:56:22 by mle-faou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,21 +64,21 @@ char			*get_cmd_in_path(char *path)
 	return (cmd);
 }
 
-static char	**sort_tab(char **tab, int size, int i)
-{
-	int si;
+// static char	**sort_tab(char **tab, int size, int i)
+// {
+// 	int si;
 
-	si = 0;
-	tab[i] = NULL;
-	++i;
-	while (si < size)
-	{
-		tab[si] = tab[si + 1];
-		++si;
-	}
-	tab[si] = NULL;
-	return (tab);
-}
+// 	si = 0;
+// 	tab[i] = NULL;
+// 	++i;
+// 	while (si < size)
+// 	{
+// 		tab[si] = tab[si + 1];
+// 		++si;
+// 	}
+// 	tab[si] = NULL;
+// 	return (tab);
+// }
 
 T_BOOL		b_isvalid(char *str)
 {

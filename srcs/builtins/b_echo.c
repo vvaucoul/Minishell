@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_echo.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/26 15:27:30 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/10 16:53:12 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/11 16:52:05 by mle-faou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,17 @@ static int	find_first_arg(char **tab, T_BOOL has_argument)
 	return (i);
 }
 
-static	T_BOOL	cmd_has_argument(char **tab)
-{
+// static	T_BOOL	cmd_has_argument(char **tab)
+// {
 	
-}
+// }
 
 int		b_echo(char **tab)
 {
 	T_BOOL	has_argument;
 	int i;
 
+	has_argument = 0;
 	if (!tab)
 		return (0);
 	i = find_first_arg(tab, has_argument);
@@ -69,10 +70,10 @@ int		b_echo(char **tab)
 	{
 		ft_putstr_fd(echo_epur_str(tab[i]), 1);
 		if (tab[i + 1])
-		ft_putchar_fd(' ', 1);
+			ft_putchar_fd(' ', 1);
 		++i;
 	}
 	if (!has_argument)
-	ft_putchar_fd('\n', 1);
+		ft_putchar_fd('\n', 1);
 	return (0);
 }
