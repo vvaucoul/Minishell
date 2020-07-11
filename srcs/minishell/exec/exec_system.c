@@ -6,7 +6,7 @@
 /*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/27 16:14:43 by mle-faou          #+#    #+#             */
-/*   Updated: 2020/07/10 19:54:06 by root             ###   ########.fr       */
+/*   Updated: 2020/07/11 18:55:56 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int			is_exec(char **command, char *path, t_mns *mns, struct stat stat)
 			command[0] = path;
 			// printf("run path : [%s]\n", command[0]); //todo rm
 			// return (1); //todo rm
-			return (run(mns, command[0], command, mns->envp));
+			return (exec(command, mns->envp));
 		}
 		ft_putstr("minishell: permission denied: ");
 		ft_putstr(path);

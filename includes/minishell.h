@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 18:10:28 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/11 18:47:07 by mle-faou         ###   ########.fr       */
+/*   Updated: 2020/07/11 19:02:26 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,7 @@ int				is_in_quotes(char *str, int pos);
 char			*epur_b_str(char *str);
 int				display_error(char *str);
 int				display_error_cmd(char *str);
+int				print_table(char **tab, char *str);
 
 /*
 **	Utils Builtins

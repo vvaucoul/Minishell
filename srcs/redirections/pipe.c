@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 19:23:09 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/09 19:52:29 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/11 19:16:25 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ static char	***make_pipe_tab(char **tab_exec)
 int		p_pipe(char **tab_exec, char **envp)
 {
 	char ***cmd;
+
+	print_table(tab_exec, "Pipe Table : ");
 
 	cmd = make_pipe_tab(tab_exec);
 	do_pipes(cmd, envp);

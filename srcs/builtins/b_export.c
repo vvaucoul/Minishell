@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/27 14:05:33 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/11 16:19:17 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/11 18:31:03 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,6 +215,7 @@ int				b_export(t_mns *mns, char **tab)
 	int i;
 
 	i = 0;
+	// to do, crash (ex export toto=)
 	tab = remove_builtin_in_tab(tab);
 	while (tab[i])
 	{
