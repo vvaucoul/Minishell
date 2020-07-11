@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 16:15:20 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/11 20:26:29 by root             ###   ########.fr       */
+/*   Updated: 2020/07/11 22:42:53 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,43 @@ char	*epur_b_str(char *str)
 	new_str[j] = '\0';
 	free(str);
 	return (new_str);
+}
+
+T_BOOL	tab_has_pipe(char **tab)
+{
+	int i;
+
+	i = 0;
+	while (tab[i])
+	{
+		if (!(ft_strcmp(tab[i], "|")))
+		return (TRUE);
+		++i;
+	}
+	return (FALSE);
+}
+
+T_BOOL	tab_has_redirection(char **tab)
+{
+	int i;
+
+	i = 0;
+	while (tab[i])
+	{
+		if (r_is_redirection(tab[i]))
+		return (TRUE);
+		++i;
+	}
+	return (FALSE);
+}
+
+int		tab_len(char **tab)
+{
+	int i;
+
+	if (!(tab))
+		return (-1);
+	i = 0;
+	while (tab[++i]);
+	return (i);
 }

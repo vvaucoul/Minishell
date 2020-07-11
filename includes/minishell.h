@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 18:10:28 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/11 19:02:26 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/11 22:43:02 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,8 @@ int				exec_system(char **command, t_mns *mns);
 int				run(t_mns *mns, char *path, char **args, char **envp);
 int				exec(char **tab, char **envp);
 
+char			**get_sysbin_loc(char **envp);
+
 /*
 **	Parsing
 */
@@ -132,6 +134,10 @@ char			*epur_b_str(char *str);
 int				display_error(char *str);
 int				display_error_cmd(char *str);
 int				print_table(char **tab, char *str);
+T_BOOL			tab_has_redirection(char **tab);
+T_BOOL			tab_has_pipe(char **tab);
+char			**r_update_pipe_tab(char **tab, char **envp);
+int				tab_len(char **tab);
 
 /*
 **	Utils Builtins
@@ -170,6 +176,8 @@ int				p_pipe(char **tab, char **envp);
 char			**r_get_tab_without_redirection(char **tab);
 int				r_get_redirection_pos(char **tab);
 int				main_redirections(char **tab, char **envp);
+char			**r_get_tab_before_redirection(char **tab);
+char			**r_get_tab_after_redirection(char **tab);
 
 /*
 **	Signaux

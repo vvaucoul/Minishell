@@ -1,0 +1,25 @@
+includes
+libft
+libs
+Makefile
+minishell
+ncurses_install.txt
+PetitsBugs.txt
+push.sh
+srcs
+test.txt
+tmp
+TODOLIST.txt
+toto
+  PID TTY          TIME CMD
+ 2018 pts/0    00:00:00 zsh
+ 6886 pts/0    00:00:00 atom
+ 6891 pts/0    00:01:12 atom
+ 6903 pts/0    00:00:00 atom
+ 6905 pts/0    00:00:00 atom
+ 6932 pts/0    00:00:51 atom
+ 6941 pts/0    00:00:00 atom
+ 6950 pts/0    00:04:26 atom
+ 7021 pts/0    00:00:04 atom
+16623 pts/0    00:00:00 minishell
+16656 pts/0    00:00:00 ps

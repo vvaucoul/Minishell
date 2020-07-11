@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 16:50:58 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/11 19:16:58 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/11 21:01:36 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,16 @@ int		print_table(char **tab, char *str)
 	int i;
 
 	i = 0;
-	ft_putstr_fd(ft_strcat(str, "\n"), 1);
+	printf("\n");
+	printf(COLOR_GREEN);
+	printf("%s :\n", str);
 	while (tab[i])
 	{
-		ft_putstr_fd(tab[i], 1);
-		ft_putstr_fd("\n", 1);
+		printf("\t- [%d] '%s'\n", i, tab[i]);
 		++i;
 	}
+	printf(COLOR_NOC);
+	printf("\n");
+	ft_putstr(COLOR_NOC);
 	return (0);
 }

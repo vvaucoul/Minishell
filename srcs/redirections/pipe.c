@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 19:23:09 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/11 19:16:25 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/11 22:46:22 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,10 @@ static void 	do_pipes(char ***tab, char **envp)
 	}
 }
 
-static char	***make_pipe_tab(char **tab_exec)
+static char	***make_pipe_tab(char **tab_exec, int maxsize)
 {
 	char	***pipe_tab;
-	char	**tmp_tab;
+	char	**under_pipe_tab;
 	int		i;
 	int		k;
 	int		j;
@@ -54,31 +54,46 @@ static char	***make_pipe_tab(char **tab_exec)
 	i = 0;
 	j = 0;
 	k = 0;
-	pipe_tab = malloc(sizeof(char **) * 1000);
+	pipe_tab = malloc(sizeof(char **) * 10000);
 	while (tab_exec[i])
 	{
+		//printf("tab_exec[%d] = %s\n", i, tab_exec[i]);
 		j = 0;
-		tmp_tab = malloc(sizeof(char *) * 1000);
+		under_pipe_tab = malloc(sizeof(char *) * 10000);
 		while (tab_exec[i] && (ft_strcmp(tab_exec[i], "|")))
 		{
-			tmp_tab[j] = ft_strdup(tab_exec[i]);
+			under_pipe_tab[j] = ft_strdup(tab_exec[i]);
+			//printf("\t - under_pipe_tab[%d] = %s\n", j, under_pipe_tab[j]);
 			++j;
 			++i;
 		}
-		pipe_tab[k] = tmp_tab;
+		under_pipe_tab[j] = NULL;
+		pipe_tab[k] = under_pipe_tab;
 		++k;
 		++i;
+		//printf("end i [%d]\n", i);
+		if (i > maxsize)
+		{
+			pipe_tab[k] = NULL;
+			return (pipe_tab);
+		}
 	}
+	pipe_tab[k] = NULL;
 	return (pipe_tab);
 }
 
 int		p_pipe(char **tab_exec, char **envp)
 {
-	char ***cmd;
+	char ***pipe_tab;
 
-	print_table(tab_exec, "Pipe Table : ");
+	//print_table(tab_exec, "Pipe Table : ");
 
-	cmd = make_pipe_tab(tab_exec);
-	do_pipes(cmd, envp);
+	tab_exec = r_update_pipe_tab(tab_exec, envp);
+
+	//print_table(tab_exec, "Pipe Table after update : ");
+
+	pipe_tab = make_pipe_tab(tab_exec, tab_len(tab_exec));
+
+	do_pipes(pipe_tab, envp);
 	return (0);
 }

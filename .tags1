@@ -1,0 +1,14 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	0	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+r_is_redirection	/home/user42/Delivery/minishell/srcs/redirections/redirections_utils.c	/^T_BOOL	r_is_redirection(char *str)$/;"	function	line:20	signature:(char *str)
+r_get_redirection_pos	/home/user42/Delivery/minishell/srcs/redirections/redirections_utils.c	/^int		r_get_redirection_pos(char **tab)$/;"	function	line:31	signature:(char **tab)
+r_get_tab_without_redirection	/home/user42/Delivery/minishell/srcs/redirections/redirections_utils.c	/^char **r_get_tab_without_redirection(char **tab)$/;"	function	line:45	signature:(char **tab)
+r_get_tab_before_redirection	/home/user42/Delivery/minishell/srcs/redirections/redirections_utils.c	/^char	**r_get_tab_before_redirection(char **tab)$/;"	function	line:67	signature:(char **tab)
+r_get_tab_after_redirection	/home/user42/Delivery/minishell/srcs/redirections/redirections_utils.c	/^char	**r_get_tab_after_redirection(char **tab)$/;"	function	line:86	signature:(char **tab)
+r_update_pipe_tab_make_path	/home/user42/Delivery/minishell/srcs/redirections/redirections_utils.c	/^static	char *r_update_pipe_tab_make_path(char **sysbin_loc, char *str)$/;"	function	line:114	file:	signature:(char **sysbin_loc, char *str)
+r_update_pipe_tab	/home/user42/Delivery/minishell/srcs/redirections/redirections_utils.c	/^char	**r_update_pipe_tab(char **tab, char **envp)$/;"	function	line:138	signature:(char **tab, char **envp)
+r_get_tab_without_pipe	/home/user42/Delivery/minishell/srcs/redirections/redirections_utils.c	/^char 	**r_get_tab_without_pipe(char **tab)$/;"	function	line:157	signature:(char **tab)

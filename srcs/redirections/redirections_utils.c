@@ -6,11 +6,16 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 17:40:16 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/08 16:29:23 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/11 22:46:36 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+**	REDIRECTIONS
+*/
+
 
 T_BOOL	r_is_redirection(char *str)
 {
@@ -49,9 +54,9 @@ char **r_get_tab_without_redirection(char **tab)
 	while (tab[i])
 	{
 		if (r_is_redirection(tab[i]))
-			++i;
-		else
-			n_tab[j] = tab[i];
+		++i;
+		//else
+		n_tab[j] = tab[i];
 		++i;
 		++j;
 	}
@@ -59,10 +64,99 @@ char **r_get_tab_without_redirection(char **tab)
 	return (n_tab);
 }
 
-char **r_get_tab_without_pipe(char **tab)
+char	**r_get_tab_before_redirection(char **tab)
+{
+	char **n_tab;
+	int i;
+	int j;
+
+	i = 0;
+	j = 0;
+	n_tab = tab;
+	while (tab[i] && (!(r_is_redirection(tab[i]))))
+	{
+		n_tab[j] = tab[i];
+		++i;
+		++j;
+	}
+	n_tab[j] = NULL;
+	return (n_tab);
+}
+
+char	**r_get_tab_after_redirection(char **tab)
+{
+	char **n_tab;
+	int i;
+	int j;
+
+	i = 0;
+	j = 0;
+	n_tab = tab;
+	while (tab[i] && (!(r_is_redirection(tab[i]))))
+	++i;
+	++i;
+	printf("assign at [%d]\n", i);
+	while (tab[i])
+	{
+		n_tab[j] = tab[i];
+		++i;
+		++j;
+	}
+	n_tab[j] = NULL;
+	printf("return [%s]\n", n_tab[0]);
+	return (n_tab);
+}
+
+/*
+**	PIPES
+*/
+
+static	char *r_update_pipe_tab_make_path(char **sysbin_loc, char *str)
+{
+	char			*path;
+	int				i;
+	struct stat		stat;
+
+	i = 0;
+	//printf("str = %s\n", str);
+	while (sysbin_loc && sysbin_loc[++i])
+	{
+		if (ft_strstartswith(str, sysbin_loc[i], 0, 0))
+			path = ft_strdup(str);
+		else
+			path = ft_strjoin(sysbin_loc[i], str);
+		if (lstat(path, &stat) == -1)
+			free(path);
+		else
+			return (path);
+		++i;
+	}
+	//printf("path found = %s\n", path);
+	return (path);
+}
+
+char	**r_update_pipe_tab(char **tab, char **envp)
+{
+	char			**sysbin_loc;
+	char			*path;
+	int				i;
+
+	if (!(sysbin_loc = get_sysbin_loc(envp)))
+	return (NULL);
+	i = 0;
+	while (tab[i])
+	{
+		if (!(ft_strcmp(tab[i], "|")) && tab[i + 1])
+		tab[i + 1] = r_update_pipe_tab_make_path(sysbin_loc, tab[i + 1]);
+		++i;
+	}
+	tab[i] = NULL;
+	return (tab);
+}
+
+char 	**r_get_tab_without_pipe(char **tab)
 {
 	int i;
-
 	i = 0;
 	while (tab[i])
 	{
