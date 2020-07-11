@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/27 14:05:33 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/10 19:57:50 by root             ###   ########.fr       */
+/*   Updated: 2020/07/11 11:20:06 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,7 +201,7 @@ static int		set_envp_value(char *cmd, char *value, T_BOOL already_existing, char
 **	Main export functions
 */
 
-static int		place_env(char *line, char ***envp)
+static int		place_env(t_mns *mns, char *line)
 {
 	T_BOOL 	has_equal;
 	T_BOOL	already_existing;
@@ -211,14 +211,14 @@ static int		place_env(char *line, char ***envp)
 	has_equal = str_has_equal(line);
 	cmd = get_export_cmd(line);
 	value = get_export_value(line);
-	already_existing = value_already_existing(envp[0], cmd);
+	already_existing = value_already_existing(mns->envp, cmd);
 
 	//printf(COLOR_YELLOW); printf("- Has equal = %d\n", has_equal);
 	//printf(COLOR_YELLOW); printf("- CMD = %s\n", cmd);
 	//printf(COLOR_YELLOW); printf("- Value = %s\n\n", value);
 	//printf(COLOR_YELLOW); printf("- Already_existing = %d\n\n", already_existing);
 
-	set_envp_value(cmd, value, already_existing,envp);
+	set_envp_value(cmd, value, already_existing, &mns->envp);
 	return (0);
 }
 
@@ -232,13 +232,13 @@ int				b_export(t_mns *mns, char **tab)
 	printf("tab[1] = %s\n", tab[1]);
 
 	tab = remove_builtin_in_tab(tab);
-	//printf(COLOR_YELLOW); printf("Export\n");
-	//printf(COLOR_GREEN); printf("Found [%s]\n", tab[i]);
+	printf(COLOR_YELLOW); printf("Export\n");
+	printf(COLOR_GREEN); printf("Found [%s]\n", tab[i]);
 
 	while (tab[i])
 	{
-		//printf(COLOR_GREEN); printf("Found [%s]\n", tab[i]);
-		place_env(tab[i], &mns->envp);
+		printf(COLOR_GREEN); printf("Found [%s]\n", tab[i]);
+		place_env(mns, tab[i]);
 		++i;
 	}
 	return (0);

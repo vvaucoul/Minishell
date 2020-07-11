@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/02 16:14:45 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/10 19:57:09 by root             ###   ########.fr       */
+/*   Updated: 2020/07/11 11:16:29 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	**remove_builtin_in_tab(char **tab)
 	while (tab[i])
 	{
 		if (b_isvalid(tab[i]))
-		return (sort_tab(tab, j, i));
+			return (sort_tab(tab, j, i));
 		++i;
 	}
 	return (tab);

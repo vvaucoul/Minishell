@@ -6,7 +6,7 @@
 /*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/26 15:22:26 by mle-faou          #+#    #+#             */
-/*   Updated: 2020/07/09 18:38:11 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/11 11:15:53 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,18 +83,18 @@ static char	**sort_tab(char **tab, int size, int i)
 T_BOOL		b_isvalid(char *str)
 {
 	if (!(ft_strcmp(str, "echo")))
-		return (1);
+		return (TRUE);
 	if (!(ft_strcmp(str, "cd")))
-		return (1);
+		return (TRUE);
 	if (!(ft_strcmp(str, "env")))
-		return (1);
+		return (TRUE);
 	if (!(ft_strcmp(str, "export")))
-		return (1);
+		return (TRUE);
 	if (!(ft_strcmp(str, "unset")))
-		return (1);
+		return (TRUE);
 	if (!(ft_strcmp(str, "pwd")))
-		return (1);
+		return (TRUE);
 	if (!(ft_strcmp(str, "exit")))
-		return (1);
-	return (0);
+		return (TRUE);
+	return (FALSE);
 }
