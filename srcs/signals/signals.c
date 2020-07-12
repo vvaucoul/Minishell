@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 15:46:51 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/12 12:50:59 by root             ###   ########.fr       */
+/*   Updated: 2020/07/12 14:26:04 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,10 @@ void 	reset_signals()
 {
 	signal(SIGINT, SIG_DFL);
 	signal(SIGTSTP, SIG_DFL);
-
 }
 
 int		init_signals_handle()
 {
-	//sigset_t masque;
-
-	//sigemptyset(&masque);
-	//sigaddset(&masque, SIGINT);
-	//sigaddset(&masque, SIGQUIT);
-
-	//sigprocmask(SIG_BLOCK, &masque, NULL);
-
 	signal(SIGINT, SIG_DFL);
 
 	if (signal(SIGINT, handle_signals) == SIG_ERR)

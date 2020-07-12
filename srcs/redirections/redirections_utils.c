@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 17:40:16 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/11 22:48:45 by root             ###   ########.fr       */
+/*   Updated: 2020/07/12 16:57:17 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,8 +118,8 @@ static	char *r_update_pipe_tab_make_path(char **sysbin_loc, char *str)
 	struct stat		stat;
 
 	i = 0;
-	//printf("str = %s\n", str);
-	while (sysbin_loc && sysbin_loc[++i])
+	printf("str = %s\n", str);
+	while (sysbin_loc && sysbin_loc[i])
 	{
 		if (ft_strstartswith(str, sysbin_loc[i], 0, 0))
 			path = ft_strdup(str);
@@ -131,7 +131,7 @@ static	char *r_update_pipe_tab_make_path(char **sysbin_loc, char *str)
 			return (path);
 		++i;
 	}
-	//printf("path found = %s\n", path);
+	 printf("path found = %s\n", path);
 	return (path);
 }
 
@@ -144,6 +144,7 @@ char	**r_update_pipe_tab(char **tab, char **envp)
 	if (!(sysbin_loc = get_sysbin_loc(envp)))
 	return (NULL);
 	i = 0;
+	tab[i] = r_update_pipe_tab_make_path(sysbin_loc, tab[i]);
 	while (tab[i])
 	{
 		if (!(ft_strcmp(tab[i], "|")) && tab[i + 1])

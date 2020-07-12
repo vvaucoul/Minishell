@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 18:43:13 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/12 10:36:03 by root             ###   ########.fr       */
+/*   Updated: 2020/07/12 16:54:26 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ int			exec_command(char *line, t_mns *mns)
 	//command = add_default_flag(command);
 
 	// free(line);
-
+	if ((did_something = exec_pipes_redirections(command, mns)) > 0)
+		return (did_something);
 	if ((did_something = exec_builtins(command, mns)) != 1)
 		return (did_something);
 	if ((did_something = exec_system(command, mns)) != 1)

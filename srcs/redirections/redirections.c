@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 16:32:45 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/11 21:59:09 by root             ###   ########.fr       */
+/*   Updated: 2020/07/12 16:53:18 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,14 @@ static int		redirection_01(char **tab_exec, char *output_file, char **envp, T_BO
 	if (!output_file)
 	{
 		ft_putstr_fd("Missing Output\n", 1);
-		return (-1);
+		return (0);
 	}
 	if (use_double)
 	{
 		if ((fd = open(output_file, O_WRONLY | O_APPEND | O_CREAT, 0666)) == -1)
 		{
 			display_error("Error while creating/opening file\n");
-			return (-1);
+			return (0);
 		}
 	}
 	else
@@ -43,7 +43,7 @@ static int		redirection_01(char **tab_exec, char *output_file, char **envp, T_BO
 		if ((fd = open(output_file, O_WRONLY | O_TRUNC | O_CREAT, 0666)) == -1)
 		{
 			display_error("Error while creating/opening file\n");
-			return (-1);
+			return (0);
 		}
 	}
 	tab_exec = r_get_tab_before_redirection(tab_exec);
@@ -57,12 +57,12 @@ static int		redirection_01(char **tab_exec, char *output_file, char **envp, T_BO
 		if ((execve(tab_exec[0], tab_exec, envp)) < 0)
 		{
 			ft_putstr_fd("Error, wrong command\n", 1);
-			return (-1);
+			return (0);
 		}
 		close(fd);
 	}
 	else
-	waitpid(pid, &state, WUNTRACED);
+		waitpid(pid, &state, WUNTRACED);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/27 16:14:43 by mle-faou          #+#    #+#             */
-/*   Updated: 2020/07/11 22:08:52 by root             ###   ########.fr       */
+/*   Updated: 2020/07/12 16:53:07 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,6 @@ int			is_exec(char **command, char *path, t_mns *mns, struct stat stat)
 		{
 			//printf("check commandes [path : %s] | [cmd : %s]\n", path, command[0]);
 			command[0] = path;
-			if (tab_has_redirection(command))
-			{
-				return (main_redirections(command, mns->envp));
-				printf("end redirections (not normal)\n");
-			}
-
-			if (tab_has_pipe(command))
-			{
-				return (p_pipe(command, mns->envp));
-				printf("end pipes (not normal)\n");
-			}
-
 			return (exec(command, mns->envp));
 		}
 		ft_putstr("minishell: permission denied: ");
@@ -49,13 +37,13 @@ char		**get_sysbin_loc(char **envp)
 	int		size;
 
 	if (!(sysbin_loc = ft_split(get_env_var(envp, "PATH", 0), ':')))
-	return (NULL);
+		return (NULL);
 	size = 0;
 	while (sysbin_loc[size])
-	size++;
+		size++;
 	i = -1;
 	while (++i < size)
-	sysbin_loc[i] = ft_straddchar(sysbin_loc[i], '/');
+		sysbin_loc[i] = ft_straddchar(sysbin_loc[i], '/');
 	return (sysbin_loc);
 }
 
