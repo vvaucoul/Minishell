@@ -6,7 +6,7 @@
 /*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 15:31:39 by mle-faou          #+#    #+#             */
-/*   Updated: 2020/07/08 19:37:16 by mle-faou         ###   ########.fr       */
+/*   Updated: 2020/07/12 16:37:14 by mle-faou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int					get_next_line(int fd, char **line);
 
 void				*ft_memalloc(size_t size);
 char				*ft_realloc(char *ptr, size_t size);
-int					ft_isemptystr(char *str, int consider_space);
+int					ft_strisempty(char *str);
 char				*ft_strnew(size_t size);
 void				ft_freetab(char **array);
 int					ft_strcmp(const char *s1, const char *s2);

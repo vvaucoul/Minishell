@@ -1,30 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isemptystr.c                                    :+:      :+:    :+:   */
+/*   ft_strisempty.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/26 15:27:10 by mle-faou          #+#    #+#             */
-/*   Updated: 2020/06/26 15:27:20 by mle-faou         ###   ########.fr       */
+/*   Updated: 2020/07/12 16:44:41 by mle-faou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_isemptystr(char *str, int consider_space)
+int		ft_strisempty(char *str)
 {
 	int		i;
-	int		min;
-	int		max;
 
-	i = -1;
-	min = 32 + consider_space;
-	max = 126;
-	while (str[++i])
+	i = 0;
+	while (str[i])
 	{
-		if (str[i] >= min && str[i] <= max)
+		if (str[i] >= ' ' && str[i] <= '~')
 			return (0);
+		i++;
 	}
 	return (1);
 }

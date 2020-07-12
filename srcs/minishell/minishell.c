@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 18:03:46 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/12 12:48:59 by root             ###   ########.fr       */
+/*   Updated: 2020/07/12 16:42:54 by mle-faou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,10 @@ int		minishell(t_mns *mns)
 		display_prompt(mns);
 		if ((get_input(&input, mns)) == -1)
 			return (-1);
-		if (ft_isemptystr(input, 1))
+		if (ft_strisempty(input) || is_in_quotes(input, ft_strlen(input)))
 		{
+			if (is_in_quotes(input, ft_strlen(input)))
+				display_error("Please close your quotes");
 			free(input);
 			continue ;
 		}
