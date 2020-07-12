@@ -6,7 +6,7 @@
 /*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/27 14:18:07 by mle-faou          #+#    #+#             */
-/*   Updated: 2020/07/12 10:59:29 by root             ###   ########.fr       */
+/*   Updated: 2020/07/12 12:44:50 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int			main(int argc, char **argv, char **envp)
 	t_mns	*mns;
 
 	mns = init_mns(envp, argc, argv);
+	init_signals_handle();
 	minishell(mns);
 	free(mns);
 	return (0);
