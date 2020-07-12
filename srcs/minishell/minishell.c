@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 18:03:46 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/11 20:28:43 by root             ###   ########.fr       */
+/*   Updated: 2020/07/12 10:59:28 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int		minishell(t_mns *mns)
 
 	while (1)
 	{
+		init_signals_handle();
 		display_prompt(mns);
 		if ((get_input(&input, mns)) == -1)
 			return (-1);
@@ -42,6 +43,7 @@ int		minishell(t_mns *mns)
 		if ((exec_input(commands, mns)) == -1)
 			return (-1);
 		ft_freetab(commands);
+		reset_signals();
 	}
 	return (0);
 }

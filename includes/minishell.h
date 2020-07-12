@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 18:10:28 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/11 23:32:17 by root             ###   ########.fr       */
+/*   Updated: 2020/07/12 10:59:12 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@
 
 #include <string.h>
 #include <stdio.h>
+#include <termios.h>
 
 /*
 **	Bonus Includes
@@ -138,6 +139,7 @@ T_BOOL			tab_has_redirection(char **tab);
 T_BOOL			tab_has_pipe(char **tab);
 char			**r_update_pipe_tab(char **tab, char **envp);
 int				tab_len(char **tab);
+char 			**add_default_flag(char **tab);
 
 /*
 **	Utils Builtins
@@ -184,5 +186,6 @@ char			**r_get_tab_after_redirection(char **tab);
 */
 
 int				init_signals_handle();
+void 			reset_signals();
 
 #endif

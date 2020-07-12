@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 18:43:13 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/11 22:00:42 by root             ###   ########.fr       */
+/*   Updated: 2020/07/12 10:36:03 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,12 @@ int			exec_command(char *line, t_mns *mns)
 	int			did_something;
 	struct stat	stat;
 
+
 	if (!(command = quotesplit(line, ' ')))
 		return (-1);
+
+	// a finir (pour ajouter les couleurs)
+	//command = add_default_flag(command);
 
 	// free(line);
 
