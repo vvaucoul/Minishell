@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 17:40:16 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/13 18:56:33 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/13 22:29:28 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,27 @@ char	**r_get_tab_after_redirection(char **tab)
 **	PIPES
 */
 
-static	char *r_update_pipe_tab_make_path(char **sysbin_loc, char *str)
+char 	**r_get_tab_without_pipe(char **tab)
+{
+	int i;
+	i = 0;
+	while (tab[i])
+	{
+		if (ft_strcmp(tab[i], "|"))
+		{
+			tab[i] = NULL;
+			return (tab);
+		}
+		++i;
+	}
+	return (tab);
+}
+
+/*
+**	Redirecitons Make Path
+*/
+
+static	char *r_update_redirection_tab_make_path(char **sysbin_loc, char *str)
 {
 	char			*path;
 	int				i;
@@ -130,14 +150,17 @@ static	char *r_update_pipe_tab_make_path(char **sysbin_loc, char *str)
 		if (lstat(path, &stat) == -1)
 			free(path);
 		else
+		{
+			printf("path found = %s\n", path);
 			return (path);
+		}
 		++i;
 	}
-	 printf("path found = %s\n", path);
-	return (path);
+	 printf("path not found [%s] returned\n", str);
+	return (str);
 }
 
-char	**r_update_pipe_tab(char **tab, char **envp)
+char	**r_update_redirection_tab(char **tab, char **envp, char *redirection)
 {
 	char			**sysbin_loc;
 	int				i;
@@ -145,29 +168,13 @@ char	**r_update_pipe_tab(char **tab, char **envp)
 	if (!(sysbin_loc = get_sysbin_loc(envp)))
 	return (NULL);
 	i = 0;
-	tab[i] = r_update_pipe_tab_make_path(sysbin_loc, tab[i]);
+	tab[i] = r_update_redirection_tab_make_path(sysbin_loc, tab[i]);
 	while (tab[i])
 	{
-		if (!(ft_strcmp(tab[i], "|")) && tab[i + 1])
-		tab[i + 1] = r_update_pipe_tab_make_path(sysbin_loc, tab[i + 1]);
+		if ((!(ft_strcmp(tab[i], redirection))) && tab[i + 1])
+			tab[i + 1] = r_update_redirection_tab_make_path(sysbin_loc, tab[i + 1]);
 		++i;
 	}
 	tab[i] = NULL;
-	return (tab);
-}
-
-char 	**r_get_tab_without_pipe(char **tab)
-{
-	int i;
-	i = 0;
-	while (tab[i])
-	{
-		if (ft_strcmp(tab[i], "|"))
-		{
-			tab[i] = NULL;
-			return (tab);
-		}
-		++i;
-	}
 	return (tab);
 }

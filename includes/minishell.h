@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 18:10:28 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/13 20:11:09 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/13 22:25:27 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ int				display_error_cmd(char *str);
 int				print_table(char **tab, char *str);
 T_BOOL			tab_has_redirection(char **tab);
 T_BOOL			tab_has_pipe(char **tab);
-char			**r_update_pipe_tab(char **tab, char **envp);
+char			**r_update_redirection_tab(char **tab, char **envp, char *redirection);
 int				tab_len(char **tab);
 char 			**add_default_flag(char **tab);
 

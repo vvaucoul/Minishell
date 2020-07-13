@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 16:32:45 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/13 20:05:18 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/13 22:39:46 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ static int		redirection_01(char **tab_exec, char *output_file, char **envp, T_BO
 			return (0);
 		}
 	}
+	tab_exec = r_update_redirection_tab(tab_exec, envp, (use_double ? ">>" : ">"));
 	tab_exec = r_get_tab_before_redirection(tab_exec);
 	pid = fork();
 	if (pid == 0)
@@ -79,14 +80,16 @@ static int		redirection_02(char **tab_exec, char **envp)
 	int state;
 	int fd;
 
+	tab_exec = r_update_redirection_tab(tab_exec, envp, "<");
 	tab_exec = r_get_tab_without_redirection(tab_exec);
-	fd = open((tab_exec)[1], O_RDONLY);
+	fd = open(tab_exec[1], O_RDONLY);
+	tab_exec[1] = NULL;
+	print_table(tab_exec, "tab exec redirection");
 	if (!(pid = fork()))
 	{
 		dup2(fd, 0);
-		//close(fd);
-		// checker si c est les builtins ou pas (par exemple pour echo)
-		execve(tab_exec[0], tab_exec, envp);
+		close(fd);
+		execve(tab_exec[0], tab_exec, NULL);
 	}
 	else
 	{
@@ -95,6 +98,7 @@ static int		redirection_02(char **tab_exec, char **envp)
 	}
 	return (0);
 }
+
 
 /*
 **	Switch between all redirections
