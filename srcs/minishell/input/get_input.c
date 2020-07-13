@@ -6,7 +6,7 @@
 /*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 15:12:33 by mle-faou          #+#    #+#             */
-/*   Updated: 2020/07/12 14:18:09 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/13 20:05:57 by mle-faou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int		get_input(char **input, t_mns *mns)
 		free(*input);
 		exit_shell();
 	}
-	if (!(*input = check_homedollar(input, mns)))
+	if (!(*input = update_input(input, mns)))
 		return (-1);
 	return (0);
 }
