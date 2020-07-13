@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_home.c                                       :+:      :+:    :+:   */
+/*   update_input.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 18:44:01 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/13 20:05:15 by mle-faou         ###   ########.fr       */
+/*   Updated: 2020/07/13 22:40:33 by mle-faou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 static int		check_home(char **str, t_mns *mns, char **new, int *i)
 {
-
 	if ((((str[0][*i - 1] && str[0][*i - 1] == ' ') || *i == 0) &&
 		((str[0][*i + 1] && str[0][*i + 1] == ' ') || str[0][*i + 1] == '\0')))
 	{
@@ -26,7 +25,6 @@ static int		check_home(char **str, t_mns *mns, char **new, int *i)
 
 static int		check_dollar(char **str, t_mns *mns, char **new, int *i)
 {
-
 	if (str[0][*i + 1] == '?')
 	{
 		if (!(new[0] = ft_straddstr(new[0], ft_itoa(mns->last_return), 1)))
@@ -44,12 +42,6 @@ static int		check_dollar(char **str, t_mns *mns, char **new, int *i)
 	return (0);
 }
 
-static int		check_star(char **str, t_mns *mns, char **new, int *i)
-{
-
-	return (0);
-}
-
 char		*update_input(char **str, t_mns *mns)
 {
 	int		i;
@@ -62,14 +54,14 @@ char		*update_input(char **str, t_mns *mns)
 	{
 		if (str[0][i] == '~')
 		{
-			if(check_home(str, mns, &new, &i))
+			if (check_home(str, mns, &new, &i))
 				return (NULL);
 		}
 		else if (str[0][i] == '$')
 		{
-			if(check_dollar(str, mns, &new, &i))
+			if (check_dollar(str, mns, &new, &i))
 				return (NULL);
-		}
+		} 
 		else if (str[0][i] == '*')
 		{
 			if(check_star(str, mns, &new, &i))

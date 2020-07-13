@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 18:10:28 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/13 22:25:27 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/13 22:54:01 by mle-faou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ char			**get_sysbin_loc(char **envp);
 char			*update_input(char **str, t_mns *mns);
 char			**quotesplit(char *str, char c);
 int				*parse_arguments(char **args);
+int				check_star(char **str, t_mns *mns, char **new, int *i);
 
 /*
 **	Input
