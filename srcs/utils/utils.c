@@ -6,7 +6,7 @@
 /*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/26 15:22:26 by mle-faou          #+#    #+#             */
-/*   Updated: 2020/07/11 11:15:53 by root             ###   ########.fr       */
+/*   Updated: 2020/07/13 17:21:12 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ char			*get_cmd_in_path(char *path)
 	return (cmd);
 }
 
+/*
 static char	**sort_tab(char **tab, int size, int i)
 {
 	int si;
@@ -79,6 +80,7 @@ static char	**sort_tab(char **tab, int size, int i)
 	tab[si] = NULL;
 	return (tab);
 }
+*/
 
 T_BOOL		b_isvalid(char *str)
 {

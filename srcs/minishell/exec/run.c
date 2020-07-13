@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 15:34:18 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/13 17:06:19 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/13 17:21:41 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ int		run_cmd(t_mns *mns, char *cmd, char **tab)
 {
 	pid_t	pid;
 	int	state;
-	int ret;
 
 	pid = fork();
 	if (!pid)
@@ -93,13 +92,14 @@ int		exec(char **tab, char **envp)
 	int	state;
 	int ret;
 
+	ret = 0;
 	pid = fork();
 	if (pid == 0)
 	{
 		ret = execve(tab[0], tab, envp);
 	}
 	else if (pid > 0)
-	waitpid(pid, &state, WUNTRACED);
+		waitpid(pid, &state, WUNTRACED);
 	else
 	{
 		ft_putstr_fd("Error fork", 1);

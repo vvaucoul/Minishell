@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 17:40:16 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/12 16:57:17 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/13 17:20:26 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,6 @@ static	char *r_update_pipe_tab_make_path(char **sysbin_loc, char *str)
 char	**r_update_pipe_tab(char **tab, char **envp)
 {
 	char			**sysbin_loc;
-	char			*path;
 	int				i;
 
 	if (!(sysbin_loc = get_sysbin_loc(envp)))

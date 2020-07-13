@@ -6,7 +6,7 @@
 #    By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/17 10:12:54 by mle-faou          #+#    #+#              #
-#    Updated: 2020/07/12 16:52:08 by vvaucoul         ###   ########.fr        #
+#    Updated: 2020/07/13 17:19:02 by vvaucoul         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,7 +58,7 @@ SRCS			=	$(wildcard srcs/*.c)			\
 SRCS_FOLDER		=	srcs/
 OBJS			=	$(SRCS:.c=.o)
 BONUS_OBJS		=	$(BONUS_SRCS:.c=.o)
-CFLAGS			=	-g3 #m-Wall -Wextra -Werror
+CFLAGS			=	-g3 -Wall -Wextra -Werror
 HEADERS			=	./includes/
 OPTION			=	$(CFLAGS) -I$(HEADERS) -I./libft
 

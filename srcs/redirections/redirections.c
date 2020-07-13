@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 16:32:45 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/13 17:00:25 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/13 17:19:41 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static int		redirection_01(char **tab_exec, char *output_file, char **envp, T_BO
 **	EX : cat < Makefile
 */
 
-static int		redirection_02(char **tab_exec, char *inputfile, char **envp)
+static int		redirection_02(char **tab_exec, char **envp)
 {
 	int pid;
 	int state;
@@ -110,6 +110,6 @@ int		main_redirections(char **tab, char **envp)
 	if (!(ft_strcmp(tab[r_pos], ">>")))
 	return (redirection_01(tab, tab[r_pos + 1], envp, TRUE));
 	if (!(ft_strcmp(tab[r_pos], "<")))
-	return (redirection_02(tab, tab[r_pos + 1], envp));
+	return (redirection_02(tab, envp));
 	return (0);
 }
