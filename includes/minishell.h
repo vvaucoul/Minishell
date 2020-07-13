@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 18:10:28 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/13 20:05:05 by mle-faou         ###   ########.fr       */
+/*   Updated: 2020/07/13 20:11:09 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ typedef int T_BOOL;
 #define MAX_CHAR_IN_PROMPT 4096
 #define ENV_DELIMITEUR '='
 #define ENV_STRING_DELIMITEUR "="
+
+#define BONUS TRUE
 
 /*
 **	Main Struct
@@ -189,5 +191,12 @@ char			**r_get_tab_after_redirection(char **tab);
 
 int				init_signals_handle();
 void 			reset_signals();
+
+/*
+**	BONUS FUNCTIONS
+**	A PLACER DANS UN minishell_bonus.h (mais ils sont la parce que flemme)
+*/
+
+int		bonus_redirection(char **tab_exec, char **envp);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 17:40:16 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/13 17:20:26 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/13 18:56:33 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ T_BOOL	r_is_redirection(char *str)
 	else if (!(ft_strcmp(str, ">>")))
 	return (TRUE);
 	else if (!(ft_strcmp(str, "<")))
+	return (TRUE);
+	else if ((!(ft_strcmp(str, "<<"))) && BONUS)
 	return (TRUE);
 	return (FALSE);
 }

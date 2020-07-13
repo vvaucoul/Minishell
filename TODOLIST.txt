@@ -6,3 +6,5 @@ VIRRER TOUTE LES COMMENTAIRE
 
 
 exec ./
+
+compiler avec termcap : -ltermcap

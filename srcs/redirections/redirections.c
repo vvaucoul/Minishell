@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 16:32:45 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/13 17:19:41 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/13 20:05:18 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static int		redirection_01(char **tab_exec, char *output_file, char **envp, T_BO
 		close(fd);
 	}
 	else
-		waitpid(pid, &state, WUNTRACED);
+	waitpid(pid, &state, WUNTRACED);
 	return (0);
 }
 
@@ -84,7 +84,7 @@ static int		redirection_02(char **tab_exec, char **envp)
 	if (!(pid = fork()))
 	{
 		dup2(fd, 0);
-		close(fd);
+		//close(fd);
 		// checker si c est les builtins ou pas (par exemple pour echo)
 		execve(tab_exec[0], tab_exec, envp);
 	}
@@ -111,5 +111,10 @@ int		main_redirections(char **tab, char **envp)
 	return (redirection_01(tab, tab[r_pos + 1], envp, TRUE));
 	if (!(ft_strcmp(tab[r_pos], "<")))
 	return (redirection_02(tab, envp));
+	if (BONUS)
+	{
+		if (!(ft_strcmp(tab[r_pos], "<<")))
+		return (bonus_redirection(tab, envp));
+	}
 	return (0);
 }
