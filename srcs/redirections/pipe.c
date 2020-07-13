@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 19:23:09 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/12 16:54:39 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/13 17:09:32 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,16 @@ static void 	do_pipes(char ***tab, char **envp)
 	int		p[2];
 	pid_t	pid;
 	int		fd_in = 0;
+	int state;
 
 	while (*tab != NULL)
 	{
 		pipe(p);
 		if ((pid = fork()) == -1)
-		exit(EXIT_FAILURE);
+			exit(EXIT_FAILURE);
 		else if (!pid)
 		{
+			print_table((*tab), "Pipe tab : ");
 			dup2(fd_in, 0);
 			if (*(tab + 1) != NULL)
 				dup2(p[1], 1);
@@ -35,7 +37,8 @@ static void 	do_pipes(char ***tab, char **envp)
 		}
 		else
 		{
-			wait(NULL);
+			//wait(NULL);
+			waitpid(pid, &state, WUNTRACED);
 			close(p[1]);
 			fd_in = p[0];
 			tab++;
