@@ -1,5 +1,4 @@
-void					ft_start_termcaps(void)
-{
+/*
 	struct termios	term;
 	char			*env;
 
@@ -22,4 +21,4 @@ void					ft_start_termcaps(void)
 		exit(-1);
 	}
 	free(env);
-}
+*/
