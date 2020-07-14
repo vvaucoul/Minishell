@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 18:10:28 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/14 17:44:51 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/14 17:56:10 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,5 +200,9 @@ void 			reset_signals();
 */
 
 int		bonus_redirection(char **tab_exec, char **envp);
+
+// termcaps bonus
+
+int	init_termcaps();
 
 #endif

@@ -6,7 +6,7 @@
 #    By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/17 10:12:54 by mle-faou          #+#    #+#              #
-#    Updated: 2020/07/14 17:25:13 by vvaucoul         ###   ########.fr        #
+#    Updated: 2020/07/14 17:48:05 by vvaucoul         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 NAME			=	minishell
@@ -53,7 +53,7 @@ SRCS			=	$(wildcard srcs/*.c)			\
 SRCS_FOLDER		=	srcs/
 OBJS			=	$(SRCS:.c=.o)
 BONUS_OBJS		=	$(BONUS_SRCS:.c=.o)
-CFLAGS			=	-g3 #m-Wall -Wextra -Werror # -lncurses
+CFLAGS			=	-g3 #-lncurses -ltermcap #m-Wall -Wextra -Werror 
 HEADERS			=	./includes/
 OPTION			=	$(CFLAGS) -I$(HEADERS) -I./libft
 %.o : %.c
