@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 19:23:09 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/13 22:26:00 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/14 17:19:42 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,13 @@ static char	***make_pipe_tab(char **tab_exec, int maxsize)
 	i = 0;
 	j = 0;
 	k = 0;
+	// calculer la taille des mallocs [to do !!!]
 	pipe_tab = malloc(sizeof(char **) * 10000);
 	while (tab_exec[i])
 	{
 		//printf("tab_exec[%d] = %s\n", i, tab_exec[i]);
 		j = 0;
+		// calculer la taille des mallocs [to do !!!]
 		under_pipe_tab = malloc(sizeof(char *) * 10000);
 		while (tab_exec[i] && (ft_strcmp(tab_exec[i], "|")))
 		{

@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 18:10:28 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/14 17:17:57 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/14 17:44:51 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,30 +41,30 @@
 
 #include <string.h>
 #include <stdio.h>
-#include <termios.h>
+//#include <termios.h>
 
 /*
 **	Bonus Includes
 */
 
-// #include <curses.h>
-// #include <term.h>
+#include <curses.h>
+//#include <term.h>
 
 /*
 **	COLORS
 */
 
-# define COLOR_NOC         "\033[0m"
-# define COLOR_BOLD        "\033[1m"
-# define COLOR_UNDERLINE   "\033[4m"
-# define COLOR_BLACK       "\033[1;30m"
-# define COLOR_RED         "\033[1;31m"
-# define COLOR_GREEN       "\033[1;32m"
-# define COLOR_YELLOW      "\033[1;33m"
-# define COLOR_BLUE        "\033[1;34m"
-# define COLOR_VIOLET      "\033[1;35m"
-# define COLOR_CYAN        "\033[1;36m"
-# define COLOR_WHITE       "\033[1;37m"
+# define MNS_COLOR_NOC         "\033[0m"
+# define MNS_COLOR_BOLD        "\033[1m"
+# define MNS_COLOR_UNDERLINE   "\033[4m"
+# define MNS_COLOR_BLACK       "\033[1;30m"
+# define MNS_COLOR_RED         "\033[1;31m"
+# define MNS_COLOR_GREEN       "\033[1;32m"
+# define MNS_COLOR_YELLOW      "\033[1;33m"
+# define MNS_COLOR_BLUE        "\033[1;34m"
+# define MNS_COLOR_VIOLET      "\033[1;35m"
+# define MNS_COLOR_CYAN        "\033[1;36m"
+# define MNS_COLOR_WHITE       "\033[1;37m"
 
 /*
 **	Utils Defines

@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/27 16:27:53 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/06/27 16:28:58 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/14 17:43:55 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,6 @@
 
 int		b_exit()
 {
-		exit(EXIT_SUCCESS);
+	system("leaks minishell");
+	exit(EXIT_SUCCESS);
 }

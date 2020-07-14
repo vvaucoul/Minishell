@@ -4,6 +4,7 @@ VIRRER TOUT LES TODO RM
 VIRRER TOUTE LES COMMENTAIRE
 
 
+[V] Double redirection In
 
 exec ./
 

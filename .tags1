@@ -5,17 +5,17 @@
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
 MINISHELL_H	/home/user42/Delivery/minishell/includes/minishell.h	/^#define MINISHELL_H$/;"	macro	line:14
-COLOR_NOC	/home/user42/Delivery/minishell/includes/minishell.h	/^# define COLOR_NOC /;"	macro	line:56
-COLOR_BOLD	/home/user42/Delivery/minishell/includes/minishell.h	/^# define COLOR_BOLD /;"	macro	line:57
-COLOR_UNDERLINE	/home/user42/Delivery/minishell/includes/minishell.h	/^# define COLOR_UNDERLINE /;"	macro	line:58
-COLOR_BLACK	/home/user42/Delivery/minishell/includes/minishell.h	/^# define COLOR_BLACK /;"	macro	line:59
-COLOR_RED	/home/user42/Delivery/minishell/includes/minishell.h	/^# define COLOR_RED /;"	macro	line:60
-COLOR_GREEN	/home/user42/Delivery/minishell/includes/minishell.h	/^# define COLOR_GREEN /;"	macro	line:61
-COLOR_YELLOW	/home/user42/Delivery/minishell/includes/minishell.h	/^# define COLOR_YELLOW /;"	macro	line:62
-COLOR_BLUE	/home/user42/Delivery/minishell/includes/minishell.h	/^# define COLOR_BLUE /;"	macro	line:63
-COLOR_VIOLET	/home/user42/Delivery/minishell/includes/minishell.h	/^# define COLOR_VIOLET /;"	macro	line:64
-COLOR_CYAN	/home/user42/Delivery/minishell/includes/minishell.h	/^# define COLOR_CYAN /;"	macro	line:65
-COLOR_WHITE	/home/user42/Delivery/minishell/includes/minishell.h	/^# define COLOR_WHITE /;"	macro	line:66
+MNS_COLOR_NOC	/home/user42/Delivery/minishell/includes/minishell.h	/^# define MNS_COLOR_NOC /;"	macro	line:56
+MNS_COLOR_BOLD	/home/user42/Delivery/minishell/includes/minishell.h	/^# define MNS_COLOR_BOLD /;"	macro	line:57
+MNS_COLOR_UNDERLINE	/home/user42/Delivery/minishell/includes/minishell.h	/^# define MNS_COLOR_UNDERLINE /;"	macro	line:58
+MNS_COLOR_BLACK	/home/user42/Delivery/minishell/includes/minishell.h	/^# define MNS_COLOR_BLACK /;"	macro	line:59
+MNS_COLOR_RED	/home/user42/Delivery/minishell/includes/minishell.h	/^# define MNS_COLOR_RED /;"	macro	line:60
+MNS_COLOR_GREEN	/home/user42/Delivery/minishell/includes/minishell.h	/^# define MNS_COLOR_GREEN /;"	macro	line:61
+MNS_COLOR_YELLOW	/home/user42/Delivery/minishell/includes/minishell.h	/^# define MNS_COLOR_YELLOW /;"	macro	line:62
+MNS_COLOR_BLUE	/home/user42/Delivery/minishell/includes/minishell.h	/^# define MNS_COLOR_BLUE /;"	macro	line:63
+MNS_COLOR_VIOLET	/home/user42/Delivery/minishell/includes/minishell.h	/^# define MNS_COLOR_VIOLET /;"	macro	line:64
+MNS_COLOR_CYAN	/home/user42/Delivery/minishell/includes/minishell.h	/^# define MNS_COLOR_CYAN /;"	macro	line:65
+MNS_COLOR_WHITE	/home/user42/Delivery/minishell/includes/minishell.h	/^# define MNS_COLOR_WHITE /;"	macro	line:66
 T_BOOL	/home/user42/Delivery/minishell/includes/minishell.h	/^typedef int T_BOOL;$/;"	typedef	line:72
 TRUE	/home/user42/Delivery/minishell/includes/minishell.h	/^#define TRUE /;"	macro	line:73
 FALSE	/home/user42/Delivery/minishell/includes/minishell.h	/^#define FALSE /;"	macro	line:74

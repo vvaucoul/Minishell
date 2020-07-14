@@ -51,7 +51,7 @@ int		unset_remove(char *line, char **envp)
 	int envp_line;
 
 	envp_line = get_envp_line(line, envp);
-	//printf(COLOR_CYAN); printf("Unset | Line = %d |\n", envp_line);
+	//printf(MNS_COLOR_CYAN); printf("Unset | Line = %d |\n", envp_line);
 
 
 	envp[envp_line] = NULL;
@@ -65,7 +65,7 @@ int		b_unset(char **tab, char **envp)
 	int i;
 
 	i = 0;
-	//printf(COLOR_CYAN); printf("UNSET");
+	//printf(MNS_COLOR_CYAN); printf("UNSET");
 	while (tab[i])
 	{
 

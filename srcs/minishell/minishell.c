@@ -14,12 +14,12 @@
 
 static void 	display_prompt(t_mns *mns)
 {
-	ft_putstr_fd(COLOR_GREEN, 1);
+	ft_putstr_fd(MNS_COLOR_GREEN, 1);
 	ft_putstr_fd("🛠️  ", 1);
 	b_pwd(mns, FALSE);
-	ft_putstr_fd(COLOR_CYAN, 1);
+	ft_putstr_fd(MNS_COLOR_CYAN, 1);
 	ft_putstr_fd(" 🖥️  ➜  ", 1);
-	ft_putstr_fd(COLOR_NOC, 1);
+	ft_putstr_fd(MNS_COLOR_NOC, 1);
 }
 
 int		minishell(t_mns *mns)

@@ -18,11 +18,11 @@ int		display_error(char *str)
 		return (-1);
 	else
 	{
-		ft_putstr(COLOR_RED);
+		ft_putstr(MNS_COLOR_RED);
 		ft_putstr_fd("[❌] minishell 💥: ", 1);
 		ft_putstr_fd(str, 1);
 		ft_putstr_fd("\n", 1);
-		ft_putstr(COLOR_NOC);
+		ft_putstr(MNS_COLOR_NOC);
 	}
 	return (0);
 }
@@ -33,11 +33,11 @@ int		display_error_cmd(char *str)
 		return (-1);
 	else
 	{
-		ft_putstr(COLOR_RED);
+		ft_putstr(MNS_COLOR_RED);
 		ft_putstr_fd("[❌] minishell 💥: command not found: ", 1);
 		ft_putstr_fd(str, 1);
 		ft_putstr_fd("\n", 1);
-		ft_putstr(COLOR_NOC);
+		ft_putstr(MNS_COLOR_NOC);
 	}
 	return (0);
 }
@@ -53,15 +53,15 @@ int		print_table(char **tab, char *str)
 
 	i = 0;
 	printf("\n");
-	printf(COLOR_GREEN);
+	printf(MNS_COLOR_GREEN);
 	printf("%s :\n", str);
 	while (tab[i])
 	{
 		printf("\t- [%d] '%s'\n", i, tab[i]);
 		++i;
 	}
-	printf(COLOR_NOC);
+	printf(MNS_COLOR_NOC);
 	printf("\n");
-	ft_putstr(COLOR_NOC);
+	ft_putstr(MNS_COLOR_NOC);
 	return (0);
 }
