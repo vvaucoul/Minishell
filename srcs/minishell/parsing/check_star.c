@@ -6,7 +6,7 @@
 /*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 22:40:19 by mle-faou          #+#    #+#             */
-/*   Updated: 2020/07/14 14:46:45 by mle-faou         ###   ########.fr       */
+/*   Updated: 2020/07/14 14:49:39 by mle-faou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,12 +80,12 @@ void		remove_from_tab(char ***list, int i)
 {
 	int size;
 
-	size = ft_tablen(*list)
+	size = ft_tablen(*list);
 	if (size >= i)
 		return ;
 	// while (*list[i])
 	// {
-		
+
 	// }
 
 	return ;
@@ -95,7 +95,7 @@ int			check_star(char **str, t_mns *mns, char **new, int *i)
 {
 	char		**list;
 	char		*filter;
-	int			i;
+	int			j;
 
 	//get beginning from * , cut fun
 	//continue until ' '
@@ -104,11 +104,11 @@ int			check_star(char **str, t_mns *mns, char **new, int *i)
 		return (-1);
 	list = get_linkslist();
 	print_table(list, "links");
-	i = 0;
-	while (list[i])
+	j = 0;
+	while (list[j])
 	{
 
-		i++;
+		j++;
 	}
 
 	return (0);
