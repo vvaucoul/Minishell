@@ -6,11 +6,15 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 18:29:27 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/13 22:52:41 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/14 17:15:10 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+**	BONUS Redirection Utils
+*/
 
 static char *get_end_str(char **tab)
 {
@@ -72,31 +76,51 @@ static int	get_tab_size(char **tab)
 	return (i * mx);
 }
 
-// A finir
+/*
+**	Heredoc File
+*/
+
+static	int	write_heredoc_file(char **heredoc)
+{
+	int fd;
+	int i;
+
+	i = 0;
+	fd = open(RANDOM_TMP_STRING, O_WRONLY | O_TRUNC | O_CREAT, 0755);
+	while (heredoc[i])
+	{
+		ft_putstr_fd(ft_strcat(heredoc[i], "\n"), fd);
+		++i;
+	}
+	ft_putstr_fd("\0", fd);
+	close(fd);
+	return (0);
+}
+
+/*
+** Redirection <<
+*/
 
 static	int	execute_redirection_bonus(char **tab_exec, char **tab_redir, char **envp)
 {
+	char	*exec_table[3];
 	int		pid;
 	int		state;
 	int		fd;
 
 	tab_exec = r_update_redirection_tab(tab_exec, envp, "<<");
 	tab_exec = r_get_tab_without_redirection(tab_exec);
-
-	print_table(tab_redir, "tab_redir");
-	print_table(tab_exec, "tab_exec");
-	//fd = open((tab_exec)[1], O_RDONLY);
-
-	char *tmp[] = {tab_exec[0], "1","4", "2", 0};
-	print_table(tmp, "tab tmp");
-
-	fd = open(0, O_RDONLY);
-
+//	print_table(tab_redir, "tab_redir");
+//	print_table(tab_exec, "tab_exec");
+	fd = open(RANDOM_TMP_STRING, O_RDONLY);
+	exec_table[0] = ft_strdup(tab_exec[0]);
+	exec_table[1] = ft_strdup(RANDOM_TMP_STRING);
+	exec_table[2] = NULL;
 	if (!(pid = fork()))
 	{
 		dup2(fd, 0);
 		close(fd);
-		execve(tab_exec[0], tmp, NULL);
+		execve(exec_table[0], exec_table, envp);
 	}
 	else
 	{
@@ -107,21 +131,8 @@ static	int	execute_redirection_bonus(char **tab_exec, char **tab_redir, char **e
 }
 
 /*
-char *argv[] = { "/bin/bash", "-c", "/usr/bin/cat <<EOF\ntest\nEOF", 0};
-old - char *argv[] = { "/usr/bin/cat", "<<", "EOF", 0 };
-  char *envp[] =
-  {
-	  "HOME=/",
-	  "PATH=/bin:/usr/bin",
-	  "USER=julekgwa",
-	  0
-  };
-  int fd = open(0, O_RDONLY);
-  dup2(fd, 0);
-  close(fd);
-  execve(argv[0], &argv[0], envp);
-  fprintf(stderr, "Oops!\n");
-  return -1;
+**	Call redirection
+**	Get heredoc inputs
 */
 
 int		bonus_redirection(char **tab_exec, char **envp)
@@ -129,7 +140,7 @@ int		bonus_redirection(char **tab_exec, char **envp)
 	char	**tab_redir;
 	char	*end_str;
 	char	*line;
-	int i;
+	int		i;
 
 	if (!(end_str = get_end_str(tab_exec)))
 	{
@@ -137,16 +148,17 @@ int		bonus_redirection(char **tab_exec, char **envp)
 		return (0);
 	}
 	if (!(tab_redir = malloc(sizeof(char *) * (get_tab_size(tab_exec) + 2))))
-	return (-1);
+		return (-1);
 	i = 0;
 	while (ft_strcmp(line, end_str))
 	{
-		ft_putstr_fd("> ", 1);
+		ft_putstr_fd("heredoc> ", 1);
 		line = read_line();
 		tab_redir[i] = ft_strdup(line);
 		free(line);
 		++i;
 	}
 	tab_redir[--i] = NULL;
+	write_heredoc_file(tab_redir);
 	return (execute_redirection_bonus(tab_exec, tab_redir, envp));
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 18:10:28 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/13 22:54:01 by mle-faou         ###   ########.fr       */
+/*   Updated: 2020/07/14 16:41:52 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ typedef int T_BOOL;
 #define MAX_CHAR_IN_PROMPT 4096
 #define ENV_DELIMITEUR '='
 #define ENV_STRING_DELIMITEUR "="
+#define RANDOM_TMP_STRING ".double_redirection"
 
 #define BONUS TRUE
 

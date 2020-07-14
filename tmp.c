@@ -53,3 +53,21 @@ int main(int argc, char *argv[]) {
       return (EXIT_SUCCESS);
     }
 	*/
+
+	tab_exec = r_update_redirection_tab(tab_exec, envp, "<");
+	tab_exec = r_get_tab_without_redirection(tab_exec);
+	fd = open(tab_exec[1], O_RDONLY);
+	tab_exec[1] = NULL;
+	print_table(tab_exec, "tab exec redirection");
+	if (!(pid = fork()))
+	{
+		dup2(fd, 0);
+		close(fd);
+		execve(tab_exec[0], tab_exec, NULL);
+	}
+	else
+	{
+		close(fd);
+		waitpid(pid, &state, WUNTRACED);
+	}
+	return (0);

@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 17:40:16 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/13 22:29:28 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/14 17:16:26 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,6 @@ static	char *r_update_redirection_tab_make_path(char **sysbin_loc, char *str)
 	struct stat		stat;
 
 	i = 0;
-	printf("str = %s\n", str);
 	while (sysbin_loc && sysbin_loc[i])
 	{
 		if (ft_strstartswith(str, sysbin_loc[i], 0, 0))
@@ -150,13 +149,9 @@ static	char *r_update_redirection_tab_make_path(char **sysbin_loc, char *str)
 		if (lstat(path, &stat) == -1)
 			free(path);
 		else
-		{
-			printf("path found = %s\n", path);
 			return (path);
-		}
 		++i;
 	}
-	 printf("path not found [%s] returned\n", str);
 	return (str);
 }
 
