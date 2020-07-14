@@ -6,7 +6,7 @@
 /*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 22:40:19 by mle-faou          #+#    #+#             */
-/*   Updated: 2020/07/13 22:56:19 by mle-faou         ###   ########.fr       */
+/*   Updated: 2020/07/14 14:46:45 by mle-faou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,27 +23,26 @@ static int	get_linksnum(void)
 	while ((dp = readdir(dirp)) != NULL)
 		i++;
 	closedir(dirp);
-
 	return (i);
 }
 
-int			check_star(char **str, t_mns *mns, char **new, int *i)
+char		**get_linkslist()
 {
+	char			**list;
 	DIR				*dirp;
 	struct dirent	*dp;
-	char			**list;
 	int				j;
 
-	//get beginning
-	//don't forget to add a fun to not add char if followed by a *
-
 	if ((j = get_linksnum()) == -1)
-		return (1);
+		return (NULL);
 	if (!(list = malloc(sizeof(char*) * (j + 1))))
-		return (1);
+		return (NULL);
 	list[j] = NULL;
 	if ((dirp = opendir(".")) == NULL)
-		return (display_error("opendir failed") + 1);
+	{
+		display_error("opendir failed");
+		return (NULL);
+	}
 	j = 0;
 	while ((dp = readdir(dirp)) != NULL)
 	{
@@ -51,18 +50,66 @@ int			check_star(char **str, t_mns *mns, char **new, int *i)
 		j++;
 	}
 	closedir(dirp);
-
-	print_table(list, "links");
-
-	return (0);
+	return (list);
 }
 
-int		is_starfollowed(char *str, int i)
+char		*get_prefilter(char *str, int start, char **new)
 {
-	while (str[i] && str[i] != ' ')
+	char *filter;
+	int i;
+	int j;
+
+	i = 0;
+	while (str[start - i] != ' ' && start - i >= 0)
+		i++;
+	if (!(filter = malloc(sizeof(char) * i)))
+		return (NULL);
+	filter[i] = '\0';
+	j = 0;
+	while (--i > 0)
 	{
-		if (str[i] == '*')
-			return (1);
+		filter[j] = str[start - i];
+		j++;
 	}
+	if (ft_strchangelen(new, ft_strlen(*new) - ft_strlen(filter)))
+		return (NULL);
+	return (filter);
+}
+
+void		remove_from_tab(char ***list, int i)
+{
+	int size;
+
+	size = ft_tablen(*list)
+	if (size >= i)
+		return ;
+	// while (*list[i])
+	// {
+		
+	// }
+
+	return ;
+}
+
+int			check_star(char **str, t_mns *mns, char **new, int *i)
+{
+	char		**list;
+	char		*filter;
+	int			i;
+
+	//get beginning from * , cut fun
+	//continue until ' '
+
+	if (!(filter = get_prefilter(*str, *i, new)))
+		return (-1);
+	list = get_linkslist();
+	print_table(list, "links");
+	i = 0;
+	while (list[i])
+	{
+
+		i++;
+	}
+
 	return (0);
 }

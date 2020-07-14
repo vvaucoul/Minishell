@@ -6,7 +6,7 @@
 /*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 15:31:39 by mle-faou          #+#    #+#             */
-/*   Updated: 2020/07/12 16:37:14 by mle-faou         ###   ########.fr       */
+/*   Updated: 2020/07/14 14:42:10 by mle-faou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,5 +88,7 @@ int					ft_strstartswith(char *s1, char *s2, int free_s1,
 char				*ft_straddstr(char *s1, char *s2, int free_s2);
 char				*ft_strcat(char *dest, char *src);
 char				*ft_strtrunc_del(char *s1, char del);
+int					ft_strchangelen(char **ptr, size_t size);
+int					ft_tablen(char **tab);
 
 #endif

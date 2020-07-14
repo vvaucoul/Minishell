@@ -1,38 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strchangelen.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/27 14:18:07 by mle-faou          #+#    #+#             */
-/*   Updated: 2020/07/14 13:54:05 by mle-faou         ###   ########.fr       */
+/*   Created: 2020/07/14 14:08:37 by mle-faou          #+#    #+#             */
+/*   Updated: 2020/07/14 14:26:39 by mle-faou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-static t_mns	*init_mns(char **envp, int argc, char **argv)
+int		ft_strchangelen(char **ptr, size_t size)
 {
-	t_mns	*mns;
+	char	*new_ptr;
+	int		i;
 
-	(void)argc;
-	(void)argv;
-
-	if (!(mns = malloc(sizeof(t_mns))))
-		return (NULL);
-	mns->envp = envp;
-	mns->last_return = 0;
-	return (mns);
-}
-
-int			main(int argc, char **argv, char **envp)
-{
-	t_mns	*mns;
-
-	mns = init_mns(envp, argc, argv);
-	// init_signals_handle();
-	minishell(mns);
-	free(mns);
+	if (!(new_ptr = ft_calloc(size + 1, (sizeof(char)))))
+		return (1);
+	if (ptr[0])
+	{
+		i = 0;
+		while (ptr[0][i] && (size_t)i < size)
+		{
+			new_ptr[i] = ptr[0][i];
+			i++;
+		}
+		free(ptr[0]);
+	}
+	ptr[0] = new_ptr;
 	return (0);
 }
