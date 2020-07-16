@@ -6,7 +6,7 @@
 /*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 18:44:01 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/13 22:40:33 by mle-faou         ###   ########.fr       */
+/*   Updated: 2020/07/16 16:47:26 by mle-faou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char		*update_input(char **str, t_mns *mns)
 		} 
 		else if (str[0][i] == '*')
 		{
-			if(check_star(str, mns, &new, &i))
+			if (check_star(str, mns, &new, &i))
 				return (NULL);
 		}
 		else
