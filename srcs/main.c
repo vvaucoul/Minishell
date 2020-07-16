@@ -6,7 +6,7 @@
 /*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/27 14:18:07 by mle-faou          #+#    #+#             */
-/*   Updated: 2020/07/14 18:09:44 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/16 15:53:41 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ int			main(int argc, char **argv, char **envp)
 	if ((mns = init_mns(envp, argc, argv)) == NULL)
 		return (-1);
 	init_signals_handle();
-	if ((init_termcaps(mns)) == -1)
-		return (-1);
 	minishell(mns);
 	free(mns);
 	return (0);

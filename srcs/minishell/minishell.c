@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 18:03:46 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/12 16:42:54 by mle-faou         ###   ########.fr       */
+/*   Updated: 2020/07/16 15:54:20 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,18 @@ int		minishell(t_mns *mns)
 	{
 		display_prompt(mns);
 		if ((get_input(&input, mns)) == -1)
-			return (-1);
+		return (-1);
 		if (ft_strisempty(input) || is_in_quotes(input, ft_strlen(input)))
 		{
 			if (is_in_quotes(input, ft_strlen(input)))
-				display_error("Please close your quotes");
+			display_error("Please close your quotes");
 			free(input);
 			continue ;
 		}
 		commands = quotesplit(input, ';');
 		free(input); //todo free in split :)
 		if ((exec_input(commands, mns)) == -1)
-			return (-1);
+		return (-1);
 		ft_freetab(commands);
 	}
 	return (0);

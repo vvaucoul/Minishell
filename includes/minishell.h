@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 18:10:28 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/14 18:38:11 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/16 15:48:17 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,6 @@
 **	Bonus Includes
 */
 
-#include <curses.h>
-//#include <term.h>
-
 /*
 **	COLORS
 */
@@ -85,20 +82,10 @@ typedef int T_BOOL;
 **	Main Struct
 */
 
-typedef struct	s_term
-{
-	char	*term_type;
-	char	term_buffer[2048];
-}				t_term;
-
 typedef struct	s_mns
 {
 	char		**envp;
 	int			last_return;
-
-	// termcap Struct
-
-	t_term		*term;
 }				t_mns;
 
 /*
@@ -210,10 +197,5 @@ void 			reset_signals();
 */
 
 int		bonus_redirection(char **tab_exec, char **envp);
-
-// termcaps bonus
-
-int				init_termcaps(t_mns *mns);
-void 			close_termcaps();
 
 #endif
