@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 17:07:13 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/16 18:33:54 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/17 15:42:17 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,15 @@
 #include <string.h>
 
 #include <curses.h>
+#include <termios.h>
 #include <term.h>
+
+#define TERM_MOVE_UP	 	"\033[XA" // Move up X lines;
+#define TERM_MOVE_DOWN	 	"\033[XB" // Move down X lines;
+#define TERM_MOVE_RIGHT	 	"\033[XC" // Move right X column;
+#define TERM_MOVE_LEFT	 	"\033[XD" // Move left X column;
+#define TERM_CLEAR_SCREEN	"\033[2J" // Clear screen
+
 
 # define KEY_CODE_UP "\x1b\x5b\x41\0"
 # define KEY_CODE_DO "\x1b\x5b\x42\0"
@@ -43,6 +51,7 @@
 # define KEY_CODE_LE "\x1b\x5b\x44\0"
 
 #define TERM_KEY_RIGHT '^[[C'
+# define MAX_KEY_LEN 4
 
 typedef struct s_size
 {

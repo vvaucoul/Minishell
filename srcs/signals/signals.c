@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 15:46:51 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/13 18:55:31 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/17 15:14:22 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static void		handle_signals(int signal)
 	if (signal == SIGINT)
 	{
 		ft_putendl_fd("", 1);
+		//write(1, TERM_CLEAR_SCREEN, ft_strlen(TERM_CLEAR_SCREEN));
 		wait(0);
 	}
 }
@@ -37,7 +38,6 @@ int		init_signals_handle()
 	display_error("Can't catch signal : SIGQUIT");
 	if (signal(SIGWINCH, handle_signals) == SIG_ERR)
 	display_error("Can't catch signal : SIGWINCH");
-
 	return (0);
 }
 

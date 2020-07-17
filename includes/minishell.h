@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 18:10:28 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/16 15:48:17 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/17 15:23:58 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,16 @@ typedef int T_BOOL;
 #define RANDOM_TMP_STRING ".double_redirection"
 
 #define BONUS TRUE
+
+/*
+**	TMP
+*/
+
+#define TERM_MOVE_UP	 	"\033[XA" // Move up X lines;
+#define TERM_MOVE_DOWN	 	"\033[XB" // Move down X lines;
+#define TERM_MOVE_RIGHT	 	"\033[XC" // Move right X column;
+#define TERM_MOVE_LEFT	 	"\033[XD" // Move left X column;
+#define TERM_CLEAR_SCREEN	"\033[2J" // Clear screen
 
 /*
 **	Main Struct
@@ -190,6 +200,7 @@ char			**r_get_tab_after_redirection(char **tab);
 
 int				init_signals_handle();
 void 			reset_signals();
+void 			clear_term(char *line);
 
 /*
 **	BONUS FUNCTIONS

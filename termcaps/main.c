@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 15:53:04 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/16 18:57:47 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/17 15:40:23 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,32 @@ int	exit_error(char *str)
 	exit(EXIT_FAILURE);
 }
 
+int	termios_reset_term()
+{
+	struct termios	s_term;
+
+	tcgetattr(STDIN_FILENO, &s_term);
+	s_term.c_lflag |= (ECHO | ICANON);
+	s_term.c_oflag |= (OPOST);
+	tcsetattr(STDIN_FILENO, TCSADRAIN, &s_term);
+	return (0);
+}
+
+int	termios_init()
+{
+	struct termios	s_term;
+
+	tcgetattr(STDIN_FILENO, &s_term);
+	s_term.c_lflag &= ~(ICANON | ECHO);
+	s_term.c_oflag &= ~(OPOST);
+	s_term.c_cc[VMIN] = 1;
+	s_term.c_cc[VTIME] = 0;
+	tcsetattr(STDIN_FILENO, TCSADRAIN, &s_term);
+	tgetent(NULL, getenv("TERM"));
+	printf("termios init successfuly\n");
+	return (0);
+}
+
 void term_get_info()
 {
 	get_term_struct()->term_size.row = tgetnum("li");
@@ -33,6 +59,7 @@ void term_get_info()
 int	termcaps_init()
 {
 	int ret;
+
 	get_term_struct()->term_type = getenv("TERM");
 	printf("term type : %s\n", get_term_struct()->term_type);
 	ret = tgetent(NULL, get_term_struct()->term_type);
@@ -49,31 +76,59 @@ int	termcaps_init()
 **	Read
 */
 
+int		get_key()
+{
+	char	*line;
+
+	line = malloc(sizeof(char) * 2048);
+	read(0, line, 1);
+	if (*line == '\x1b')
+	{
+		printf("true\n");
+		read(0, line + 1, MAX_KEY_LEN - 1);
+		if (!(memcmp(line, KEY_CODE_DO, MAX_KEY_LEN)))
+			return (KEY_CODE_DO);
+	}
+	//free(line);
+	return (line[0]);
+}
+
+void 	sig_handler(int signal)
+{
+	if (signal == SIGINT)
+	{
+		termios_reset_term();
+		exit (0);
+	}
+}
+
 void 	term_get_line()
 {
-	char	buff;
-	char	*line;
-	int		i;
+	char	key;
 
+	signal(SIGINT, sig_handler);
 	while (1)
 	{
-		tputs(tgetstr("do", NULL), 1, putchar);
-		usleep(50000);
+
+		key = get_key();
+		printf("keypressed : [%c]\n", key);
+		//	tputs(tgetstr("kd", NULL), 1, putchar);
+		//	usleep(100000);
 		/*
 		buff = 0;
 		i = 0;
 		line = calloc(2048, sizeof(char));
 		while (buff != '\n')
 		{
-			read(1, &buff, 1);
-			if (buff != '\n')
-			line[i] = buff;
-			tputs(tgetstr("dm", NULL), 1, putchar);
-			++i;
-		}
-		printf("line = [%s]\n", line);
-		*/
+		read(1, &buff, 1);
+		if (buff != '\n')
+		line[i] = buff;
+		tputs(tgetstr("dm", NULL), 1, putchar);
+		++i;
 	}
+	printf("line = [%s]\n", line);
+	*/
+}
 }
 
 /*
@@ -100,6 +155,7 @@ int main(int argc, char **argv)
 {
 	termcaps_init();
 	term_get_info();
+	termios_init();
 
 	// interrogate terminal
 
@@ -126,5 +182,8 @@ int main(int argc, char **argv)
 	// read
 
 	term_get_line();
+
+
+	termios_reset_term();
 	return 0;
 }
