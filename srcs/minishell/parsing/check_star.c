@@ -6,22 +6,33 @@
 /*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 22:40:19 by mle-faou          #+#    #+#             */
-/*   Updated: 2020/07/16 18:55:55 by mle-faou         ###   ########.fr       */
+/*   Updated: 2020/07/21 17:03:24 by mle-faou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	get_linksnum(char *path)
+static int	get_linksnum(char *path, int first)
 {
 	DIR				*dirp;
 	struct dirent	*dp;
 	int				i;
 	char			*finalpath;
 
-	finalpath = ft_strjoin("./", path);
+	if (path[0] == '/')
+		finalpath = ft_strdup(path);
+	else
+		finalpath = ft_strjoin("./", path);
+	// printf("path : [%s]\n", finalpath);
 	if ((dirp = opendir(finalpath)) == NULL)
-		return (display_error("opendir failed") - 1);
+	{
+		if (first)
+		{
+			free(finalpath);
+			return (display_error("no matches found") -  1);
+		}
+		return (0);
+	}
 	free(finalpath);
 	i = 0;
 	while ((dp = readdir(dirp)) != NULL)
@@ -55,7 +66,7 @@ static void	remove_hidden(char ***list)
 	}
 }
 
-static char	**get_linkslist(char *path)
+static char	**get_linkslist(char *path, int first)
 {
 	char			**list;
 	DIR				*dirp;
@@ -63,17 +74,18 @@ static char	**get_linkslist(char *path)
 	int				j;
 	char			*finalpath;
 
-	if ((j = get_linksnum(path)) == -1)
+	if ((j = get_linksnum(path, first)) == -1)
 		return (NULL);
 	if (!(list = malloc(sizeof(char*) * (j + 1))))
 		return (NULL);
 	list[j] = NULL;
-	finalpath = ft_strjoin("./", path);
+	if (path[0] == '/')
+		finalpath = ft_strdup(path);
+	else
+		finalpath = ft_strjoin("./", path);
+	// printf("finalpath : [%s]\n", finalpath);
 	if ((dirp = opendir(finalpath)) == NULL)
-	{
-		display_error("opendir failed");
-		return (NULL);
-	}
+		return (list);
 	free(finalpath);
 	j = 0;
 	while ((dp = readdir(dirp)) != NULL)
@@ -100,7 +112,7 @@ static char	*get_prefilter(char *str, int start, char **new)
 	j = -1;
 	while (--i > 0)
 		filter[++j] = str[start - i];
-	if (ft_strchangelen(new, ft_strlen(*new) - (ft_strlen(filter))))
+	if (ft_strchangelen(new, ft_strlen(*new) - ft_strlen(filter)))
 		return (NULL);
 	return (filter);
 }
@@ -166,16 +178,6 @@ static int	contain_filter(char *filename, int start, char *filter)
 	return (-1);
 }
 
-int			is_dir(const char *path)
-{
-	struct stat	stat;
-
-	if (lstat(path, &stat) == -1)
-		return (-1);
-	return (S_ISDIR(stat.st_mode));
-}
-
-
 char		*get_path(char *str, int start, char **new)
 {
 	char		*path;
@@ -195,13 +197,14 @@ char		*get_path(char *str, int start, char **new)
 		size++;
 		i++;
 	}
-	if (!(path = ft_calloc(size, sizeof(char))))
+	// printf("size : %d\n", size);
+	if (!(path = ft_calloc(size + 1, sizeof(char))))
 		return (NULL);
 	j = -1;
 	while (++j < size)
 		path[j] = str[start - --i];
-	// printf("path : [%s]\n", path);
-	if (ft_strchangelen(new, ft_strlen(*new) - (ft_strlen(path))))
+	// printf("in fun path : [%s]\n", path);
+	if (ft_strchangelen(new, ft_strlen(*new) - ft_strlen(path)))
 		return (NULL);
 	return (path);
 }
@@ -232,14 +235,13 @@ char		*get_post_slash(char *str, int start)
 	return (post_slash);
 }
 
-int			check_star(char **str, t_mns *mns, char **new, int *start)
+int			check_star(char **str, char **new, int *start, int first)
 {
 	char		**list;
 	char		*prefilter;
 	int			i;
 
 	char		*filter;
-	// int			filter_len;
 	int			j;
 	int			k;
 	int			l;
@@ -248,50 +250,64 @@ int			check_star(char **str, t_mns *mns, char **new, int *start)
 	int			security;
 	char		*post_slash;
 
-	(void)mns;
-	printf("old input : [%s]\n", *new);
+	char		*tmp_new;
+
+	// printf("old input : [%s]\n", *new);
 	if (!(post_slash = get_post_slash(*str, *start)))
-		return (1);;
-	printf("post slash : [%s]\n", post_slash);
+		return (1);
+	// printf("post_slash : [%s]\n", post_slash);
+	// printf("get_post_slash input : [%s]\n", *new);
+
 	if (!(filter = ft_strdup("")))
 		return (1);
 	if (!(prefilter = get_prefilter(*str, *start, new)))
 		return (1);
-	printf("prefilter : [%s]\n", prefilter);
+	// printf("get_prefilter input : [%s]\n", *new);
+
+	// printf("prefilter : [%s]\n", prefilter);
 	if (!(path = get_path(*str, *start, new)))
 		return (1);
-	if (!(list = get_linkslist(path)))
+	// printf("path : [%s]\n", path);
+	// printf("get_path input : [%s]\n", *new);
+
+	if (!(list = get_linkslist(path, first)))
 		return (1);
-	printf("post init input : [%s]\n", *new);
+	// printf("get_linkslist input : [%s]\n", *new);
+
+	// printf("post init input : [%s]\n", *new);
 	security = ft_strlen(*new);
-	printf("security : %d\n", security);
+	// printf("security : %d\n", security);
 	// print_table(list, "table");
 	i = ft_tablen(list);
-	// printf("i : %d\n", i);
+	// printf("list_len : %d\n", i);
 	while (--i >= 0)
 	{
 		// printf("\t[%s]\n", list[i]);
 		if (list[i] && !ft_strstartswith(list[i], prefilter, 0, 0))
 		{
+			// printf("[%s] removed1\n", list[i]);
 			remove_from_tab(&list, i);
 			continue ;
 		}
 		//pseudo code
 		j = ft_strlen(prefilter) + 1; // index file
 		k = 0; //index str from start
+		// printf("pre while [%s]\n", str[0] + (*start + k));
 		while (str[0][*start + k + 1] && str[0][*start + k] == '*' && (str[0][*start + k + 1] != ' ' || str[0][*start + k + 1] != '/'))
 		{
-			k++; //pass *
+			k++;
 			// printf("str[0][%d] : [%s]\n", *start +k, str[0] + (*start + k));
 			free(filter);
 			if (!(filter = get_nextfilter(*str, *start + k)))
 				return (1);
-			// printf("newfilter = %s\n", filter);
+			if (ft_strequ(filter, "\n"))
+				break ;
+			// printf("newfilter = [%s]\n", filter);
 			// printf("%s[%d] : [%s]\n", list[i], j, list[i] + j);
 			k += ft_strlen(filter);
 			if ((l = contain_filter(list[i], j, filter)) == -1)
 			{
-				// printf("removed\n");
+				// printf("[%s] removed2\n", list[i]);
 				remove_from_tab(&list, i);
 				// print_table(list, "table");
 				break ;
@@ -306,6 +322,7 @@ int			check_star(char **str, t_mns *mns, char **new, int *start)
 	i = 0;
 	while (list[i])
 	{
+		// printf("allo ?\n");
 		if (i != 0)
 			if (!(*new = ft_straddstr(*new, " ", 0)))
 				return (1);
@@ -316,25 +333,17 @@ int			check_star(char **str, t_mns *mns, char **new, int *start)
 		j = ft_strlen(*new);
 		if (!(*new = ft_straddstr(*new, post_slash, 0)))
 			return (1);
-		printf("test1\n");
-		while (new[0][j])
-		{
-			printf("test2\n");
-			if (new[0][j] == '*')
-			{
-				printf("* trouve\n~~~~~~~\n");
-				// check_star(str, mns, new, &j); //check for strange j
-			}
-			j++;
-		}
 		i++;
 	}
 	free(path);
 	free(post_slash);
-	while (new[0][*start] != ' ')
+	while (str[0][*start] > ' ' && str[0][*start] <= '~')
+	{
+		// printf("skip[%d] : '%c'\n", *start, str[0][*start]);
 		(*start)++;
-	(*start)++;
+	}
 	// printf("new input : [%s]\n", *new);
 	ft_freetab(list);
+	// printf("return\n");
 	return (0);
 }

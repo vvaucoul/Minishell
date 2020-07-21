@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_command.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 18:43:13 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/17 15:23:31 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/20 15:15:17 by mle-faou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int			exec_command(char *line, t_mns *mns)
 		if (stat.st_mode & S_IFDIR)
 			return (b_cd(mns, command[0]) == -1); // check return
 
-			// ne pas executer les executable #windaows
+			// ne pas executer les executable #windows
 
 		else if (stat.st_mode & S_IXUSR)
 			return (exec(command, mns->envp)); // check return

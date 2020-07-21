@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 18:10:28 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/17 15:23:58 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/21 16:59:40 by mle-faou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,17 +120,16 @@ int				run(t_mns *mns, char *path, char **args, char **envp);
 int				exec(char **tab, char **envp);
 int 			exec_pipes_redirections(char **command, t_mns *mns);
 int				run_cmd(t_mns *mns, char *cmd, char **tab);
-
 char			**get_sysbin_loc(char **envp);
 
 /*
 **	Parsing
 */
 
-char			*update_input(char **str, t_mns *mns);
+int				update_input(char **str, t_mns *mns);
 char			**quotesplit(char *str, char c);
 int				*parse_arguments(char **args);
-int				check_star(char **str, t_mns *mns, char **new, int *i);
+int				check_star(char **str, char **new, int *i, int first);
 
 /*
 **	Input
@@ -207,6 +206,6 @@ void 			clear_term(char *line);
 **	A PLACER DANS UN minishell_bonus.h (mais ils sont la parce que flemme)
 */
 
-int		bonus_redirection(char **tab_exec, char **envp);
+int				bonus_redirection(char **tab_exec, char **envp);
 
 #endif
