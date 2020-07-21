@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 15:53:04 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/17 15:40:23 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/21 20:18:59 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,6 @@
 /*
 **	Init
 */
-
-int	exit_error(char *str)
-{
-	write (1, str, strlen(str)); // function
-	exit(EXIT_FAILURE);
-}
 
 int	termios_reset_term()
 {
@@ -35,6 +29,7 @@ int	termios_reset_term()
 
 int	termios_init()
 {
+	/*
 	struct termios	s_term;
 
 	tcgetattr(STDIN_FILENO, &s_term);
@@ -44,6 +39,16 @@ int	termios_init()
 	s_term.c_cc[VTIME] = 0;
 	tcsetattr(STDIN_FILENO, TCSADRAIN, &s_term);
 	tgetent(NULL, getenv("TERM"));
+	*/
+
+	struct termios s_term;
+
+	tcgetattr(STDIN_FILENO, &s_term);
+	s_term.c_lflag &= ~(ICANON | ECHO);
+	tcsetattr(STDIN_FILENO, TCSADRAIN, &s_term);
+	tgetent(NULL, getenv("TERM"));
+
+
 	printf("termios init successfuly\n");
 	return (0);
 }
@@ -76,75 +81,115 @@ int	termcaps_init()
 **	Read
 */
 
+
 int		get_key()
 {
-	char	*line;
+	char	*str_buffer;
 
-	line = malloc(sizeof(char) * 2048);
-	read(0, line, 1);
-	if (*line == '\x1b')
+	if (!(str_buffer = ft_newstr(MAX_KEY_LEN)))
+	return (-1);
+	read(0, str_buffer, 1);
+	if (str_buffer[0] == START_SPECIAL_CHAR)
 	{
-		printf("true\n");
-		read(0, line + 1, MAX_KEY_LEN - 1);
-		if (!(memcmp(line, KEY_CODE_DO, MAX_KEY_LEN)))
-			return (KEY_CODE_DO);
+		read(0, str_buffer + 1, MAX_KEY_LEN - 1);
 	}
-	//free(line);
-	return (line[0]);
+
+	// compare keys
+
+	// History
+
+	if (!(memcmp(str_buffer, KEY_CODE_UP, MAX_KEY_LEN)))
+	{
+		return (KEY_UP);
+		// Up history
+	}
+	else if (!(memcmp(str_buffer, KEY_CODE_DO, MAX_KEY_LEN)))
+	{
+		return (KEY_DOWN);
+		// Down history
+	}
+
+	// Move in line
+
+	else if (!(memcmp(str_buffer, KEY_CODE_RI, MAX_KEY_LEN)))
+	{
+		return (KEY_RIGHT);
+		// Right
+	}
+	else if (!(memcmp(str_buffer, KEY_CODE_LE, MAX_KEY_LEN)))
+	{
+		return (KEY_LEFT);
+		// Left
+	}
+
+	// home | end
+
+	else if (!(memcmp(str_buffer, KEY_CODE_HOME, MAX_KEY_LEN)))
+	{
+		return (KEY_HOME);
+		// home (start line)
+	}
+	else if (!(memcmp(str_buffer, KEY_CODE_END, MAX_KEY_LEN)))
+	{
+		return (KEY_END);
+		// end line
+	}
+
+	return (str_buffer[0]);
 }
 
-void 	sig_handler(int signal)
+void 	tmp_prompt()
 {
-	if (signal == SIGINT)
-	{
-		termios_reset_term();
-		exit (0);
-	}
+	write(0, "$> ", PROMPT_LEN);
 }
 
 void 	term_get_line()
 {
-	char	key;
+	t_line	*line;
+	int		key_pressed;
 
+	line = init_new_line();
 	signal(SIGINT, sig_handler);
+	tmp_prompt();
 	while (1)
 	{
+		key_pressed = get_key();
 
-		key = get_key();
-		printf("keypressed : [%c]\n", key);
-		//	tputs(tgetstr("kd", NULL), 1, putchar);
-		//	usleep(100000);
-		/*
-		buff = 0;
-		i = 0;
-		line = calloc(2048, sizeof(char));
-		while (buff != '\n')
+		if (key_pressed >= 32 && key_pressed <= 126)
+		insert_char(line, key_pressed);
+		else if (key_pressed == KEY_DC || key_pressed == 127)
+		delete_char(line, key_pressed);
+
+		else if (key_pressed == KEY_LEFT)
+		cursor_to_left(line);
+		else if (key_pressed == KEY_RIGHT)
+		cursor_to_right(line);
+
+		else if (key_pressed == KEY_HOME)
+		cursor_to_start(line);
+		else if (key_pressed == KEY_END)
+		cursor_to_end(line);
+
+		else if (key_pressed == KEY_UP)
+		history_manager(line, 1);
+		else if (key_pressed == KEY_DOWN)
+		history_manager(line, 0);
+
+		else if (key_pressed == KEY_CTRLL)
 		{
-		read(1, &buff, 1);
-		if (buff != '\n')
-		line[i] = buff;
-		tputs(tgetstr("dm", NULL), 1, putchar);
-		++i;
+			tputs(tgoto(tgetstr("SF", NULL), 0, line->start.row - 1)
+			, 1, &term_putchar);
+			line->start.row = 1;
+			set_curpos(line);
+		}
+		else if (key_pressed == '\n')
+		{
+			//insert_char(line, key_pressed);
+			printf("\ncmd line [%s]\n", line->cmd);
+			add_in_history(line->cmd);
+			break ;
+		}
 	}
-	printf("line = [%s]\n", line);
-	*/
-}
-}
-
-/*
-** Utils
-*/
-
-t_term	*get_term_struct()
-{
-	static t_term	term;
-
-	return (&term);
-}
-
-int		tc_putc(int c)
-{
-	return (write(0, &c, 1));
 }
 
 /*
@@ -156,33 +201,27 @@ int main(int argc, char **argv)
 	termcaps_init();
 	term_get_info();
 	termios_init();
+	create_history_file();
 
 	// interrogate terminal
 
-	char *cl_str = tgetstr("cl", NULL);
-	char *cm_str = tgetstr("cm", NULL);
-	int	auto_wrap = tgetflag("am");
-	t_size size;
-	size.row = tgetnum ("li");
-	size.col = tgetnum ("co");
+	// char *cl_str = tgetstr("cl", NULL);
+	// char *cm_str = tgetstr("cm", NULL);
+	// t_size size;
+	// size.row = tgetnum ("li");
+	// size.col = tgetnum ("co");
 
-	char *fill_char = tgetstr ("pc", NULL);
+	//tgetstr ("im", NULL);
+	//tgetflag("5i");
 
-	char *up = tgetstr ("up", NULL);
-	char *left = tgetstr ("le", NULL);
-	char *right = tgetstr ("ri", NULL);
-	char *down = tgetstr ("do", NULL);
+	// execute
 
-	char *k_up = tgetstr ("ku", NULL);
+	while (1)
+	{
+		term_get_line();
+	}
 
-	tgetstr ("im", NULL);
-
-	tgetflag("5i");
-
-	// read
-
-	term_get_line();
-
+	// End
 
 	termios_reset_term();
 	return 0;
