@@ -6,15 +6,9 @@
 /*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 15:12:33 by mle-faou          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2020/07/22 14:45:26 by mle-faou         ###   ########.fr       */
-=======
-/*   Updated: 2020/07/21 17:15:29 by vvaucoul         ###   ########.fr       */
->>>>>>> d6737f7158fd90700f5143db6fd24d37968a0d3a
+/*   Updated: 2020/07/22 16:55:31 by mle-faou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "minishell.h"
 
 int		get_input(char **input, t_mns *mns)
 {
