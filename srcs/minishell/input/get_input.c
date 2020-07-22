@@ -6,7 +6,7 @@
 /*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 15:12:33 by mle-faou          #+#    #+#             */
-/*   Updated: 2020/07/20 16:11:02 by mle-faou         ###   ########.fr       */
+/*   Updated: 2020/07/22 14:45:26 by mle-faou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		get_input(char **input, t_mns *mns)
 	int		count;
 	int		n_read;
 
-	if (!(*input = ft_strnew(1)))
+	if (!(*input = ft_strnew(0)))
 		return (-1);
 	count = 1;
 	i = 0;

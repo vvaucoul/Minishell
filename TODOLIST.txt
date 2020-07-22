@@ -1,7 +1,7 @@
-CHECK TOUT LES CHANGEMENT DE ENVP POUR EVITER LES ERREURS DE STRUCTURES
+
 VIRRER TOUTE LES FONCTION USSLESS
 VIRRER TOUT LES TODO RM
-VIRRER TOUTE LES COMMENTAIRE
+VIRRER TOUT LES COMMENTAIRE
 
 
 [V] Double redirection In
@@ -9,3 +9,18 @@ VIRRER TOUTE LES COMMENTAIRE
 exec ./
 
 compiler avec termcap : -ltermcap
+
+retourner la bonne valeur avec $?
+
+- echo sans arguments fait crash (d apres valgrind c est dans get_input) v/
+
+- chaque commandes apres avoir effacé des caracteres ne fonctionne plus
+	(exemple : cd -> cd        -> cd ) avec un espace ou plusieurs
+
+- export crash (get_input)
+
+- ajouter ("| > >> <") dans les commandes reconnues
+
+- variables env miniscules
+
+- cd protection, verifier dossier valide ou pas

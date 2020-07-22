@@ -6,7 +6,7 @@
 /*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 22:40:19 by mle-faou          #+#    #+#             */
-/*   Updated: 2020/07/21 17:03:24 by mle-faou         ###   ########.fr       */
+/*   Updated: 2020/07/22 14:40:42 by mle-faou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -250,7 +250,7 @@ int			check_star(char **str, char **new, int *start, int first)
 	int			security;
 	char		*post_slash;
 
-	char		*tmp_new;
+	// char		*tmp_new;
 
 	// printf("old input : [%s]\n", *new);
 	if (!(post_slash = get_post_slash(*str, *start)))

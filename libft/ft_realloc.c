@@ -6,7 +6,7 @@
 /*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/26 15:18:22 by mle-faou          #+#    #+#             */
-/*   Updated: 2020/07/09 19:06:39 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/22 14:55:40 by mle-faou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,13 @@ char	*ft_realloc(char *ptr, size_t size)
 
 	if (!ptr)
 	{
-		if (!(new_ptr = malloc(sizeof(char) * size + 1)))
+		if (!(new_ptr = ft_calloc(size + 1, sizeof(char))))
 			return (NULL);
-		else
-			return (new_ptr);
 	}
 	else
 	{
-		if (!(new_ptr = malloc(sizeof(char) * ft_strlen(ptr) + size + 1)))
+		// if (!(new_ptr = ft_calloc(ft_strlen(ptr) + size + 1, sizeof(char))))
+		if (!(new_ptr = ft_calloc(size + 1, sizeof(char))))
 			return (NULL);
 		i = 0;
 		while (ptr[i])
@@ -35,6 +34,7 @@ char	*ft_realloc(char *ptr, size_t size)
 			++i;
 		}
 		new_ptr[i] = '\0';
+		free(ptr);
 	}
 	return (new_ptr);
 }

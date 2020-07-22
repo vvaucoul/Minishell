@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_cd.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/26 16:40:05 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/10 16:56:04 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/22 15:06:04 by mle-faou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int			export_old_path(t_mns *mns, char *old_path)
 
 static		int back_to_previous_dir(t_mns *mns)
 {
-	chdir(get_env_value("OLD_PWD", mns->envp));
+	chdir(get_env_var(mns->envp, "OLD_PWD", 0));
 	return (0);
 }
 
@@ -83,7 +83,7 @@ int				b_cd(t_mns *mns, char *path)
 	if (!path)
 	{
 
-		if (change_dir(get_env_value("HOME", mns->envp), "cd: Home indefini\n") < 0)
+		if (change_dir(get_env_var(mns->envp, "HOME", 0), "cd: Home indefini\n") < 0)
 		return (0);
 		export_old_path(mns, old_path);
 		set_pwd(mns);

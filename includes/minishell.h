@@ -6,7 +6,7 @@
 /*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 18:10:28 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/21 16:59:40 by mle-faou         ###   ########.fr       */
+/*   Updated: 2020/07/22 15:21:15 by mle-faou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,6 @@ int				minishell(t_mns *mns);
 */
 
 int				exec_input(char **commands, t_mns *mns);
-int				exec_command(char *line, t_mns *mns);
 int				exec_builtins(char **command, t_mns *mns);
 int				exec_system(char **command, t_mns *mns);
 int				run(t_mns *mns, char *path, char **args, char **envp);
@@ -167,7 +166,7 @@ T_BOOL			b_isvalid(char *str);
 
 char			*get_env_var(char **envp, char *to_find, int free_to_find);
 char			*get_env_name(char *str, int i);
-char			*get_env_value(char *value, char **envp);
+// char			*get_env_value(char *value, char **envp);
 
 /*
 **	Builtins

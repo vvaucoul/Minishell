@@ -6,7 +6,7 @@
 /*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/26 15:22:26 by mle-faou          #+#    #+#             */
-/*   Updated: 2020/07/13 17:21:12 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/22 16:39:56 by mle-faou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,17 @@ int				is_in_quotes(char *str, int pos)
 	i = 0;
 	while (i <= pos)
 	{
+		(quote < 0) ? quote *= -1 : 0;
 		if ((str[i] == '\'' && quote == 1) || (str[i] == '"' && quote == 2))
 			quote = 0;
 		else if (str[i] == '\'' && quote == 0)
-			quote = 1;
+			quote = -1;
 		else if (str[i] == '"' && quote == 0)
-			quote = 2;
+			quote = -2;
 		i++;
 	}
 	i--;
-	return ((quote) ? 1 : 0);
+	return ((quote > 0) ? 1 : 0);
 }
 
 char			*get_cmd_in_path(char *path)

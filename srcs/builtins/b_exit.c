@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_exit.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/27 16:27:53 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/14 17:45:29 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/22 15:12:53 by mle-faou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 
 int		b_exit()
 {
-	system("leaks minishell");
+	// system("leaks minishell");
 	exit(EXIT_SUCCESS);
 }

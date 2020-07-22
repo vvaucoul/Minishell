@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 18:29:27 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/14 17:15:10 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/22 14:41:30 by mle-faou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,8 @@ static	int	execute_redirection_bonus(char **tab_exec, char **tab_redir, char **e
 	int		pid;
 	int		state;
 	int		fd;
+
+	(void)tab_redir;
 
 	tab_exec = r_update_redirection_tab(tab_exec, envp, "<<");
 	tab_exec = r_get_tab_without_redirection(tab_exec);
