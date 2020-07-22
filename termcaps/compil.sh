@@ -1,1 +1,1 @@
-gcc *.c -ltermcap -I. -o term
+gcc *.c -ltermcap -I. -g3 -o term
