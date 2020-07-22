@@ -1,4 +1,4 @@
-[X] Historique et édition de ligne en utilisant termcaps (man tgetentpour voir des exemples)
+[V] Historique et édition de ligne en utilisant termcaps (man tgetentpour voir des exemples)
 
 [V] Éditer la ligne ou le curseur est placé
 
@@ -6,7 +6,7 @@
 	Évidemment, les caractères ajoutés doivent être rajoutés au milieu de ceux existants,
 	comme dans bash.
 
-[X] Touches haut et bas pour naviguer dans l’historique de commandes, que nous
+[V] Touches haut et bas pour naviguer dans l’historique de commandes, que nous
 	pouvons ensuite éditer (inline, pas dans l’historique)
 
 [X] Copier, couper et coller tout ou une partie d’une ligne à l’aide d’une séquence

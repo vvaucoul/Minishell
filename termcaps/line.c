@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/20 16:44:41 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/21 20:36:28 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/22 18:06:02 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ void	insert_char(t_line *line, int key_pressed)
 	line->cmd[line->cursor_position - PROMPT_LEN] = key_pressed;
 	++line->len;
 	line->cursor_position++;
-
 	tputs(tgetstr("im", NULL), 1, &term_putchar);
 	write(0, &key_pressed, 1);
 	tputs(tgetstr("ei", NULL), 1, &term_putchar);
@@ -90,4 +89,19 @@ void 	delete_full_line(t_line *line)
 	set_curpos(line);
 	tputs(tgetstr("cd", NULL), 0, &term_putchar);
 	ft_putstr_fd(line->cmd, 0);
+}
+
+void 	insert_full_line(t_line *line, char *str)
+{
+	int i;
+
+	i = 0;
+	if (!str)
+		return ;
+	while (str[i])
+	{
+		insert_char(line, str[i]);
+		++i;
+	}
+	free(str);
 }

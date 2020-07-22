@@ -1,1 +1,1 @@
-gcc *.c -ltermcap -I. -g3 -o term
+gcc *.c -ltermcap -I. -g3 ../libs/libft.a -I../libft/ -o term

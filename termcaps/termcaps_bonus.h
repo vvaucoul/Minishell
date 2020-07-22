@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 17:07:13 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/21 20:33:48 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/22 20:42:40 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@
 #include <dirent.h>
 #include <errno.h>
 
+#include "libft.h"
+
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
@@ -38,13 +40,6 @@
 #include <curses.h>
 #include <termios.h>
 #include <term.h>
-
-#define TERM_MOVE_UP	 	"\033[XA" // Move up X lines;
-#define TERM_MOVE_DOWN	 	"\033[XB" // Move down X lines;
-#define TERM_MOVE_RIGHT	 	"\033[XC" // Move right X column;
-#define TERM_MOVE_LEFT	 	"\033[XD" // Move left X column;
-#define TERM_CLEAR_SCREEN	"\033[2J" // Clear screen
-
 
 # define KEY_CODE_UP "\x1b\x5b\x41\0"
 # define KEY_CODE_DO "\x1b\x5b\x42\0"
@@ -61,17 +56,39 @@
 # define KEY_CODE_SRI "\x1b\x1b\x5b\x43"
 # define KEY_CODE_SLE "\x1b\x1b\x5b\x44"
 
+# define KEY_CODE_SHIFT_LEFT "\x1b\x32\x44\x3b\0"
+# define KEY_CODE_SHIFT_RIGHT "\x1b\x32\x43\x3b\0"
+
+
+// key code copier coller, a definir avec matthieu
+
+# define KEY_CODE_COPY_FROM_START "\x1b\x32\x41\x3b\0"
+# define KEY_CODE_COPY_FROM_END "\x1b\x32\x42\x3b\0"
+# define KEY_CODE_COPY_LINE "0x9"
+# define KEY_CODE_PASTE "\x1b\x5b\x5a\0"
+
+
 # define START_SPECIAL_CHAR '\x1b'
+# define START_SHIFT_CHAR '\x31'
+
 # define KEY_CTRLL 12
+# define KEY_SHIFT 27
 
 # define TERM_KEY_RIGHT '^[[C'
 
 # define MAX_KEY_LEN 4
+# define ADD_KEY_SHIFT_LEN 2
 # define MAX_LINE_LEN 4096
 
 # define PROMPT_LEN 3
 
 # define HIST_FILE_NAME ".minishell_history.hist"
+
+// tmp
+
+typedef int T_BOOL;
+#define TRUE 1
+#define FALSE 0
 
 typedef struct s_size
 {
@@ -121,6 +138,7 @@ void	insert_char(t_line *line, int key_pressed);
 void	delete_char(t_line *line, int key_pressed);
 void	ft_putstr_fd(char const *s, int fd);
 void 	delete_full_line(t_line *line);
+void 	insert_full_line(t_line *line, char *str);
 
 // cursor
 
@@ -132,8 +150,13 @@ void	cursor_to_right(t_line *line);
 
 // History
 
-int		create_history_file();
 int		add_in_history(char *str);
-int		history_manager(t_line *line, int up_down);
+int		history_manager(t_line *line, int up_down, int reset);
+
+// Shift word
+
+int		shift_word_left(t_line *line);
+int		shift_word_right(t_line *line);
+
 
 #endif

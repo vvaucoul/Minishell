@@ -6,12 +6,12 @@
 /*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 09:54:38 by mle-faou          #+#    #+#             */
-/*   Updated: 2020/06/26 14:28:16 by mle-faou         ###   ########.fr       */
+/*   Updated: 2020/07/22 18:31:38 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#define BUFFER_SIZE 32
+#define BUFFER_SIZE 1
 
 static int	custom_strlen(char *s, int i)
 {

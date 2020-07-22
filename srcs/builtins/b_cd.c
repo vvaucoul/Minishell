@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_cd.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/26 16:40:05 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/22 15:06:04 by mle-faou         ###   ########.fr       */
+/*   Updated: 2020/07/22 16:59:57 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int			export_old_path(t_mns *mns, char *old_path)
 {
 	char	*export_path[2];
 
-	export_path[0] = ft_strcat("OLD_PWD=", ft_strdup(old_path));
+	export_path[0] = ft_strjoin("OLD_PWD=", ft_strdup(old_path));
 	export_path[1] = NULL;
 	b_export(mns, export_path);
 	return (0);
@@ -34,7 +34,7 @@ static	int		set_pwd(t_mns *mns)
 	char	*export_path[2];
 
 	getcwd(actu_dir, sizeof(actu_dir));
-	export_path[0] = ft_strcat("PWD=", ft_strdup(actu_dir));
+	export_path[0] = ft_strjoin("PWD=", ft_strdup(actu_dir));
 	export_path[1] = NULL;
 	b_export(mns, export_path);
 	return (0);
@@ -72,7 +72,7 @@ int				b_cd(t_mns *mns, char *path)
 
 			if (back_to_previous_dir(mns) < 0)
 			{
-				ft_putstr_fd(ft_strcat("cd: aucun dossier valide: ", ft_strcat(path, "\n")), 1);
+				ft_putstr_fd(ft_strjoin("cd: aucun dossier valide: ", ft_strjoin(path, "\n")), 1);
 				return (0);
 			}
 			export_old_path(mns, old_path);
@@ -91,7 +91,7 @@ int				b_cd(t_mns *mns, char *path)
 	else
 	{
 
-		if (change_dir(path, ft_strcat("cd: aucun dossier valide: ", ft_strcat(path, "\n"))) < 0)
+		if (change_dir(path, ft_strjoin("cd: aucun dossier valide: ", ft_strjoin(path, "\n"))) < 0)
 		return (0);
 		export_old_path(mns, old_path);
 		set_pwd(mns);

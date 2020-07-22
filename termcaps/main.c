@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 15:53:04 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/21 20:18:59 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/22 20:45:08 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,26 +29,12 @@ int	termios_reset_term()
 
 int	termios_init()
 {
-	/*
-	struct termios	s_term;
-
-	tcgetattr(STDIN_FILENO, &s_term);
-	s_term.c_lflag &= ~(ICANON | ECHO);
-	s_term.c_oflag &= ~(OPOST);
-	s_term.c_cc[VMIN] = 1;
-	s_term.c_cc[VTIME] = 0;
-	tcsetattr(STDIN_FILENO, TCSADRAIN, &s_term);
-	tgetent(NULL, getenv("TERM"));
-	*/
-
 	struct termios s_term;
 
 	tcgetattr(STDIN_FILENO, &s_term);
 	s_term.c_lflag &= ~(ICANON | ECHO);
 	tcsetattr(STDIN_FILENO, TCSADRAIN, &s_term);
 	tgetent(NULL, getenv("TERM"));
-
-
 	printf("termios init successfuly\n");
 	return (0);
 }
@@ -86,13 +72,26 @@ int		get_key()
 {
 	char	*str_buffer;
 
-	if (!(str_buffer = ft_newstr(MAX_KEY_LEN)))
+	if (!(str_buffer = ft_newstr(MAX_KEY_LEN + ADD_KEY_SHIFT_LEN)))
 	return (-1);
 	read(0, str_buffer, 1);
 	if (str_buffer[0] == START_SPECIAL_CHAR)
 	{
 		read(0, str_buffer + 1, MAX_KEY_LEN - 1);
 	}
+	if (str_buffer[2] == START_SHIFT_CHAR)
+	{
+		//printf("read more\n");
+		read(0, str_buffer + 1, ADD_KEY_SHIFT_LEN);
+	}
+
+	// to display key code
+	printf("str_buffer [%p]\n", str_buffer[0]);
+	printf("str_buffer [%p]\n", str_buffer[1]);
+	printf("str_buffer [%p]\n", str_buffer[2]);
+	printf("str_buffer [%p]\n", str_buffer[3]);
+	printf("str_buffer [%p]\n", str_buffer[4]);
+	printf("str_buffer [%p]\n", str_buffer[5]);
 
 	// compare keys
 
@@ -135,6 +134,43 @@ int		get_key()
 		// end line
 	}
 
+	// jump through words
+
+	else if (!(memcmp(str_buffer, KEY_CODE_SHIFT_LEFT, ADD_KEY_SHIFT_LEN + ADD_KEY_SHIFT_LEN)))
+	{
+		return (KEY_SLEFT);
+		// shift left
+	}
+	else if (!(memcmp(str_buffer, KEY_CODE_SHIFT_RIGHT, MAX_KEY_LEN + ADD_KEY_SHIFT_LEN)))
+	{
+		return (KEY_SRIGHT);
+		// shift right
+	}
+
+	// copy paster
+
+	else if (!(memcmp(str_buffer, KEY_CODE_COPY_FROM_START, MAX_KEY_LEN + ADD_KEY_SHIFT_LEN)))
+	{
+		return (540);
+		// scopy from start
+	}
+	else if (!(memcmp(str_buffer, KEY_CODE_COPY_FROM_END, MAX_KEY_LEN + ADD_KEY_SHIFT_LEN)))
+	{
+		return (541);
+		// copy from end
+	}
+	//else if (!(memcmp(str_buffer, KEY_CODE_COPY_LINE, MAX_KEY_LEN + ADD_KEY_SHIFT_LEN)))
+	// else if (!strcmp(str_buffer[0] ,KEY_CODE_COPY_LINE))
+	// {
+	// 	return (542);
+	// 	// a mediter minutieusement parce que la, flemme
+	// }
+	else if (!(memcmp(str_buffer, KEY_CODE_PASTE, MAX_KEY_LEN + ADD_KEY_SHIFT_LEN)))
+	{
+		return (543);
+		// paste line
+	}
+
 	return (str_buffer[0]);
 }
 
@@ -171,9 +207,25 @@ void 	term_get_line()
 		cursor_to_end(line);
 
 		else if (key_pressed == KEY_UP)
-		history_manager(line, 1);
+		history_manager(line, 1, 0);
 		else if (key_pressed == KEY_DOWN)
-		history_manager(line, 0);
+		history_manager(line, 0, 0);
+
+		// a finir, shift left & right
+		else if (key_pressed == KEY_SLEFT)
+		shift_word_left(line);
+		else if (key_pressed == KEY_SRIGHT)
+		shift_word_right(line);
+
+		// tmp, copy paste
+		else if (key_pressed == 540)
+		exit(0);
+		else if (key_pressed == 541)
+		exit(0);
+		else if (key_pressed == 542)
+		exit(0);
+		else if (key_pressed == 543)
+		exit(0);
 
 		else if (key_pressed == KEY_CTRLL)
 		{
@@ -187,6 +239,7 @@ void 	term_get_line()
 			//insert_char(line, key_pressed);
 			printf("\ncmd line [%s]\n", line->cmd);
 			add_in_history(line->cmd);
+			history_manager(line, 0, 1);
 			break ;
 		}
 	}
@@ -201,18 +254,6 @@ int main(int argc, char **argv)
 	termcaps_init();
 	term_get_info();
 	termios_init();
-	create_history_file();
-
-	// interrogate terminal
-
-	// char *cl_str = tgetstr("cl", NULL);
-	// char *cm_str = tgetstr("cm", NULL);
-	// t_size size;
-	// size.row = tgetnum ("li");
-	// size.col = tgetnum ("co");
-
-	//tgetstr ("im", NULL);
-	//tgetflag("5i");
 
 	// execute
 

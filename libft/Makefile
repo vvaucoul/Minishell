@@ -6,7 +6,7 @@
 #    By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/17 10:12:54 by mle-faou          #+#    #+#              #
-#    Updated: 2020/07/14 14:42:17 by mle-faou         ###   ########.fr        #
+#    Updated: 2020/07/22 18:26:58 by vvaucoul         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ SRCS =	ft_memset.c	ft_bzero.c ft_memcpy.c ft_memccpy.c ft_memmove.c \
 		ft_lstmap.c ft_memalloc.c ft_realloc.c ft_strnew.c ft_strisempty.c \
 		ft_freetab.c ft_strcmp.c ft_strequ.c ft_putstr.c ft_strstartswith.c \
 		ft_strcut.c ft_straddchar.c ft_isupper.c ft_islower.c ft_straddstr.c \
-		ft_strcat.c ft_strtrunc_del.c ft_strchangelen.c ft_tablen.c
+		ft_strcat.c ft_strtrunc_del.c ft_strchangelen.c ft_tablen.c get_next_line.c
 OBJ = $(SRCS:.c=.o)
 CFLAGS = -Wall -Wextra -Werror
 HEADERS = ./
@@ -37,7 +37,7 @@ clean:
 	@/bin/rm -f $(OBJ) $(OBJ_BONUS)
 
 fclean: clean
-	@/bin/rm -f $(NAME) $(NAME:.a=.so) 
+	@/bin/rm -f $(NAME) $(NAME:.a=.so)
 
 re: fclean all
 
