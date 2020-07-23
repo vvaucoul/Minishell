@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 19:58:21 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/22 18:33:06 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/23 16:59:52 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,6 @@ static int		get_last_history_line()
 **	up_down = 1 --> up
 **	up_down = 0 --> down
 */
-
-// ICIiiiiiiiiiiiiiiiiiiiiiiiii finir l historique, plante et charge mal les lignes
 
 int		history_manager(t_line *line, int up_down, int reset)
 {

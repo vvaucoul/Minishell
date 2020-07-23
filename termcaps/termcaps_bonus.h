@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 17:07:13 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/22 20:42:40 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/23 19:21:59 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,27 @@
 # define KEY_CODE_SHIFT_LEFT "\x1b\x32\x44\x3b\0"
 # define KEY_CODE_SHIFT_RIGHT "\x1b\x32\x43\x3b\0"
 
+# define KEY_CODE_SHIFT_UP		"\x1b\x32\x41\x3b\0"
+# define KEY_CODE_SHIFT_DOWN	"\x1b\x32\x42\x3b\0"
 
-// key code copier coller, a definir avec matthieu
+// copy cut & paste
+// position 1 & 2 : shift + I [shift index]
+// copier : shift + C [shift copy]		MODE -> [0]
+// couper : shift + X [shift cut]		MODE -> [1]
+// coller : shift + V [shift paste]		MODE -> [2]
 
-# define KEY_CODE_COPY_FROM_START "\x1b\x32\x41\x3b\0"
-# define KEY_CODE_COPY_FROM_END "\x1b\x32\x42\x3b\0"
-# define KEY_CODE_COPY_LINE "0x9"
-# define KEY_CODE_PASTE "\x1b\x5b\x5a\0"
+# define KEY_CODE_INSERT_INDEX "\x49\0"
+# define KEY_CODE_COPY "\x43\0"
+# define KEY_CODE_CUT "\x58\0"
+# define KEY_CODE_PASTE "\x56\0"
 
+# define KEY_INSERT_INDEX 540
+# define KEY_CCOPY 541
+# define KEY_CUT 542
+# define KEY_PASTE 543
+
+# define KEY_SHIFT_UP 544
+# define KEY_SHIFT_DOWN 545
 
 # define START_SPECIAL_CHAR '\x1b'
 # define START_SHIFT_CHAR '\x31'
@@ -81,6 +94,7 @@
 # define MAX_LINE_LEN 4096
 
 # define PROMPT_LEN 3
+
 
 # define HIST_FILE_NAME ".minishell_history.hist"
 
@@ -102,6 +116,12 @@ typedef	struct	s_line
 	int			cursor_position;
 	int			len;
 	char		cmd[MAX_LINE_LEN];
+
+	// copy line
+	char		copy_cmd[MAX_LINE_LEN];
+
+	// multi line
+	t_size		ml_position;
 }				t_line;
 
 typedef struct s_term
@@ -158,5 +178,20 @@ int		history_manager(t_line *line, int up_down, int reset);
 int		shift_word_left(t_line *line);
 int		shift_word_right(t_line *line);
 
+
+// copy & paste line
+
+void 	copy_paste_manager(t_line *line, T_BOOL set_index, int mode);
+
+// copy & paste utils
+
+void 	reset_copy_line(t_line *line);
+void 	insert_copy_character(t_line *line, int index, T_BOOL reset);
+T_BOOL	index_valids(int *index);
+void 	swap_index(int **index);
+
+// Multi line edition
+
+int		multi_line_manager(t_line *line, T_BOOL up, T_BOOL reset);
 
 #endif

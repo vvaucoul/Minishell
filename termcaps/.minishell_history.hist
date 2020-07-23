@@ -1,6 +1,4 @@
-ls
-2222adaw22222
-2222adaw22222
-dwadawdwadadwdwd
+ls pwd | echo toto | printf toto
+ls pwd | echo toto | printf toto printf toto
+ls pwd | echo toto | printf toto printf toto
 ls pwd
-++++--*******---+++

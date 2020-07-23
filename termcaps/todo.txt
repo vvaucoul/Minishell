@@ -9,10 +9,10 @@
 [V] Touches haut et bas pour naviguer dans l’historique de commandes, que nous
 	pouvons ensuite éditer (inline, pas dans l’historique)
 
-[X] Copier, couper et coller tout ou une partie d’une ligne à l’aide d’une séquence
+[V] Copier, couper et coller tout ou une partie d’une ligne à l’aide d’une séquence
 	de touches de votre choix
 
-[X] Se déplacer de mot en mot à l’aide des touches
+[V] Se déplacer de mot en mot à l’aide des touches
 	CTRL+gauche et CTRL+droite
 
 [V] Aller directement au début ou à la fin de la ligne en utilisant

@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/20 18:58:03 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/21 19:49:11 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/23 15:48:18 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	cursor_to_left(t_line *line)
 {
 	if (line->cursor_position <= PROMPT_LEN)
 		return ;
-	line->cursor_position--;
+	--line->cursor_position;
 	set_curpos(line);
 }
 
@@ -42,6 +42,6 @@ void	cursor_to_right(t_line *line)
 {
 	if (line->cursor_position >= line->len + PROMPT_LEN)
 		return ;
-	line->cursor_position++;
+	++line->cursor_position;
 	set_curpos(line);
 }

@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 15:53:04 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/22 20:45:08 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/23 19:22:23 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ int	termcaps_init()
 **	Read
 */
 
-
 int		get_key()
 {
 	char	*str_buffer;
@@ -86,12 +85,12 @@ int		get_key()
 	}
 
 	// to display key code
-	printf("str_buffer [%p]\n", str_buffer[0]);
-	printf("str_buffer [%p]\n", str_buffer[1]);
-	printf("str_buffer [%p]\n", str_buffer[2]);
-	printf("str_buffer [%p]\n", str_buffer[3]);
-	printf("str_buffer [%p]\n", str_buffer[4]);
-	printf("str_buffer [%p]\n", str_buffer[5]);
+	// printf("str_buffer [%p]\n", str_buffer[0]);
+	// printf("str_buffer [%p]\n", str_buffer[1]);
+	// printf("str_buffer [%p]\n", str_buffer[2]);
+	// printf("str_buffer [%p]\n", str_buffer[3]);
+	// printf("str_buffer [%p]\n", str_buffer[4]);
+	// printf("str_buffer [%p]\n", str_buffer[5]);
 
 	// compare keys
 
@@ -147,27 +146,35 @@ int		get_key()
 		// shift right
 	}
 
+	// edition sur plusieurs lignes
+	else if (!(memcmp(str_buffer, KEY_CODE_SHIFT_UP, MAX_KEY_LEN + ADD_KEY_SHIFT_LEN)))
+	{
+		return (KEY_SHIFT_UP);
+	}
+	else if (!(memcmp(str_buffer, KEY_CODE_SHIFT_DOWN, MAX_KEY_LEN + ADD_KEY_SHIFT_LEN)))
+	{
+		return (KEY_SHIFT_DOWN);
+	}
 	// copy paster
 
-	else if (!(memcmp(str_buffer, KEY_CODE_COPY_FROM_START, MAX_KEY_LEN + ADD_KEY_SHIFT_LEN)))
+	else if (!(memcmp(str_buffer, KEY_CODE_INSERT_INDEX, MAX_KEY_LEN)))
 	{
-		return (540);
+		return (KEY_INSERT_INDEX);
 		// scopy from start
 	}
-	else if (!(memcmp(str_buffer, KEY_CODE_COPY_FROM_END, MAX_KEY_LEN + ADD_KEY_SHIFT_LEN)))
+	else if (!(memcmp(str_buffer, KEY_CODE_COPY, MAX_KEY_LEN)))
 	{
-		return (541);
+		return (KEY_CCOPY);
 		// copy from end
 	}
-	//else if (!(memcmp(str_buffer, KEY_CODE_COPY_LINE, MAX_KEY_LEN + ADD_KEY_SHIFT_LEN)))
-	// else if (!strcmp(str_buffer[0] ,KEY_CODE_COPY_LINE))
-	// {
-	// 	return (542);
-	// 	// a mediter minutieusement parce que la, flemme
-	// }
-	else if (!(memcmp(str_buffer, KEY_CODE_PASTE, MAX_KEY_LEN + ADD_KEY_SHIFT_LEN)))
+	else if (!(memcmp(str_buffer, KEY_CODE_CUT, MAX_KEY_LEN)))
 	{
-		return (543);
+		return (KEY_CUT);
+		// copy line
+	}
+	else if (!(memcmp(str_buffer, KEY_CODE_PASTE, MAX_KEY_LEN)))
+	{
+		return (KEY_PASTE);
 		// paste line
 	}
 
@@ -191,42 +198,52 @@ void 	term_get_line()
 	{
 		key_pressed = get_key();
 
+		// basic, insert & delete char
 		if (key_pressed >= 32 && key_pressed <= 126)
 		insert_char(line, key_pressed);
 		else if (key_pressed == KEY_DC || key_pressed == 127)
 		delete_char(line, key_pressed);
 
+		// move cursor left / right
 		else if (key_pressed == KEY_LEFT)
 		cursor_to_left(line);
 		else if (key_pressed == KEY_RIGHT)
 		cursor_to_right(line);
 
+		// home & end
 		else if (key_pressed == KEY_HOME)
 		cursor_to_start(line);
 		else if (key_pressed == KEY_END)
 		cursor_to_end(line);
 
+		// history
 		else if (key_pressed == KEY_UP)
-		history_manager(line, 1, 0);
+		history_manager(line, TRUE, FALSE);
 		else if (key_pressed == KEY_DOWN)
-		history_manager(line, 0, 0);
+		history_manager(line, FALSE, FALSE);
 
-		// a finir, shift left & right
+		// shift left right
 		else if (key_pressed == KEY_SLEFT)
 		shift_word_left(line);
 		else if (key_pressed == KEY_SRIGHT)
 		shift_word_right(line);
 
-		// tmp, copy paste
-		else if (key_pressed == 540)
-		exit(0);
-		else if (key_pressed == 541)
-		exit(0);
-		else if (key_pressed == 542)
-		exit(0);
-		else if (key_pressed == 543)
-		exit(0);
+		// copy paste
+		else if (key_pressed == KEY_INSERT_INDEX)
+		copy_paste_manager(line, TRUE, 0);
+		else if (key_pressed == KEY_CCOPY)
+		copy_paste_manager(line, FALSE, 0);
+		else if (key_pressed == KEY_CUT)
+		copy_paste_manager(line, FALSE, 1);
+		else if (key_pressed == KEY_PASTE)
+		copy_paste_manager(line, FALSE, 2);
 
+		else if (key_pressed == KEY_SHIFT_UP)
+		multi_line_manager(line, TRUE, FALSE);
+		else if (key_pressed == KEY_SHIFT_DOWN)
+		multi_line_manager(line, FALSE, FALSE);
+
+		// clear
 		else if (key_pressed == KEY_CTRLL)
 		{
 			tputs(tgoto(tgetstr("SF", NULL), 0, line->start.row - 1)
@@ -234,12 +251,15 @@ void 	term_get_line()
 			line->start.row = 1;
 			set_curpos(line);
 		}
+
+		// valid line
 		else if (key_pressed == '\n')
 		{
 			//insert_char(line, key_pressed);
 			printf("\ncmd line [%s]\n", line->cmd);
 			add_in_history(line->cmd);
-			history_manager(line, 0, 1);
+			history_manager(line, FALSE, TRUE);
+			multi_line_manager(line, FALSE, TRUE);
 			break ;
 		}
 	}

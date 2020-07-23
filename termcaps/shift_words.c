@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 19:22:17 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/22 20:27:39 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/23 16:45:59 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,32 +19,59 @@ static T_BOOL is_validchar(char c)
 
 int		shift_word_left(t_line *line)
 {
-	// a finir, bien buggé !
+	T_BOOL is_in_word;
+	int		scp;
 
-	// start sur un character pris en compte (mais pas l espace)
-	if (is_validchar(line->cmd[line->cursor_position]))
+	is_in_word = FALSE;
+	scp = line->cursor_position;
+	while (is_validchar(line->cmd[line->cursor_position - PROMPT_LEN]) && line->cursor_position > PROMPT_LEN)
+	--line->cursor_position;
+	if (line->cursor_position != scp)
+	is_in_word = TRUE;
+	if (!(is_validchar(line->cmd[line->cursor_position - PROMPT_LEN - 1])))
+	is_in_word = FALSE;
+	if (!(is_in_word))
 	{
-		while (is_validchar(line->cmd[line->cursor_position]) && line->cursor_position - PROMPT_LEN > 0)
-		{
-			cursor_to_left(line);
-			//printf("line->cursor_position - PROMPT_LEN = %d\n",line->cursor_position - PROMPT_LEN );
-		}
-		cursor_to_left(line);
+		while (!(is_validchar(line->cmd[line->cursor_position - PROMPT_LEN])) && line->cursor_position > PROMPT_LEN)
+		--line->cursor_position;
+		while (is_validchar(line->cmd[line->cursor_position - PROMPT_LEN]) && line->cursor_position > PROMPT_LEN)
+		--line->cursor_position;
 	}
-	// start sur un espace ou charactere non pris en compte
+	if (!(is_in_word))
+	++line->cursor_position;
 	else
-	{
-		while (!(is_validchar(line->cmd[line->cursor_position])))
-		{
-			cursor_to_left(line);
-		}
-	}
-	cursor_to_right(line);
+	shift_word_left(line);
+	set_curpos(line);
 	return (0);
 }
 
 int		shift_word_right(t_line *line)
 {
+	T_BOOL is_in_word;
+	int		scp;
 
+	is_in_word = FALSE;
+	scp = line->cursor_position;
+	while (is_validchar(line->cmd[line->cursor_position - PROMPT_LEN]) && line->cursor_position < line->len + PROMPT_LEN)
+		++line->cursor_position;
+	if (line->cursor_position != scp)
+		is_in_word = TRUE;
+	if (!(is_validchar(line->cmd[line->cursor_position - PROMPT_LEN + 1])))
+		is_in_word = FALSE;
+	if (!(is_in_word))
+	{
+		while (!(is_validchar(line->cmd[line->cursor_position - PROMPT_LEN])) && line->cursor_position < line->len + PROMPT_LEN)
+			++line->cursor_position;
+		while (is_validchar(line->cmd[line->cursor_position - PROMPT_LEN]) && line->cursor_position < line->len + PROMPT_LEN)
+			++line->cursor_position;
+	}
+	if (!(is_in_word))
+		--line->cursor_position;
+	else
+	shift_word_right(line);
+	while (is_validchar(line->cmd[line->cursor_position - PROMPT_LEN]) && line->cursor_position < line->len + PROMPT_LEN)
+		--line->cursor_position;
+	++line->cursor_position;
+	set_curpos(line);
 	return (0);
 }
