@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 15:53:04 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/23 19:22:23 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/26 18:48:21 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,9 +189,11 @@ void 	tmp_prompt()
 void 	term_get_line()
 {
 	t_line	*line;
+	T_BOOL	use_multilines;
 	int		key_pressed;
 
 	line = init_new_line();
+	use_multilines = FALSE;
 	signal(SIGINT, sig_handler);
 	tmp_prompt();
 	while (1)
@@ -200,9 +202,19 @@ void 	term_get_line()
 
 		// basic, insert & delete char
 		if (key_pressed >= 32 && key_pressed <= 126)
-		insert_char(line, key_pressed);
+		{
+			if (!use_multilines)
+			insert_char(line, key_pressed);
+			else
+			multi_line_manager(line, FALSE, key_pressed, FALSE);
+		}
 		else if (key_pressed == KEY_DC || key_pressed == 127)
-		delete_char(line, key_pressed);
+		{
+			if (!use_multilines)
+			delete_char(line, key_pressed);
+			else
+			multi_line_manager(line, FALSE, key_pressed, FALSE);
+		}
 
 		// move cursor left / right
 		else if (key_pressed == KEY_LEFT)
@@ -239,9 +251,9 @@ void 	term_get_line()
 		copy_paste_manager(line, FALSE, 2);
 
 		else if (key_pressed == KEY_SHIFT_UP)
-		multi_line_manager(line, TRUE, FALSE);
+		use_multilines = multi_line_manager(line, TRUE, 0, FALSE);
 		else if (key_pressed == KEY_SHIFT_DOWN)
-		multi_line_manager(line, FALSE, FALSE);
+		use_multilines = multi_line_manager(line, FALSE, 0, FALSE);
 
 		// clear
 		else if (key_pressed == KEY_CTRLL)
@@ -256,10 +268,10 @@ void 	term_get_line()
 		else if (key_pressed == '\n')
 		{
 			//insert_char(line, key_pressed);
-			printf("\ncmd line [%s]\n", line->cmd);
+			multi_line_manager(line, FALSE, 0, TRUE);
 			add_in_history(line->cmd);
 			history_manager(line, FALSE, TRUE);
-			multi_line_manager(line, FALSE, TRUE);
+			printf("\ncmd line [%s]\n", line->cmd);
 			break ;
 		}
 	}

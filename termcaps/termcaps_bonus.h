@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 17:07:13 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/23 19:21:59 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/26 18:47:17 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@
 
 # define PROMPT_LEN 3
 
+# define MAX_MULTI_LINE_ROW 9
 
 # define HIST_FILE_NAME ".minishell_history.hist"
 
@@ -119,9 +120,6 @@ typedef	struct	s_line
 
 	// copy line
 	char		copy_cmd[MAX_LINE_LEN];
-
-	// multi line
-	t_size		ml_position;
 }				t_line;
 
 typedef struct s_term
@@ -144,6 +142,7 @@ int		exit_error(char *str);
 void 	sig_handler(int signal);
 char	*ft_newstr(int size);
 int		term_putchar(int c);
+int			get_next_line(int fd, char **line);
 
 // Line utils
 
@@ -156,7 +155,7 @@ t_line	*init_new_line();
 void 	init_line_position(t_line *line);
 void	insert_char(t_line *line, int key_pressed);
 void	delete_char(t_line *line, int key_pressed);
-void	ft_putstr_fd(char const *s, int fd);
+// void	ft_putstr_fd(char const *s, int fd);
 void 	delete_full_line(t_line *line);
 void 	insert_full_line(t_line *line, char *str);
 
@@ -192,6 +191,12 @@ void 	swap_index(int **index);
 
 // Multi line edition
 
-int		multi_line_manager(t_line *line, T_BOOL up, T_BOOL reset);
+int		multi_line_manager(t_line *line, T_BOOL up, char key_pressed, T_BOOL reset);
+void 	clear_multi_line_cmd(t_line **ml_lines);
+void	ml_delete_char(t_line *line, int key_pressed);
+void 	ml_refresh_lines(t_line *line);
+void 	convert_multilines_to_line(t_line **ml_lines, t_line *line);
+void 	insert_char_in_line(t_line **ml_lines, int start_y, int y, int key_pressed);
+void 	delete_char_in_line(t_line **ml_lines, int start_y, int y, int key_pressed);
 
 #endif

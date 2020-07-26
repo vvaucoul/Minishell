@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 16:49:32 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/23 18:47:09 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/26 18:38:13 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ static void 	paste_line(t_line *line, int *index)
 	int i;
 
 	i = 0;
+	(void)index;
 	while (line->copy_cmd[i])
 	{
 		insert_char(line, line->copy_cmd[i]);
@@ -61,7 +62,6 @@ void 	copy_paste_manager(t_line *line, T_BOOL set_index, int mode)
 	static void 	(*pf[])(t_line *, int *) = {copy_line, cut_line, paste_line};
 	static int		index[2] = {-1, -1};
 	static T_BOOL	ac_index = 0;
-	int				tmp;
 
 	if (set_index && line->copy_cmd[0] == 0)
 	{

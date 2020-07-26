@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/20 16:42:45 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/20 18:56:34 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/26 18:37:04 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ int		term_putchar(int c)
 	return (write(0, &c, 1));
 }
 
-void	ft_putstr_fd(char const *s, int fd)
-{
-	if (!s)
-		return ;
-	write(fd, s, strlen(s));
-}
+// void	ft_putstr_fd(char const *s, int fd)
+// {
+// 	if (!s)
+// 		return ;
+// 	write(fd, s, strlen(s));
+// }

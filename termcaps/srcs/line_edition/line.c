@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/20 16:44:41 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/23 15:57:56 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/26 18:35:39 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void 	init_line_position(t_line *line)
 	i = 2;
 	line->start.row = atoi(answer + i);
 	while (isdigit(answer[i]))
-	i++;
+		i++;
 	line->start.col = atoi(answer + i + 1);
 }
 
@@ -97,7 +97,7 @@ void 	insert_full_line(t_line *line, char *str)
 
 	i = 0;
 	if (!str)
-		return ;
+	return ;
 	while (str[i])
 	{
 		insert_char(line, str[i]);
