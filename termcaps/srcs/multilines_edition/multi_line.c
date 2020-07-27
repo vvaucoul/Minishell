@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 19:12:49 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/26 18:54:10 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/27 18:06:47 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ static void display_prompt_line(int line)
 static void update_cursor_position(t_size cp)
 {
 	tputs(tgoto(tgetstr("cm", NULL), cp.row, cp.col), 0, &term_putchar);
-	// tputs(tgoto(tgetstr("cm", NULL), PROMPT_LEN + 1, line), 0, &term_putchar);
 }
 
 // static void reset_lines(t_line *line)
@@ -61,38 +60,39 @@ static void update_cursor_position(t_size cp)
 // 	update_cursor_position(line);
 // }
 
-static t_line	**init_multilines(t_line *master)
+static int init_multilines(t_line **ml_lines, t_line *master)
 {
-	t_line		**ml_lines;
-	int			i;
-	int			j;
+	int					i;
+	int					j;
 
-	ml_lines = (t_line **)malloc(sizeof(t_line *) * MAX_MULTI_LINE_ROW + 1);
 	i = 0;
 	while (i <= MAX_MULTI_LINE_ROW)
 	{
 		if (!(ml_lines[i] = malloc(sizeof(t_line))))
-			return (NULL);
+		return (-1);
+		ml_lines[i]->len = 0;
 		ml_lines[i]->start.row = master->start.row + i;
 		ml_lines[i]->start.col = master->start.col;
 		ml_lines[i]->cursor_position = PROMPT_LEN;
+		//	printf("ml_lines[%d] INIT\n", i);
 		j = -1;
 		while (j++ < MAX_LINE_LEN)
-			ml_lines[i]->cmd[j] = '\0';
+		ml_lines[i]->cmd[j] = '\0';
 		//init_line_position(ml_lines[i]);
 		++i;
 	}
-	return (ml_lines);
+	if (ft_strcmp(master->cmd, ""))
+		ml_lines[0] = master;
+	return (0);
 }
 
-static int free_lines(t_line **ml_lines)
+static int free_lines(t_line **ml_lines, int max)
 {
 	int i;
 
 	i = 0;
-	while (i <= MAX_MULTI_LINE_ROW)
+	while (i < max)
 	{
-		// cause crash, idk why
 		//free(ml_lines[i]);
 		++i;
 	}
@@ -100,49 +100,43 @@ static int free_lines(t_line **ml_lines)
 	return (TRUE);
 }
 
-int		multi_line_manager(t_line *line, T_BOOL up, char key_pressed, T_BOOL reset)
+int		multi_line_manager(t_line *line, char key_pressed, int state)
 {
 	static	T_BOOL	init = FALSE;
 	static	int		y = 0;
 	static	int		start_y = 0;
-	t_line			**ml_lines;
+	static	t_line	*ml_lines;
 
 	// new system with one line per line
 
 	// Init & Reset //
 	if (!(init++))
 	{
-		ml_lines = init_multilines(line);
+		init_multilines(&ml_lines, line);
 		y = line->start.row;
 		start_y = y;
 	}
-	if (reset)
+	if (state == MLM_RESET)
 	{
 		init = FALSE;
-		convert_multilines_to_line(ml_lines, line);
-		clear_multi_line_cmd(ml_lines);
-		free_lines(ml_lines);
+		convert_multilines_to_line(&ml_lines, line);
+		clear_multi_line_cmd(ml_lines, start_y, y);
+		free_lines(&ml_lines, y - start_y);
 		return (FALSE);
 	}
 
 	// Manage Key with lines
-	if (key_pressed != 0)
+	if (key_pressed != 0 && (state == MLM_ADD_KEY || state == MLM_REMOVE_KEY))
 	{
 		if (key_pressed >= 32 && key_pressed <= 126)
-		{
-			insert_char_in_line(ml_lines, start_y, y, key_pressed);
-
-		}
+			insert_char_in_line(&ml_lines, start_y, y, key_pressed);
 		else if (key_pressed == 127)
-		{
-			delete_char_in_line(ml_lines, start_y, y, key_pressed);
-		}
-
+			delete_char_in_line(&ml_lines, start_y, y, key_pressed);
 		return (TRUE);
 	}
 
 	// Move cursor [Up & Down]
-	if (up)
+	if (state == MLM_UP)
 	{
 		if (y > start_y)
 		{
@@ -154,7 +148,7 @@ int		multi_line_manager(t_line *line, T_BOOL up, char key_pressed, T_BOOL reset)
 			update_cursor_position((t_size){PROMPT_LEN, y - 1});
 		}
 	}
-	else if (y < start_y + MAX_MULTI_LINE_ROW)
+	else if ((state == MLM_DOWN) && (y < start_y + MAX_MULTI_LINE_ROW))
 	{
 		tputs(tgoto(tgetstr("cm", NULL), 0, y - 1), 0, &term_putchar);
 		tputs(tgetstr("do", NULL), 0, &term_putchar);
@@ -163,58 +157,6 @@ int		multi_line_manager(t_line *line, T_BOOL up, char key_pressed, T_BOOL reset)
 		update_cursor_position((t_size){PROMPT_LEN, y - 1});
 	}
 	else
-	update_cursor_position((t_size){PROMPT_LEN, y - 1});
-
+		update_cursor_position((t_size){PROMPT_LEN, y - 1});
 	return (TRUE);
-
-	// old system with one line
-
-
-	/*
-	// autres touches peuvent rest, a faire
-	if (reset)
-	{
-	convert_multilines_to_line(lines, line);
-	clear_multi_line_cmd(line);
-	reset_lines(line);
-	init = FALSE;
-	return (0);
-}
-if (!(init))
-{
-lines = init_multilines();
-line->ml_position = line->start;
-init = TRUE;
-}
-
-
-// clear line
-if (line->ml_position.row != line->start.row)
-{
-tputs(tgoto(tgetstr("cm", NULL), 0, line->ml_position.row - 1), 0, &term_putchar);
-}
-
-if (up)
-{
-if (line->ml_position.row > line->start.row)
-{
-tputs(tgetstr("up", NULL), 0, &term_putchar);
---line->ml_position.row;
-if (line->ml_position.row != line->start.row)
-display_prompt_line(line->ml_position.row - line->start.row);
-update_cursor_position(line);
-}
-}
-else if ((line->ml_position.row - line->start.row) < MAX_MULTI_LINE_ROW)
-{
-tputs(tgetstr("do", NULL), 0, &term_putchar);
-++line->ml_position.row;
-display_prompt_line(line->ml_position.row - line->start.row);
-update_cursor_position(line);
-insert_nlc(line, 10);
-}
-else
-update_cursor_position(line);
-*/
-return (0);
 }

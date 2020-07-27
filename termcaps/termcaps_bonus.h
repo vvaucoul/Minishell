@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 17:07:13 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/26 18:47:17 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/27 18:04:54 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,17 +87,65 @@
 # define KEY_CTRLL 12
 # define KEY_SHIFT 27
 
-# define TERM_KEY_RIGHT '^[[C'
+// # define TERM_KEY_RIGHT '^[[C'
+
+/*
+**	DEFINE LINE
+*/
 
 # define MAX_KEY_LEN 4
 # define ADD_KEY_SHIFT_LEN 2
 # define MAX_LINE_LEN 4096
 
+/*
+**	DEFINE TERM
+*/
+
 # define PROMPT_LEN 3
 
-# define MAX_MULTI_LINE_ROW 9
+
+/*
+** DEFINE HISTORY
+*/
 
 # define HIST_FILE_NAME ".minishell_history.hist"
+
+/*
+**	DEFINE MULTI LINE MANAGER
+*/
+
+# define MAX_MULTI_LINE_ROW 	9
+
+# define MLM_NOTHING 			0
+# define MLM_UP 				1
+# define MLM_DOWN 				2
+# define MLM_RESET 				3
+# define MLM_ADD_KEY 			4
+# define MLM_REMOVE_KEY			5
+# define MLM_CM_LEFT 			6
+# define MLM_CM_RIGHT 			7
+# define MLM_HOME 				8
+# define MLM_END 				9
+# define MLM_SW_LEFT 			10
+# define MLM_SW_RIGHT 			11
+
+
+// Manager
+// state
+// = 0 => do nothing
+// = 1 => Up
+// = 2 => down
+// = 3 => reset
+// = 4 => add key
+// = 5 => remove key
+// = 6 => cursor motion left
+// = 7 => cursor motion right
+// = 8 => home (start line)
+// = 9 => end (end line)
+// = 10 => shift word left
+// = 11 => shift word right
+//	add other things like copy cut paste, clear and other
+
 
 // tmp
 
@@ -136,13 +184,33 @@ t_term	*get_term_struct();
 int		tc_putc(int c);
 int		termios_reset_term();
 
+/*
+**	Termios
+*/
+
+int	termios_reset_term();
+int	termios_init();
+void term_get_info();
+int	termcaps_init();
+
 // utils
 
 int		exit_error(char *str);
 void 	sig_handler(int signal);
 char	*ft_newstr(int size);
 int		term_putchar(int c);
+
+/*
+**	Read & CMP Keys
+*/
+
+int		get_key();
+int		cmp_keys(t_line *line, int key_pressed);
+
+// tmp
+
 int			get_next_line(int fd, char **line);
+int			ft_strcmp(char *, char*);
 
 // Line utils
 
@@ -155,7 +223,6 @@ t_line	*init_new_line();
 void 	init_line_position(t_line *line);
 void	insert_char(t_line *line, int key_pressed);
 void	delete_char(t_line *line, int key_pressed);
-// void	ft_putstr_fd(char const *s, int fd);
 void 	delete_full_line(t_line *line);
 void 	insert_full_line(t_line *line, char *str);
 
@@ -191,8 +258,9 @@ void 	swap_index(int **index);
 
 // Multi line edition
 
-int		multi_line_manager(t_line *line, T_BOOL up, char key_pressed, T_BOOL reset);
-void 	clear_multi_line_cmd(t_line **ml_lines);
+int 	term_get_multiline(t_line *line, T_BOOL *use_multilines, int key_pressed);
+int		multi_line_manager(t_line *line, char key_pressed, int state);
+void 	clear_multi_line_cmd(t_line *ml_lines, int y, int max);
 void	ml_delete_char(t_line *line, int key_pressed);
 void 	ml_refresh_lines(t_line *line);
 void 	convert_multilines_to_line(t_line **ml_lines, t_line *line);

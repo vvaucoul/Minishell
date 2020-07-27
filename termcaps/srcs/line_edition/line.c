@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/20 16:44:41 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/26 18:35:39 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/27 15:00:35 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	insert_char(t_line *line, int key_pressed)
 	line_shift_right(line);
 	line->cmd[line->cursor_position - PROMPT_LEN] = key_pressed;
 	++line->len;
-	line->cursor_position++;
+	++line->cursor_position;
 	tputs(tgetstr("im", NULL), 1, &term_putchar);
 	write(0, &key_pressed, 1);
 	tputs(tgetstr("ei", NULL), 1, &term_putchar);

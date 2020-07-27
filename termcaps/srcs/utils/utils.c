@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/20 16:42:45 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/26 18:37:04 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/27 17:34:57 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_term	*get_term_struct()
 
 int	exit_error(char *str)
 {
-	write (1, str, strlen(str)); // function
+	write (1, str, ft_strlen(str));
 	exit(EXIT_FAILURE);
 }
 
@@ -46,7 +46,7 @@ char	*ft_newstr(int size)
 	if (!(str = malloc(sizeof(char) * (size + 1))))
 		return (NULL);
 	i = -1;
-	while (i++ <= size)
+	while (i++ < size)
 		str[i] = '\0';
 	return (str);
 }
@@ -55,10 +55,3 @@ int		term_putchar(int c)
 {
 	return (write(0, &c, 1));
 }
-
-// void	ft_putstr_fd(char const *s, int fd)
-// {
-// 	if (!s)
-// 		return ;
-// 	write(fd, s, strlen(s));
-// }

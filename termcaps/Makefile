@@ -6,7 +6,7 @@
 #    By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/26 18:34:22 by vvaucoul          #+#    #+#              #
-#    Updated: 2020/07/26 18:45:49 by vvaucoul         ###   ########.fr        #
+#    Updated: 2020/07/27 17:28:17 by vvaucoul         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ SRCS			=	$(wildcard srcs/copy_paste/*.c)	\
 					$(wildcard srcs/multilines_edition/*.c)	\
 					$(wildcard srcs/utils/*.c)	\
 					$(wildcard srcs/*.c)	\
+					$(wildcard srcs/read/*.c)	\
 
 OBJS			=	$(SRCS:.c=.o)
 BONUS_OBJS		=	$(BONUS_SRCS:.c=.o)
