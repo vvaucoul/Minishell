@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 19:58:21 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/23 16:59:52 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/27 18:08:18 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ int		add_in_history(char *str)
 	int fd;
 
 	fd = open_history_file();
-	if (strcmp(str, "\0")) // function
+	if (ft_strcmp(str, "\0"))
 	{
-		write(fd, str, strlen(str)); //function
+		write(fd, str, ft_strlen(str));
 		write(fd, "\n", 1);
 	}
 	close(fd);

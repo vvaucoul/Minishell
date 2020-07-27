@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 19:09:41 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/23 15:57:20 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/27 18:07:59 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		line_shift_right(t_line *line)
 	int		len;
 
 	start = line->cursor_position - PROMPT_LEN - 1;
-	len = strlen(line->cmd); //function
+	len = ft_strlen(line->cmd);
 	while (len > start)
 	{
 		line->cmd[len + 1] = line->cmd[len];
@@ -35,7 +35,7 @@ int		line_shift_left(t_line *line)
 	int		len;
 
 	start = line->cursor_position - PROMPT_LEN;
-	len = strlen(line->cmd); //function
+	len = ft_strlen(line->cmd);
 	while (start < len)
 	{
 		line->cmd[start] = line->cmd[start + 1];
