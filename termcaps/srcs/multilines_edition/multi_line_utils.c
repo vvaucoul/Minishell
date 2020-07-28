@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 17:00:07 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/27 17:20:13 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/28 17:53:59 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,27 +68,24 @@ void 	convert_multilines_to_line(t_line **ml_lines, t_line *line)
 	line->cmd[j] = '\0';
 }
 
-void 	insert_char_in_line(t_line **ml_lines, int start_y, int y, int key_pressed)
+void 	insert_char_in_line(t_line **ml_lines, int index, int key_pressed)
 {
-	int index;
-
-	index = y - start_y;
 	if (ml_lines[index]->len + 1 >= MAX_LINE_LEN)
 	return ;
 	line_shift_right(ml_lines[index]);
 	ml_lines[index]->cmd[ml_lines[index]->cursor_position - PROMPT_LEN] = key_pressed;
 	++ml_lines[index]->len;
 	++ml_lines[index]->cursor_position;
+
+	printf("\nline cursor [%d]\n", ml_lines[index]->cursor_position);
+
 	tputs(tgetstr("im", NULL), 1, &term_putchar);
 	write(0, &key_pressed, 1);
 	tputs(tgetstr("ei", NULL), 1, &term_putchar);
 }
 
-void 	delete_char_in_line(t_line **ml_lines, int start_y, int y, int key_pressed)
+void 	delete_char_in_line(t_line **ml_lines, int index, int key_pressed)
 {
-	int index;
-
-	index = y - start_y;
 	cursor_to_left(ml_lines[index]);
 	if (ml_lines[index]->cursor_position == ml_lines[index]->len + PROMPT_LEN)
 	return ;

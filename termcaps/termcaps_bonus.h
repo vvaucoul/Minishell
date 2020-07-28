@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 17:07:13 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/27 18:04:54 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/28 17:56:13 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -264,7 +264,12 @@ void 	clear_multi_line_cmd(t_line *ml_lines, int y, int max);
 void	ml_delete_char(t_line *line, int key_pressed);
 void 	ml_refresh_lines(t_line *line);
 void 	convert_multilines_to_line(t_line **ml_lines, t_line *line);
-void 	insert_char_in_line(t_line **ml_lines, int start_y, int y, int key_pressed);
-void 	delete_char_in_line(t_line **ml_lines, int start_y, int y, int key_pressed);
+void 	insert_char_in_line(t_line **ml_lines, int index, int key_pressed);
+void 	delete_char_in_line(t_line **ml_lines, int index, int key_pressed);
+
+void 	ml_cm_left(t_line **ml_lines, int index);
+void 	ml_cm_right(t_line **ml_lines, int index);
+void 	ml_cm_start(t_line **ml_lines, int index);
+void 	ml_cm_end(t_line **ml_lines, int index);
 
 #endif

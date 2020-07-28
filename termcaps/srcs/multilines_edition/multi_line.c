@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 19:12:49 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/27 18:07:23 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/07/28 17:53:10 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ static int init_multilines(t_line **ml_lines, t_line *master)
 		++i;
 	}
 	if (ft_strcmp(master->cmd, ""))
-		ml_lines[0] = master;
+	ml_lines[0] = master;
 	return (0);
 }
 
@@ -129,11 +129,22 @@ int		multi_line_manager(t_line *line, char key_pressed, int state)
 	if (key_pressed != 0 && (state == MLM_ADD_KEY || state == MLM_REMOVE_KEY))
 	{
 		if (key_pressed >= 32 && key_pressed <= 126)
-			insert_char_in_line(&ml_lines, start_y, y, key_pressed);
+		insert_char_in_line(&ml_lines, y - start_y, key_pressed);
 		else if (key_pressed == 127)
-			delete_char_in_line(&ml_lines, start_y, y, key_pressed);
+		delete_char_in_line(&ml_lines, y - start_y, key_pressed);
 		return (TRUE);
 	}
+
+	// Multi line cursor motion
+	if (state == MLM_CM_LEFT)
+	ml_cm_left(&ml_lines, y - start_y);
+	else if (state == MLM_CM_RIGHT)
+	ml_cm_right(&ml_lines, y - start_y);
+
+	if (state == MLM_HOME)
+	ml_cm_start(&ml_lines, y - start_y);
+	if (state == MLM_HOME)
+	ml_cm_end(&ml_lines, y - start_y);
 
 	// Move cursor [Up & Down]
 	if (state == MLM_UP)
@@ -157,6 +168,6 @@ int		multi_line_manager(t_line *line, char key_pressed, int state)
 		update_cursor_position((t_size){PROMPT_LEN, y - 1});
 	}
 	else
-		update_cursor_position((t_size){PROMPT_LEN, y - 1});
+	update_cursor_position((t_size){PROMPT_LEN, y - 1});
 	return (TRUE);
 }
