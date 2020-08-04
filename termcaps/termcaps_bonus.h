@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 17:07:13 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/28 17:56:13 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/08/04 16:29:04 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -271,5 +271,8 @@ void 	ml_cm_left(t_line **ml_lines, int index);
 void 	ml_cm_right(t_line **ml_lines, int index);
 void 	ml_cm_start(t_line **ml_lines, int index);
 void 	ml_cm_end(t_line **ml_lines, int index);
+
+int		mlm_shift_word_left(t_line **ml_lines, int index);
+int		mlm_shift_word_right(t_line **ml_lines, int index);
 
 #endif

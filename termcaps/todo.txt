@@ -21,3 +21,24 @@
 [X] Écrire ET éditer une commande sur plusieurs lignes.
 	Dans cette situation, nousadorerions que CTRL+haut et CTRL + bas permettent de se
 	déplacer entre leslignes tout en restant dans la même colonne, ou la plus appropriée
+
+
+DEBUG :
+
+multiline : [V] deplacement curseur
+			[V] home end
+			[V] delete char
+			[V] editer la ligne ou le curseur est placé
+			[V] ctrl g ctrl d
+			[X] copier couper coller
+
+			[X] Fixer le multiline quand on est tout en bas du terminal
+
+FIX LEAKS !
+
+[V] Copy / Paste
+[V] Cursor motion
+[V] history
+[V] line edition
+
+[X] multilines_edition

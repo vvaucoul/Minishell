@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 19:58:21 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/27 18:08:18 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/08/04 16:40:09 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,9 @@ static int get_history_line(t_line *line, int line_to_found)
 			return (0);
 		}
 		++ac_line;
+		free(buffer);
 	}
+	free(buffer);
 	close(fd);
 	return (0);
 }
@@ -74,7 +76,11 @@ static int		get_last_history_line()
 	fd = open_history_file();
 	line = 0;
 	while (get_next_line(fd, &buff) > 0)
-	++line;
+	{
+		++line;
+		free(buff);
+	}
+	free(buff);
 	close(fd);
 	return (line);
 }

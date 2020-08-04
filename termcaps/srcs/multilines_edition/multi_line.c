@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 19:12:49 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/28 17:53:10 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/08/04 16:47:18 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,12 @@
 
 static void display_prompt_line(int line)
 {
-	write(0, ft_itoa(line), ft_strlen(ft_itoa(line)));
+	char *result;
+
+	result = ft_itoa(line);
+	write(0, result, ft_strlen(result));
 	write(0, ">", 1);
+	free(result);
 }
 
 static void update_cursor_position(t_size cp)
@@ -86,17 +90,17 @@ static int init_multilines(t_line **ml_lines, t_line *master)
 	return (0);
 }
 
-static int free_lines(t_line **ml_lines, int max)
+static int free_lines(t_line *ml_lines, int max)
 {
 	int i;
 
 	i = 0;
 	while (i < max)
 	{
-		//free(ml_lines[i]);
+//		free(ml_lines[i]);
 		++i;
 	}
-	//free(ml_lines);
+	// free(ml_lines);
 	return (TRUE);
 }
 
@@ -112,16 +116,18 @@ int		multi_line_manager(t_line *line, char key_pressed, int state)
 	// Init & Reset //
 	if (!(init++))
 	{
+		// printf("mlm INIT\n");
 		init_multilines(&ml_lines, line);
 		y = line->start.row;
 		start_y = y;
 	}
 	if (state == MLM_RESET)
 	{
+		// printf("mlm RESET\n");
 		init = FALSE;
 		convert_multilines_to_line(&ml_lines, line);
 		clear_multi_line_cmd(ml_lines, start_y, y);
-		free_lines(&ml_lines, y - start_y);
+		free_lines(ml_lines, y - start_y);
 		return (FALSE);
 	}
 
@@ -136,15 +142,29 @@ int		multi_line_manager(t_line *line, char key_pressed, int state)
 	}
 
 	// Multi line cursor motion
-	if (state == MLM_CM_LEFT)
-	ml_cm_left(&ml_lines, y - start_y);
-	else if (state == MLM_CM_RIGHT)
-	ml_cm_right(&ml_lines, y - start_y);
+	if (state == MLM_CM_LEFT || state == MLM_CM_RIGHT || state == MLM_HOME || state == MLM_END)
+	{
+		if (state == MLM_CM_LEFT)
+		ml_cm_left(&ml_lines, y - start_y);
+		else if (state == MLM_CM_RIGHT)
+		ml_cm_right(&ml_lines, y - start_y);
 
-	if (state == MLM_HOME)
-	ml_cm_start(&ml_lines, y - start_y);
-	if (state == MLM_HOME)
-	ml_cm_end(&ml_lines, y - start_y);
+		if (state == MLM_HOME)
+		ml_cm_start(&ml_lines, y - start_y);
+		else if (state == MLM_END)
+		ml_cm_end(&ml_lines, y - start_y);
+		return (TRUE);
+	}
+
+	// Shift words
+	if (state == MLM_SW_LEFT || state == MLM_SW_RIGHT)
+	{
+		if (state == MLM_SW_LEFT)
+		mlm_shift_word_left(&ml_lines, y - start_y);
+		if (state == MLM_SW_RIGHT)
+		mlm_shift_word_right(&ml_lines, y - start_y);
+		return (TRUE);
+	}
 
 	// Move cursor [Up & Down]
 	if (state == MLM_UP)
