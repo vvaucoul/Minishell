@@ -6,11 +6,17 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/27 17:29:17 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/08/04 15:46:50 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/08/05 15:41:28 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "termcaps_bonus.h"
+
+static T_BOOL	enought_lines_to_enable_ml(t_line *line)
+{
+	return (line->start.row + MAX_MULTI_LINE_ROW <
+		tgetnum("li") ? TRUE : FALSE);
+}
 
 static T_BOOL	enable_multiline_manager(int key_pressed)
 {
@@ -23,6 +29,11 @@ int 	term_get_multiline(t_line *line, T_BOOL *use_multilines, int key_pressed)
 {
 	if (!*use_multilines)
 		*use_multilines = enable_multiline_manager(key_pressed);
+	if (!(enought_lines_to_enable_ml(line)) && (*use_multilines))
+	{
+		*use_multilines = FALSE;
+		return (FALSE);
+	}
 	if (!*use_multilines)
 		return (FALSE);
 	/*

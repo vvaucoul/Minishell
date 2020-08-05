@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 19:12:49 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/08/04 16:47:18 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/08/05 15:46:19 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,10 @@ static int init_multilines(t_line **ml_lines, t_line *master)
 		++i;
 	}
 	if (ft_strcmp(master->cmd, ""))
-	ml_lines[0] = master;
+	{
+		free(ml_lines[0]);
+		ml_lines[0] = master;
+	}
 	return (0);
 }
 
@@ -97,7 +100,7 @@ static int free_lines(t_line *ml_lines, int max)
 	i = 0;
 	while (i < max)
 	{
-//		free(ml_lines[i]);
+		//free(ml_lines[i]);
 		++i;
 	}
 	// free(ml_lines);
