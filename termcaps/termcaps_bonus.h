@@ -6,40 +6,47 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 17:07:13 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/08/04 16:29:04 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/08/06 15:58:20 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TERMCAPS_BONUS
 # define TERMCAPS_BONUS
 
-
 /*
 ** Includes
 */
 
-#include <stdlib.h>
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <sys/wait.h>
-#include <sys/time.h>
-#include <sys/resource.h>
-#include <sys/wait.h>
-#include <signal.h>
-#include <dirent.h>
-#include <errno.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <fcntl.h>
+# include <sys/wait.h>
+# include <sys/time.h>
+# include <sys/resource.h>
+# include <sys/wait.h>
+# include <signal.h>
+# include <dirent.h>
+# include <errno.h>
 
-#include "libft.h"
+# include "libft.h"
 
-#include <stdio.h>
-#include <string.h>
-#include <ctype.h>
+# include <stdio.h>
+# include <string.h>
+# include <ctype.h>
 
-#include <curses.h>
-#include <termios.h>
-#include <term.h>
+# include <curses.h>
+# include <termios.h>
+# include <term.h>
+
+/*
+**	Defines
+*/
+
+/*
+** Key codes Defines (get key from keyboard)
+*/
 
 # define KEY_CODE_UP "\x1b\x5b\x41\0"
 # define KEY_CODE_DO "\x1b\x5b\x42\0"
@@ -62,11 +69,13 @@
 # define KEY_CODE_SHIFT_UP		"\x1b\x32\x41\x3b\0"
 # define KEY_CODE_SHIFT_DOWN	"\x1b\x32\x42\x3b\0"
 
-// copy cut & paste
-// position 1 & 2 : shift + I [shift index]
-// copier : shift + C [shift copy]		MODE -> [0]
-// couper : shift + X [shift cut]		MODE -> [1]
-// coller : shift + V [shift paste]		MODE -> [2]
+/*
+** copy cut & paste
+** position 1 & 2 : shift + I [shift index]
+** copier : shift + C [shift copy]		MODE -> [0]
+** couper : shift + X [shift cut]		MODE -> [1]
+** coller : shift + V [shift paste]		MODE -> [2]
+*/
 
 # define KEY_CODE_INSERT_INDEX "\x49\0"
 # define KEY_CODE_COPY "\x43\0"
@@ -86,8 +95,6 @@
 
 # define KEY_CTRLL 12
 # define KEY_SHIFT 27
-
-// # define TERM_KEY_RIGHT '^[[C'
 
 /*
 **	DEFINE LINE
@@ -206,11 +213,6 @@ int		term_putchar(int c);
 
 int		get_key();
 int		cmp_keys(t_line *line, int key_pressed);
-
-// tmp
-
-int			get_next_line(int fd, char **line);
-int			ft_strcmp(char *, char*);
 
 // Line utils
 

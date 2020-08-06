@@ -6,7 +6,7 @@
 #    By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/26 18:34:22 by vvaucoul          #+#    #+#              #
-#    Updated: 2020/07/27 17:28:17 by vvaucoul         ###   ########.fr        #
+#    Updated: 2020/08/06 15:57:26 by vvaucoul         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ SRCS			=	$(wildcard srcs/copy_paste/*.c)	\
 OBJS			=	$(SRCS:.c=.o)
 BONUS_OBJS		=	$(BONUS_SRCS:.c=.o)
 CFLAGS			=	-g3 #-Wall -Wextra -Werror
-HEADERS			=	../../libft/
+HEADERS			=	../libft/
 OPTION			=	$(CFLAGS) -I$(HEADERS) -I.
 %.o : %.c
 	@gcc $(OPTION) -I. -c $< -o ${<:.c=.o}
