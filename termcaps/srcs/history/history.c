@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 19:58:21 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/08/04 16:40:09 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/08/06 16:45:46 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Utils
 */
 
-static int		open_history_file()
+static int		open_history_file(void)
 {
 	return (open(HIST_FILE_NAME, O_APPEND | O_RDWR | O_CREAT, 0644));
 }
@@ -25,7 +25,7 @@ static int		open_history_file()
 **	Append line to history file
 */
 
-int		add_in_history(char *str)
+int				add_in_history(char *str)
 {
 	int fd;
 
@@ -43,7 +43,7 @@ int		add_in_history(char *str)
 **	Read lines
 */
 
-static int get_history_line(t_line *line, int line_to_found)
+static int		get_history_line(t_line *line, int line_to_found)
 {
 	int		fd;
 	char	*buffer;
@@ -67,7 +67,7 @@ static int get_history_line(t_line *line, int line_to_found)
 	return (0);
 }
 
-static int		get_last_history_line()
+int				get_last_history_line(void)
 {
 	int			fd;
 	char		*buff;
@@ -90,34 +90,15 @@ static int		get_last_history_line()
 **	up_down = 0 --> down
 */
 
-int		history_manager(t_line *line, int up_down, int reset)
+int				history_manager(t_line *line, int up_down, int reset)
 {
-	static int init = 0;
-	static int hist_len = 0;
-	static int actu_hist_line = 0;
+	static int			init = 0;
+	static t_history	hist;
 
-	if (reset)
-	{
-		init = 0;
+	if (!(history_init(reset, &init, up_down, &hist)))
 		return (0);
-	}
-	if (!(init)++)
-	{
-		hist_len = get_last_history_line();
-		actu_hist_line = hist_len;
-	}
-	if (up_down)
-	{
-		if (actu_hist_line > 0)
-		--actu_hist_line;
-	}
-	else
-	{
-		if (actu_hist_line < hist_len)
-		++actu_hist_line;
-	}
 	delete_full_line(line);
 	line = init_new_line();
-	get_history_line(line, actu_hist_line);
+	get_history_line(line, hist.actu_hist_line);
 	return (0);
 }

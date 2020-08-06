@@ -6,13 +6,13 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 16:51:50 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/23 17:56:35 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/08/06 16:17:55 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "termcaps_bonus.h"
 
-void 	reset_copy_line(t_line *line)
+void		reset_copy_line(t_line *line)
 {
 	int i;
 
@@ -21,12 +21,12 @@ void 	reset_copy_line(t_line *line)
 		line->copy_cmd[i++] = '\0';
 }
 
-void 	insert_copy_character(t_line *line, int index, T_BOOL reset)
+void		insert_copy_character(t_line *line, int index, t_bool reset)
 {
 	static int i = 0;
 
 	if (index >= MAX_LINE_LEN)
-	return ;
+		return ;
 	if (reset)
 	{
 		i = 0;
@@ -37,12 +37,12 @@ void 	insert_copy_character(t_line *line, int index, T_BOOL reset)
 	++i;
 }
 
-T_BOOL	index_valids(int *index)
+t_bool		index_valids(int *index)
 {
 	return ((index[0] > 0 && index[1] > 0) ? TRUE : FALSE);
 }
 
-void swap_index(int **index)
+void		swap_index(int **index)
 {
 	int tmp;
 

@@ -6,17 +6,17 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/27 17:25:08 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/27 17:34:17 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/08/06 16:14:27 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "termcaps_bonus.h"
 
 /*
-**	Init
+**	Init Termios
 */
 
-int	termios_reset_term()
+int		termios_reset_term(void)
 {
 	struct termios	s_term;
 
@@ -27,7 +27,7 @@ int	termios_reset_term()
 	return (0);
 }
 
-int	termios_init()
+int		termios_init(void)
 {
 	struct termios s_term;
 
@@ -39,7 +39,7 @@ int	termios_init()
 	return (0);
 }
 
-void term_get_info()
+void	term_get_info(void)
 {
 	get_term_struct()->term_size.row = tgetnum("li");
 	get_term_struct()->term_size.col = tgetnum("co");
@@ -47,7 +47,7 @@ void term_get_info()
 	printf("term has [%d] columns\n", get_term_struct()->term_size.col);
 }
 
-int	termcaps_init()
+int		termcaps_init(void)
 {
 	int ret;
 

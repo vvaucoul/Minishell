@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/20 16:42:45 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/27 17:34:57 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/08/06 16:14:10 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,25 +16,25 @@
 ** Utils
 */
 
-void 	sig_handler(int signal)
+void	sig_handler(int signal)
 {
 	if (signal == SIGINT)
 	{
 		termios_reset_term();
-		exit (0);
+		exit(0);
 	}
 }
 
-t_term	*get_term_struct()
+t_term	*get_term_struct(void)
 {
 	static t_term	term;
 
 	return (&term);
 }
 
-int	exit_error(char *str)
+int		exit_error(char *str)
 {
-	write (1, str, ft_strlen(str));
+	write(1, str, ft_strlen(str));
 	exit(EXIT_FAILURE);
 }
 

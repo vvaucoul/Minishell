@@ -6,21 +6,21 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 15:53:04 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/08/06 15:51:40 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/08/06 16:47:03 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "termcaps_bonus.h"
 
-void 	tmp_prompt()
+void		tmp_prompt(void)
 {
 	write(0, "$> ", PROMPT_LEN);
 }
 
-void 	term_get_line()
+void		term_get_line(void)
 {
 	t_line	*line;
-	T_BOOL	use_multilines;
+	t_bool	use_multilines;
 	int		key_pressed;
 
 	line = init_new_line();
@@ -44,7 +44,7 @@ void 	term_get_line()
 **	Main
 */
 
-int main(int argc, char **argv)
+int			main(int argc, char **argv)
 {
 	termcaps_init();
 	term_get_info();
@@ -52,5 +52,5 @@ int main(int argc, char **argv)
 	term_get_line();
 	termios_reset_term();
 	system("leaks termcaps");
-	return 0;
+	return (0);
 }

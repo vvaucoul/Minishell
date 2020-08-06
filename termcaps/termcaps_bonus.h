@@ -6,12 +6,12 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 17:07:13 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/08/06 15:58:20 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/08/06 18:07:13 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TERMCAPS_BONUS
-# define TERMCAPS_BONUS
+#ifndef TERMCAPS_BONUS_H
+# define TERMCAPS_BONUS_H
 
 /*
 ** Includes
@@ -110,7 +110,6 @@
 
 # define PROMPT_LEN 3
 
-
 /*
 ** DEFINE HISTORY
 */
@@ -136,34 +135,42 @@
 # define MLM_SW_LEFT 			10
 # define MLM_SW_RIGHT 			11
 
+/*
+** Manager HELPER
+** state
+** = 0 => do nothing
+** = 1 => Up
+** = 2 => down
+** = 3 => reset
+** = 4 => add key
+** = 5 => remove key
+** = 6 => cursor motion left
+** = 7 => cursor motion right
+** = 8 => home (start line)
+** = 9 => end (end line)
+** = 10 => shift word left
+** = 11 => shift word right
+**	add other things like copy cut paste, clear and other
+*/
 
-// Manager
-// state
-// = 0 => do nothing
-// = 1 => Up
-// = 2 => down
-// = 3 => reset
-// = 4 => add key
-// = 5 => remove key
-// = 6 => cursor motion left
-// = 7 => cursor motion right
-// = 8 => home (start line)
-// = 9 => end (end line)
-// = 10 => shift word left
-// = 11 => shift word right
-//	add other things like copy cut paste, clear and other
+typedef int	t_bool;
+# define TRUE 1
+# define FALSE 0
 
+/*
+** Termcaps Structs
+*/
 
-// tmp
-
-typedef int T_BOOL;
-#define TRUE 1
-#define FALSE 0
-
-typedef struct s_size
+typedef	struct	s_history
 {
-	int row;
-	int	col;
+	int			hist_len;
+	int			actu_hist_line;
+}				t_history;
+
+typedef	struct	s_size
+{
+	int			row;
+	int			col;
 }				t_size;
 
 typedef	struct	s_line
@@ -172,109 +179,133 @@ typedef	struct	s_line
 	int			cursor_position;
 	int			len;
 	char		cmd[MAX_LINE_LEN];
-
-	// copy line
 	char		copy_cmd[MAX_LINE_LEN];
 }				t_line;
 
-typedef struct s_term
+typedef	struct	s_term
 {
-	t_size	term_size;
-	char	*term_type;
+	t_size		term_size;
+	char		*term_type;
 }				t_term;
 
 /*
 **	Function
 */
 
-t_term	*get_term_struct();
-int		tc_putc(int c);
-int		termios_reset_term();
+t_term			*get_term_struct();
+int				tc_putc(int c);
+int				termios_reset_term();
 
 /*
 **	Termios
 */
 
-int	termios_reset_term();
-int	termios_init();
-void term_get_info();
-int	termcaps_init();
+int				termios_reset_term();
+int				termios_init();
+void			term_get_info();
+int				termcaps_init();
 
-// utils
+/*
+**	utils
+*/
 
-int		exit_error(char *str);
-void 	sig_handler(int signal);
-char	*ft_newstr(int size);
-int		term_putchar(int c);
+int				exit_error(char *str);
+void			sig_handler(int signal);
+char			*ft_newstr(int size);
+int				term_putchar(int c);
 
 /*
 **	Read & CMP Keys
 */
 
-int		get_key();
-int		cmp_keys(t_line *line, int key_pressed);
+int				get_key();
+int				cmp_keys(t_line *line, int key_pressed);
 
-// Line utils
+/*
+** Line utils
+*/
 
-int		line_shift_right(t_line *line);
-int		line_shift_left(t_line *line);
+int				line_shift_right(t_line *line);
+int				line_shift_left(t_line *line);
 
-// Line
+/*
+** Line
+*/
 
-t_line	*init_new_line();
-void 	init_line_position(t_line *line);
-void	insert_char(t_line *line, int key_pressed);
-void	delete_char(t_line *line, int key_pressed);
-void 	delete_full_line(t_line *line);
-void 	insert_full_line(t_line *line, char *str);
+t_line			*init_new_line();
+void			init_line_position(t_line *line);
+void			insert_char(t_line *line, int key_pressed);
+void			delete_char(t_line *line, int key_pressed);
+void			delete_full_line(t_line *line);
+void			insert_full_line(t_line *line, char *str);
 
-// cursor
+/*
+** cursor
+*/
 
-void	set_curpos(t_line *line);
-void	cursor_to_end(t_line *line);
-void	cursor_to_start(t_line *line);
-void	cursor_to_left(t_line *line);
-void	cursor_to_right(t_line *line);
+void			set_curpos(t_line *line);
+void			cursor_to_end(t_line *line);
+void			cursor_to_start(t_line *line);
+void			cursor_to_left(t_line *line);
+void			cursor_to_right(t_line *line);
 
-// History
+/*
+** History
+*/
 
-int		add_in_history(char *str);
-int		history_manager(t_line *line, int up_down, int reset);
+int				add_in_history(char *str);
+int				history_manager(t_line *line, int up_down, int reset);
+int				history_init(int reset, int *init, int up_down,
+t_history *hist);
+int				get_last_history_line(void);
 
-// Shift word
+/*
+** Shift word
+*/
 
-int		shift_word_left(t_line *line);
-int		shift_word_right(t_line *line);
+int				shift_word_left(t_line *line);
+int				shift_word_right(t_line *line);
 
+/*
+** copy & paste line
+*/
 
-// copy & paste line
+void			copy_paste_manager(t_line *line, t_bool set_index, int mode);
 
-void 	copy_paste_manager(t_line *line, T_BOOL set_index, int mode);
+/*
+** copy & paste utils
+*/
 
-// copy & paste utils
+void			reset_copy_line(t_line *line);
+void			insert_copy_character(t_line *line, int index, t_bool reset);
+t_bool			index_valids(int *index);
+void			swap_index(int **index);
 
-void 	reset_copy_line(t_line *line);
-void 	insert_copy_character(t_line *line, int index, T_BOOL reset);
-T_BOOL	index_valids(int *index);
-void 	swap_index(int **index);
+/*
+** Multi line edition
+*/
 
-// Multi line edition
+int				term_get_multiline(t_line *line, t_bool *use_multilines,
+int key_pressed);
+int				multi_line_manager(t_line *line, char key_pressed, int state);
+void			clear_multi_line_cmd(t_line *ml_lines, int y, int max);
+void			ml_delete_char(t_line *line, int key_pressed);
+void			ml_refresh_lines(t_line *line);
+void			convert_multilines_to_line(t_line **ml_lines, t_line *line);
+void			insert_char_in_line(t_line **ml_lines, int index,
+int key_pressed);
+void			delete_char_in_line(t_line **ml_lines, int index,
+int key_pressed);
 
-int 	term_get_multiline(t_line *line, T_BOOL *use_multilines, int key_pressed);
-int		multi_line_manager(t_line *line, char key_pressed, int state);
-void 	clear_multi_line_cmd(t_line *ml_lines, int y, int max);
-void	ml_delete_char(t_line *line, int key_pressed);
-void 	ml_refresh_lines(t_line *line);
-void 	convert_multilines_to_line(t_line **ml_lines, t_line *line);
-void 	insert_char_in_line(t_line **ml_lines, int index, int key_pressed);
-void 	delete_char_in_line(t_line **ml_lines, int index, int key_pressed);
+void			ml_cm_left(t_line **ml_lines, int index);
+void			ml_cm_right(t_line **ml_lines, int index);
+void			ml_cm_start(t_line **ml_lines, int index);
+void			ml_cm_end(t_line **ml_lines, int index);
 
-void 	ml_cm_left(t_line **ml_lines, int index);
-void 	ml_cm_right(t_line **ml_lines, int index);
-void 	ml_cm_start(t_line **ml_lines, int index);
-void 	ml_cm_end(t_line **ml_lines, int index);
+int				mlm_shift_word_left(t_line **ml_lines, int index);
+int				mlm_shift_word_right(t_line **ml_lines, int index);
 
-int		mlm_shift_word_left(t_line **ml_lines, int index);
-int		mlm_shift_word_right(t_line **ml_lines, int index);
+void			display_prompt_line(int line);
+void			update_cursor_position(t_size cp);
 
 #endif
