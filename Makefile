@@ -66,10 +66,54 @@ HEADERS			=	./includes/
 OPTION			=	$(CFLAGS) -I$(HEADERS) -I./libft -I$(TERMCAPS_HEADER)
 USE_LIBS		=	
 
+# This is a minimal set of ANSI/VT100 color codes
+_END=$'\033[0m
+_BOLD=$'\033[1m
+_UNDER=$'\033[4m
+_REV=$'\033[7m
+
+# Colors
+_GREY=$'\033[30m
+_RED=$'\033[31m
+_GREEN=$'\033[32m
+_YELLOW=$'\033[33m
+_BLUE=$'\033[34m
+_PURPLE=$'\033[35m
+_CYAN=$'\033[36m
+_WHITE=$'\033[37m
+
+# Inverted, i.e. colored backgrounds
+_IGREY=$'\033[40m
+_IRED=$'\033[41m
+_IGREEN=$'\033[42m
+_IYELLOW=$'\033[43m
+_IBLUE=$'\033[44m
+_IPURPLE=$'\033[45m
+_ICYAN=$'\033[46m
+_IWHITE=$'\033[47m
+
+cool_art :
+
+	@echo "$(_BOLD)$(_GREEN)        :::   :::   ::::    :::  :::::::: "
+	@echo "      :+:+: :+:+:  :+:+:   :+: :+:    :+: "
+	@echo "    +:+ +:+:+ +:+ :+:+:+  +:+ +:+         "
+	@echo "   +#+  +:+  +#+ +#+ +:+ +#+ +#++:++#++   "
+	@echo "  +#+       +#+ +#+  +#+#+#        +#+    "
+	@echo " #+#       #+# #+#   #+#+# #+#    #+#     "
+	@echo "###       ### ###    ####  ########       $(_END)"
+
+cool_art_bonus:
+	@echo "$(_YELLOW)                                         __   ____                        "
+	@echo "                        ____ _____  ____/ /  / __ )____  ____  __  _______"
+	@echo "                       / __ \`/ __ \/ __  /  / __  / __ \/ __ \/ / / / ___/"
+	@echo "                      / /_/ / / / / /_/ /  / /_/ / /_/ / / / / /_/ (__  ) "
+	@echo "                      \__,_/_/ /_/\__,_/  /_____/\____/_/ /_/\__,_/____/  $(_END)"
+	@echo "$(_END)"
+
 %.o : %.c
 	@gcc $(OPTION) -I. -c $< -o ${<:.c=.o}
 
-all:
+all: cool_art
 	cd libft && make
 	cd termcaps && make lib
 	mkdir -p libs
@@ -81,6 +125,20 @@ $(NAME): $(OBJS)
 	@gcc $(OPTION) -lncurses -ltermcap -o $(NAME) $(OBJS)
 
 clean:
+	@echo "$(_BOLD)$(_GREEN)                ||"
+	@echo "                ||"
+	@echo "                ||"
+	@echo "                ||"
+	@echo "                ||"
+	@echo "                ||"
+	@echo "                ||     Here you go, sweep"
+	@echo "                ||     that up..........."
+	@echo "               /||\\"
+	@echo "              /||||\\"
+	@echo "              ======         __|__"
+	@echo "              ||||||        / ~@~ \\"
+	@echo "              ||||||       |-------|"
+	@echo "              ||||||       |_______|$(_END)"
 	@/bin/rm -f $(OBJS)
 	@cd libft && make fclean
 	@cd termcaps && make fclean_lib
@@ -91,7 +149,7 @@ fclean: clean
 
 re: fclean all
 
-bonus:$(BONUS_OBJS)
+bonus: cool_art cool_art_bonus $(BONUS_OBJS)
 	@gcc $(OPTION) -o $(NAME) $(BONUS_OBJS)
 
 .PHONY: all clean fclean re
