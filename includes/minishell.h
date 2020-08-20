@@ -115,6 +115,7 @@ int				minishell(t_mns *mns);
 int				exec_input(char **commands, t_mns *mns);
 int				exec_builtins(char **command, t_mns *mns);
 int				exec_system(char **command, t_mns *mns);
+int				exec_local_exec(char **command, t_mns *mns);
 int				run(t_mns *mns, char *path, char **args, char **envp);
 int				exec(char **tab, char **envp);
 int 			exec_pipes_redirections(char **command, t_mns *mns);

@@ -14,11 +14,13 @@
 
 int			is_exec(char **command, char *path, t_mns *mns, struct stat stat)
 {
+	// print_table(command, "command");
+
 	if (stat.st_mode & S_IFREG)
 	{
 		if (stat.st_mode & S_IXUSR)
 		{
-			//printf("check commandes [path : %s] | [cmd : %s]\n", path, command[0]);
+			// printf("check commandes [path : %s] | [cmd : %s]\n", path, command[0]);
 			command[0] = path;
 			return (exec(command, mns->envp));
 		}
@@ -54,19 +56,24 @@ int			exec_system(char **command, t_mns *mns)
 	char			*path;
 	struct stat		stat;
 
+	// print_table(command, "command_system");
+
 	if (!(sysbin_loc = get_sysbin_loc(mns->envp)))
-	return (-1);
+		return (-1);
 	i = -1;
 	while (sysbin_loc && sysbin_loc[++i])
 	{
 		// printf("{%s}\n", sysbin_loc[i]);
 		if (ft_strstartswith(command[0], sysbin_loc[i], 0, 0))
-		path = ft_strdup(command[0]);
+			path = ft_strdup(command[0]);
 		else
-		path = ft_strjoin(sysbin_loc[i], command[0]);
+			path = ft_strjoin(sysbin_loc[i], command[0]);
 		// printf("[%s]\n", path);
 		if (lstat(path, &stat) == -1)
-		free(path);
+		{
+			// printf("allo ?");
+			free(path);
+		}
 		else
 		{
 			ft_freetab(sysbin_loc);
@@ -76,5 +83,28 @@ int			exec_system(char **command, t_mns *mns)
 	}
 	// printf("not a system command\n");
 	ft_freetab(sysbin_loc);
+	return (1);
+}
+
+int			exec_local_exec(char **command, t_mns *mns)
+{
+	char			*path;
+	struct stat		stat;
+	char 			*pwd;
+
+	pwd = ft_straddchar(get_env_var(mns->envp, "PWD", 0), '/');
+	if (ft_strstartswith(command[0], pwd, 0, 0))
+		path = ft_strdup(command[0]);
+	else
+		path = ft_strjoin(pwd, command[0]);
+	// printf("path : [%s]\n", path);
+	if (lstat(path, &stat) == -1)
+		free(path);
+	else
+	{
+		free(pwd);
+		return (is_exec(command, path, mns, stat));
+	}
+	free(pwd);
 	return (1);
 }

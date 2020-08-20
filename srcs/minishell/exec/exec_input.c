@@ -21,7 +21,12 @@ static int		exec_command(char **command, t_mns *mns)
 		return (ret);
 	if ((ret = exec_builtins(command, mns)) != 1)
 		return (ret);
-	if ((ret = exec_system(command, mns)) != 1)
+	if (!ft_strchr(command[0], '/'))
+	{
+		if ((ret = exec_system(command, mns)) != 1)
+			return (ret);
+	}
+	else if (exec_local_exec(command, mns) != 1)
 		return (ret);
 	if (lstat(command[0], &stat) != -1)
 		if (stat.st_mode & S_IFDIR)
