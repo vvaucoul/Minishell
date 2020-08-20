@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-static char **move_table(char **tab, int i)
+static char **move_table(char **tabl, int i)
 {
 	char **n_tab;
 	int tab_len;
@@ -22,36 +22,36 @@ static char **move_table(char **tab, int i)
 	n_tab = malloc(sizeof(char *) * 1000);
 
 	tab_len = -1;
-	while (tab[++tab_len]);
+	while (tabl[++tab_len]);
 	//--tab_len;
-	printf("tab len [%d] > [%d]\n", tab_len, i);
-	while (tab[tab_len] && tab_len > i)
+	printf("tabl len [%d] > [%d]\n", tab_len, i);
+	while (tabl[tab_len] && tab_len > i)
 	{
-		printf("swap [%s] to [%s]\n", tab[tab_len], tab[tab_len - 1]);
-		tab[tab_len] = tab[tab_len - 1];
+		printf("swap [%s] to [%s]\n", tabl[tab_len], tabl[tab_len - 1]);
+		tabl[tab_len] = tabl[tab_len - 1];
 		-- tab_len;
 	}
-	tab[tab_len + 1] = NULL;
-	return (tab);
+	tabl[tab_len + 1] = NULL;
+	return (tabl);
 }
 
-char **add_default_flag(char **tab)
+char **add_default_flag(char **tabl)
 {
 	int i;
 
 	i = 0;
 
-	print_table(tab, "DefaultFLag Before : ");
+	print_table(tabl, "DefaultFLag Before : ");
 
-	while (tab[i])
+	while (tabl[i])
 	{
-		if (!(ft_strcmp(tab[i], "ls")) || !(ft_strcmp(tab[i], "grep")))
+		if (!(ft_strcmp(tabl[i], "ls")) || !(ft_strcmp(tabl[i], "grep")))
 		{
-			tab = move_table(tab, i);
-			tab[i + 1] = ft_strdup("--color");
+			tabl = move_table(tabl, i);
+			tabl[i + 1] = ft_strdup("--color");
 		}
 		++i;
 	}
-	print_table(tab, "DefaultFLag After : ");
-	return (tab);
+	print_table(tabl, "DefaultFLag After : ");
+	return (tabl);
 }

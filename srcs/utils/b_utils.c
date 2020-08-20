@@ -39,41 +39,41 @@ char	*epur_b_str(char *str)
 	return (new_str);
 }
 
-T_BOOL	tab_has_pipe(char **tab)
+T_BOOL	tab_has_pipe(char **tabl)
 {
 	int i;
 
 	i = 0;
-	while (tab[i])
+	while (tabl[i])
 	{
-		if (!(ft_strcmp(tab[i], "|")))
+		if (!(ft_strcmp(tabl[i], "|")))
 		return (TRUE);
 		++i;
 	}
 	return (FALSE);
 }
 
-T_BOOL	tab_has_redirection(char **tab)
+T_BOOL	tab_has_redirection(char **tabl)
 {
 	int i;
 
 	i = 0;
-	while (tab[i])
+	while (tabl[i])
 	{
-		if (r_is_redirection(tab[i]))
+		if (r_is_redirection(tabl[i]))
 		return (TRUE);
 		++i;
 	}
 	return (FALSE);
 }
 
-int		tab_len(char **tab)
+int		tab_len(char **tabl)
 {
 	int i;
 
-	if (!(tab))
+	if (!(tabl))
 		return (-1);
 	i = 0;
-	while (tab[++i]);
+	while (tabl[++i]);
 	return (i);
 }

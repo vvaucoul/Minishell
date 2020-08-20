@@ -16,17 +16,17 @@
 **	BONUS Redirection Utils
 */
 
-static char *get_end_str(char **tab)
+static char *get_end_str(char **tabl)
 {
 	int i;
 
 	i = 0;
-	while (tab[i])
+	while (tabl[i])
 	{
-		if (!(ft_strcmp(tab[i], "<<")))
+		if (!(ft_strcmp(tabl[i], "<<")))
 		{
-			if (tab[i + 1])
-			return (tab[i + 1]);
+			if (tabl[i + 1])
+			return (tabl[i + 1]);
 			else
 			return (NULL);
 		}
@@ -56,7 +56,7 @@ static char *read_line()
 	return (ft_strdup(line));
 }
 
-static int	get_tab_size(char **tab)
+static int	get_tab_size(char **tabl)
 {
 	int mx;
 	int x;
@@ -66,9 +66,9 @@ static int	get_tab_size(char **tab)
 	x = 0;
 	i = 0;
 
-	while (tab[i])
+	while (tabl[i])
 	{
-		x = ft_strlen(tab[i]);
+		x = ft_strlen(tabl[i]);
 		if (x > mx)
 		mx = x;
 		++i;

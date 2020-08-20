@@ -30,19 +30,20 @@ int		minishell(t_mns *mns)
 	while (1)
 	{
 		display_prompt(mns);
+		
 		if ((get_input(&input, mns)) == -1)
-		return (-1);
+			return (-1);
 		if (ft_strisempty(input) || is_in_quotes(input, ft_strlen(input)))
 		{
 			if (is_in_quotes(input, ft_strlen(input)))
-			display_error("Please close your quotes");
+				display_error("Please close your quotes");
 			free(input);
 			continue ;
 		}
 		commands = quotesplit(input, ';');
 		free(input); //todo free in split :)
 		if ((exec_input(commands, mns)) == -1)
-		return (-1);
+			return (-1);
 		ft_freetab(commands);
 	}
 	return (0);

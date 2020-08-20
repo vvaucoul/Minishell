@@ -12,36 +12,36 @@
 
 #include "minishell.h"
 
-static	char **sort_tab(char **tab, int size, int i)
+static	char **sort_tab(char **tabl, int size, int i)
 {
 	int si;
 
 	si = 0;
-	tab[i] = NULL;
+	tabl[i] = NULL;
 	++i;
 	while (si < size)
 	{
-		tab[si] = tab[si + 1];
+		tabl[si] = tabl[si + 1];
 		++si;
 	}
-	tab[si] = NULL;
-	return (tab);
+	tabl[si] = NULL;
+	return (tabl);
 }
 
-char	**remove_builtin_in_tab(char **tab)
+char	**remove_builtin_in_tab(char **tabl)
 {
 	int i;
 	int j;
 
 	i = 0;
 	j = 0;
-	while (tab[j++]);
+	while (tabl[j++]);
 	--j;
-	while (tab[i])
+	while (tabl[i])
 	{
-		if (b_isvalid(tab[i]))
-			return (sort_tab(tab, j, i));
+		if (b_isvalid(tabl[i]))
+			return (sort_tab(tabl, j, i));
 		++i;
 	}
-	return (tab);
+	return (tabl);
 }

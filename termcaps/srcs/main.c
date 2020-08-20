@@ -46,6 +46,8 @@ void		term_get_line(void)
 
 int			main(int argc, char **argv)
 {
+	(void)argc;
+	(void)argv;
 	termcaps_init();
 	term_get_info();
 	termios_init();

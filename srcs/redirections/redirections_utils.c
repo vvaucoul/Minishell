@@ -30,21 +30,21 @@ T_BOOL	r_is_redirection(char *str)
 	return (FALSE);
 }
 
-int		r_get_redirection_pos(char **tab)
+int		r_get_redirection_pos(char **tabl)
 {
 	int i;
 
 	i = 0;
-	while (tab[i])
+	while (tabl[i])
 	{
-		if (r_is_redirection(tab[i]))
+		if (r_is_redirection(tabl[i]))
 		return (i);
 		++i;
 	}
 	return (FALSE);
 }
 
-char **r_get_tab_without_redirection(char **tab)
+char **r_get_tab_without_redirection(char **tabl)
 {
 	char **n_tab;
 	int i;
@@ -52,13 +52,13 @@ char **r_get_tab_without_redirection(char **tab)
 
 	i = 0;
 	j = 0;
-	n_tab = tab;
-	while (tab[i])
+	n_tab = tabl;
+	while (tabl[i])
 	{
-		if (r_is_redirection(tab[i]))
+		if (r_is_redirection(tabl[i]))
 		++i;
 		//else
-		n_tab[j] = tab[i];
+		n_tab[j] = tabl[i];
 		++i;
 		++j;
 	}
@@ -66,7 +66,7 @@ char **r_get_tab_without_redirection(char **tab)
 	return (n_tab);
 }
 
-char	**r_get_tab_before_redirection(char **tab)
+char	**r_get_tab_before_redirection(char **tabl)
 {
 	char **n_tab;
 	int i;
@@ -74,10 +74,10 @@ char	**r_get_tab_before_redirection(char **tab)
 
 	i = 0;
 	j = 0;
-	n_tab = tab;
-	while (tab[i] && (!(r_is_redirection(tab[i]))))
+	n_tab = tabl;
+	while (tabl[i] && (!(r_is_redirection(tabl[i]))))
 	{
-		n_tab[j] = tab[i];
+		n_tab[j] = tabl[i];
 		++i;
 		++j;
 	}
@@ -85,7 +85,7 @@ char	**r_get_tab_before_redirection(char **tab)
 	return (n_tab);
 }
 
-char	**r_get_tab_after_redirection(char **tab)
+char	**r_get_tab_after_redirection(char **tabl)
 {
 	char **n_tab;
 	int i;
@@ -93,14 +93,14 @@ char	**r_get_tab_after_redirection(char **tab)
 
 	i = 0;
 	j = 0;
-	n_tab = tab;
-	while (tab[i] && (!(r_is_redirection(tab[i]))))
+	n_tab = tabl;
+	while (tabl[i] && (!(r_is_redirection(tabl[i]))))
 	++i;
 	++i;
 	printf("assign at [%d]\n", i);
-	while (tab[i])
+	while (tabl[i])
 	{
-		n_tab[j] = tab[i];
+		n_tab[j] = tabl[i];
 		++i;
 		++j;
 	}
@@ -113,20 +113,20 @@ char	**r_get_tab_after_redirection(char **tab)
 **	PIPES
 */
 
-char 	**r_get_tab_without_pipe(char **tab)
+char 	**r_get_tab_without_pipe(char **tabl)
 {
 	int i;
 	i = 0;
-	while (tab[i])
+	while (tabl[i])
 	{
-		if (ft_strcmp(tab[i], "|"))
+		if (ft_strcmp(tabl[i], "|"))
 		{
-			tab[i] = NULL;
-			return (tab);
+			tabl[i] = NULL;
+			return (tabl);
 		}
 		++i;
 	}
-	return (tab);
+	return (tabl);
 }
 
 /*
@@ -155,7 +155,7 @@ static	char *r_update_redirection_tab_make_path(char **sysbin_loc, char *str)
 	return (str);
 }
 
-char	**r_update_redirection_tab(char **tab, char **envp, char *redirection)
+char	**r_update_redirection_tab(char **tabl, char **envp, char *redirection)
 {
 	char			**sysbin_loc;
 	int				i;
@@ -163,13 +163,13 @@ char	**r_update_redirection_tab(char **tab, char **envp, char *redirection)
 	if (!(sysbin_loc = get_sysbin_loc(envp)))
 	return (NULL);
 	i = 0;
-	tab[i] = r_update_redirection_tab_make_path(sysbin_loc, tab[i]);
-	while (tab[i])
+	tabl[i] = r_update_redirection_tab_make_path(sysbin_loc, tabl[i]);
+	while (tabl[i])
 	{
-		if ((!(ft_strcmp(tab[i], redirection))) && tab[i + 1])
-			tab[i + 1] = r_update_redirection_tab_make_path(sysbin_loc, tab[i + 1]);
+		if ((!(ft_strcmp(tabl[i], redirection))) && tabl[i + 1])
+			tabl[i + 1] = r_update_redirection_tab_make_path(sysbin_loc, tabl[i + 1]);
 		++i;
 	}
-	tab[i] = NULL;
-	return (tab);
+	tabl[i] = NULL;
+	return (tabl);
 }

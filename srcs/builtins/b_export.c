@@ -210,15 +210,15 @@ static int		place_env(t_mns *mns, char *line)
 	return (0);
 }
 
-int				b_export(t_mns *mns, char **tab)
+int				b_export(t_mns *mns, char **tabl)
 {
 	int i;
 
 	i = 0;
-	tab = remove_builtin_in_tab(tab);
-	while (tab[i])
+	tabl = remove_builtin_in_tab(tabl);
+	while (tabl[i])
 	{
-		place_env(mns, tab[i]);
+		place_env(mns, tabl[i]);
 		++i;
 	}
 	return (0);

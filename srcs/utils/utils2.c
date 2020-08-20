@@ -47,7 +47,7 @@ int		display_error_cmd(char *str)
 **	DEBUG !
 */
 
-int		print_table(char **tab, char *str)
+int		print_table(char **tabl, char *str)
 {
 	int i;
 
@@ -55,9 +55,9 @@ int		print_table(char **tab, char *str)
 	printf("\n");
 	printf(MNS_COLOR_GREEN);
 	printf("%s :\n", str);
-	while (tab[i])
+	while (tabl[i])
 	{
-		printf("\t- [%d] '%s'\n", i, tab[i]);
+		printf("\t- [%d] '%s'\n", i, tabl[i]);
 		++i;
 	}
 	printf(MNS_COLOR_NOC);

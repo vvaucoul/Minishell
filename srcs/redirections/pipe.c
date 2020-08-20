@@ -12,27 +12,27 @@
 
 #include "minishell.h"
 
-static void 	do_pipes(char ***tab, char **envp)
+static void 	do_pipes(char ***tabl, char **envp)
 {
 	int		p[2];
 	pid_t	pid;
 	int		fd_in = 0;
 	int state;
 
-	while (*tab != NULL)
+	while (*tabl != NULL)
 	{
 		pipe(p);
 		if ((pid = fork()) == -1)
 			exit(EXIT_FAILURE);
 		else if (!pid)
 		{
-			print_table((*tab), "Pipe tab : ");
+			print_table((*tabl), "Pipe tabl : ");
 			dup2(fd_in, 0);
-			if (*(tab + 1) != NULL)
+			if (*(tabl + 1) != NULL)
 				dup2(p[1], 1);
 			close(p[0]);
-			execve((*tab)[0], *tab, envp); // fonctionne bien
-			//execvp((*tab)[0], *tab); // tmp pour ne pas mettre les /bin/etc a la commande
+			execve((*tabl)[0], *tabl, envp); // fonctionne bien
+			//execvp((*tabl)[0], *tabl); // tmp pour ne pas mettre les /bin/etc a la commande
 			exit(EXIT_FAILURE);
 		}
 		else
@@ -41,7 +41,7 @@ static void 	do_pipes(char ***tab, char **envp)
 			waitpid(pid, &state, WUNTRACED);
 			close(p[1]);
 			fd_in = p[0];
-			tab++;
+			tabl++;
 		}
 	}
 }

@@ -84,7 +84,7 @@ static int		redirection_02(char **tab_exec, char **envp)
 	tab_exec = r_get_tab_without_redirection(tab_exec);
 	fd = open(tab_exec[1], O_RDONLY);
 	tab_exec[1] = NULL;
-	print_table(tab_exec, "tab exec redirection");
+	print_table(tab_exec, "tabl exec redirection");
 	if (!(pid = fork()))
 	{
 		dup2(fd, 0);
@@ -104,21 +104,21 @@ static int		redirection_02(char **tab_exec, char **envp)
 **	Switch between all redirections
 */
 
-int		main_redirections(char **tab, char **envp)
+int		main_redirections(char **tabl, char **envp)
 {
 	int	r_pos;
 
-	r_pos = r_get_redirection_pos(tab);
-	if (!(ft_strcmp(tab[r_pos], ">")))
-	return (redirection_01(tab, tab[r_pos + 1], envp, FALSE));
-	if (!(ft_strcmp(tab[r_pos], ">>")))
-	return (redirection_01(tab, tab[r_pos + 1], envp, TRUE));
-	if (!(ft_strcmp(tab[r_pos], "<")))
-	return (redirection_02(tab, envp));
+	r_pos = r_get_redirection_pos(tabl);
+	if (!(ft_strcmp(tabl[r_pos], ">")))
+	return (redirection_01(tabl, tabl[r_pos + 1], envp, FALSE));
+	if (!(ft_strcmp(tabl[r_pos], ">>")))
+	return (redirection_01(tabl, tabl[r_pos + 1], envp, TRUE));
+	if (!(ft_strcmp(tabl[r_pos], "<")))
+	return (redirection_02(tabl, envp));
 	if (BONUS)
 	{
-		if (!(ft_strcmp(tab[r_pos], "<<")))
-		return (bonus_redirection(tab, envp));
+		if (!(ft_strcmp(tabl[r_pos], "<<")))
+		return (bonus_redirection(tabl, envp));
 	}
 	return (0);
 }

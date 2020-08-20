@@ -101,7 +101,7 @@ int *y2, int key_pressed)
 		if (key_pressed >= 32 && key_pressed <= 126)
 			insert_char_in_line(ml_lines, y2[0] - y2[1], key_pressed);
 		else if (key_pressed == 127)
-			delete_char_in_line(ml_lines, y2[0] - y2[1], key_pressed);
+			delete_char_in_line(ml_lines, y2[0] - y2[1]);
 		return (TRUE);
 	}
 	return (FALSE);
@@ -124,7 +124,7 @@ int				multi_line_manager(t_line *line, char kp, int state)
 	{
 		init = FALSE;
 		convert_multilines_to_line(&ml, line);
-		clear_multi_line_cmd(ml, start_y, y);
+		clear_multi_line_cmd(start_y, y);
 		return (FALSE);
 	}
 	if (multi_line_manager_extended_bi(&ml, state, ((int[2]){y, start_y}), kp))

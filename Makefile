@@ -21,7 +21,8 @@ SRCS			=	$(wildcard srcs/*.c)			\
 					$(wildcard srcs/minishell/exec/*.c)	\
 					$(wildcard srcs/bonus/*.c)	\
 					$(wildcard srcs/bonus/termcaps/*.c)	\
-					libft/libft.a
+					$(LIB_FOLDER)libft.a	\
+					$(LIB_FOLDER)mns_termcaps_lib.a
 					# libft/libft.a \
 					# $(SRCS_FOLDER)main.c \
 					# $(SRCS_FOLDER)envp.c \
@@ -51,27 +52,46 @@ SRCS			=	$(wildcard srcs/*.c)			\
 # 					libft/libft.a
 					# $(SRCS_FOLDER)termcaps_bonus.c \
 					# $(SRCS_FOLDER)get_input_bonus.c \
+
 SRCS_FOLDER		=	srcs/
+TERMCAPS_LIB	=	termcaps/mns_termcaps_lib.a
+TERMCAPS_HEADER	=	./termcaps/termcaps_bonus.h
+LIBFT			=	libft/libft.a
+LIB_FOLDER		=	libs/
+
 OBJS			=	$(SRCS:.c=.o)
 BONUS_OBJS		=	$(BONUS_SRCS:.c=.o)
-CFLAGS			=	-g3 -Wall -Wextra -Werror
+CFLAGS			=	-g3 -Wall -Wextra -Werror -D BONUS=0
 HEADERS			=	./includes/
-OPTION			=	$(CFLAGS) -I$(HEADERS) -I./libft
+OPTION			=	$(CFLAGS) -I$(HEADERS) -I./libft -I$(TERMCAPS_HEADER)
+USE_LIBS		=	
+
 %.o : %.c
 	@gcc $(OPTION) -I. -c $< -o ${<:.c=.o}
+
 all:
 	cd libft && make
-	# mkdir libs
-	# cp ./libft/libft.a ./libs
+	cd termcaps && make lib
+	mkdir -p libs
+	cp ./libft/libft.a ./libs
+	cp ./termcaps/mns_termcaps_lib.a ./libs
 	make $(NAME)
+
 $(NAME): $(OBJS)
 	@gcc $(OPTION) -lncurses -ltermcap -o $(NAME) $(OBJS)
+
 clean:
 	@/bin/rm -f $(OBJS)
-	cd libft && make fclean
+	@cd libft && make fclean
+	@cd termcaps && make fclean_lib
+
 fclean: clean
 	@/bin/rm -f $(NAME)
+	@/bin/rm -rf $(LIB_FOLDER)
+
 re: fclean all
+
 bonus:$(BONUS_OBJS)
 	@gcc $(OPTION) -o $(NAME) $(BONUS_OBJS)
+
 .PHONY: all clean fclean re

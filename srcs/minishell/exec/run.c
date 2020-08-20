@@ -63,7 +63,7 @@ int		run(t_mns *mns, char *cmd, char **args, char **envp)
 	return (0);
 }
 
-int		run_cmd(t_mns *mns, char *cmd, char **tab)
+int		run_cmd(t_mns *mns, char *cmd, char **tabl)
 {
 	pid_t	pid;
 	int	state;
@@ -71,10 +71,10 @@ int		run_cmd(t_mns *mns, char *cmd, char **tab)
 	pid = fork();
 	if (!pid)
 	{
-		if (b_isvalid(tab[0]))
-			return (run_builtins(mns, cmd, tab));
+		if (b_isvalid(tabl[0]))
+			return (run_builtins(mns, cmd, tabl));
 		else
-			return(execve(tab[0], tab, mns->envp));
+			return(execve(tabl[0], tabl, mns->envp));
 	}
 	else if (pid > 0)
 		waitpid(pid, &state, WUNTRACED);
@@ -86,7 +86,7 @@ int		run_cmd(t_mns *mns, char *cmd, char **tab)
 	return (0);
 }
 
-int		exec(char **tab, char **envp)
+int		exec(char **tabl, char **envp)
 {
 	pid_t	pid;
 	int	state;
@@ -96,7 +96,7 @@ int		exec(char **tab, char **envp)
 	pid = fork();
 	if (pid == 0)
 	{
-		ret = execve(tab[0], tab, envp);
+		ret = execve(tabl[0], tabl, envp);
 	}
 	else if (pid > 0)
 		waitpid(pid, &state, WUNTRACED);

@@ -14,52 +14,52 @@
 
 static T_BOOL has_builtin(char *str)
 {
-    char    **tab;
+    char    **tabl;
     int     i;
 
     i = 0;
-    tab = ft_split(str, ' ');
-    while (tab[i])
+    tabl = ft_split(str, ' ');
+    while (tabl[i])
     {
-        if ((b_isvalid(tab[i])))
+        if ((b_isvalid(tabl[i])))
         return (TRUE);
         ++i;
     }
-    free(tab);
+    free(tabl);
     return (FALSE);
 }
 
 static T_BOOL has_redirection(char *str)
 {
-    char    **tab;
+    char    **tabl;
     int     i;
 
     i = 0;
-    tab = ft_split(str, ' ');
-    while (tab[i])
+    tabl = ft_split(str, ' ');
+    while (tabl[i])
     {
-        if (r_is_redirection(tab[i]))
+        if (r_is_redirection(tabl[i]))
             return (TRUE);
         ++i;
     }
-    free(tab);
+    free(tabl);
     return (FALSE);
 }
 
 static T_BOOL has_pipe(char *str)
 {
-    char    **tab;
+    char    **tabl;
     int     i;
 
     i = 0;
-    tab = ft_split(str, ' ');
-    while (tab[i])
+    tabl = ft_split(str, ' ');
+    while (tabl[i])
     {
-        if (!(ft_strcmp(tab[i], "|")))
+        if (!(ft_strcmp(tabl[i], "|")))
         return (TRUE);
         ++i;
     }
-    free(tab);
+    free(tabl);
     return (FALSE);
 }
 

@@ -18,7 +18,6 @@ static t_mns	*init_mns(char **envp, int argc, char **argv)
 
 	(void)argc;
 	(void)argv;
-
 	if (!(mns = malloc(sizeof(t_mns))))
 		return (NULL);
 	mns->envp = envp;
@@ -32,8 +31,16 @@ int			main(int argc, char **argv, char **envp)
 
 	if ((mns = init_mns(envp, argc, argv)) == NULL)
 		return (-1);
+	if (BONUS)
+	{
+		termcaps_init();
+		term_get_info();
+		termios_init();
+	}
+	// A reactiver pour le push final
 	// init_signals_handle();
 	minishell(mns);
+	termios_reset_term();
 	free(mns);
 	return (0);
 }

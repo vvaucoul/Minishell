@@ -89,6 +89,6 @@ char				*ft_straddstr(char *s1, char *s2, int free_s2);
 char				*ft_strcat(char *dest, char *src);
 char				*ft_strtrunc_del(char *s1, char del);
 int					ft_strchangelen(char **ptr, size_t size);
-int					ft_tablen(char **tab);
+int					ft_tablen(char **tabl);
 
 #endif

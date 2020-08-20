@@ -14,7 +14,6 @@
 
 int		line_shift_right(t_line *line)
 {
-	int		i;
 	int		start;
 	int		len;
 
@@ -30,7 +29,6 @@ int		line_shift_right(t_line *line)
 
 int		line_shift_left(t_line *line)
 {
-	int		i;
 	int		start;
 	int		len;
 

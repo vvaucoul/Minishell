@@ -12,12 +12,12 @@
 
 #include "libft.h"
 
-int		ft_tablen(char **tab)
+int		ft_tablen(char **tabl)
 {
 	int		i;
 
 	i = 0;
-	while (tab[i])
+	while (tabl[i])
 		i++;
 	return (i);
 }

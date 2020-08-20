@@ -66,20 +66,20 @@ char			*get_cmd_in_path(char *path)
 }
 
 /*
-static char	**sort_tab(char **tab, int size, int i)
+static char	**sort_tab(char **tabl, int size, int i)
 {
 	int si;
 
 	si = 0;
-	tab[i] = NULL;
+	tabl[i] = NULL;
 	++i;
 	while (si < size)
 	{
-		tab[si] = tab[si + 1];
+		tabl[si] = tabl[si + 1];
 		++si;
 	}
-	tab[si] = NULL;
-	return (tab);
+	tabl[si] = NULL;
+	return (tabl);
 }
 */
 

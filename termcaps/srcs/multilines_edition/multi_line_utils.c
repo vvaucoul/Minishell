@@ -12,7 +12,7 @@
 
 #include "termcaps_bonus.h"
 
-void	clear_multi_line_cmd(t_line *ml_lines, int actu, int max)
+void	clear_multi_line_cmd(int actu, int max)
 {
 	int sy;
 
@@ -80,7 +80,7 @@ void	insert_char_in_line(t_line **ml_lines, int index, int key_pressed)
 	tputs(tgetstr("ei", NULL), 1, &term_putchar);
 }
 
-void	delete_char_in_line(t_line **ml_lines, int index, int key_pressed)
+void	delete_char_in_line(t_line **ml_lines, int index)
 {
 	cursor_to_left(ml_lines[index]);
 	if (ml_lines[index]->cursor_position == ml_lines[index]->len + PROMPT_LEN)

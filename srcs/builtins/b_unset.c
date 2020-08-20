@@ -60,27 +60,27 @@ int		unset_remove(char *line, char **envp)
 	return (0);
 }
 
-int		b_unset(char **tab, char **envp)
+int		b_unset(char **tabl, char **envp)
 {
 	int i;
 
 	i = 0;
 	//printf(MNS_COLOR_CYAN); printf("UNSET");
-	while (tab[i])
+	while (tabl[i])
 	{
 
 		// desactivation temporaire des tests si c est une bonne ligne de commande
 
-		// if (!(is_valid_parameter(tab[i])))
+		// if (!(is_valid_parameter(tabl[i])))
 		// {
 		// 	ft_putstr_fd("unset: ", 1);
-		// 	ft_putstr_fd(tab[i], 1);
+		// 	ft_putstr_fd(tabl[i], 1);
 		// 	ft_putstr_fd(": invalid parameter name\n", 1);
 		// 	return (-1);
 		// }
 		// else
 		// {
-			unset_remove(tab[i], envp);
+			unset_remove(tabl[i], envp);
 		// }
 		++i;
 	}

@@ -288,14 +288,13 @@ void			swap_index(int **index);
 int				term_get_multiline(t_line *line, t_bool *use_multilines,
 int key_pressed);
 int				multi_line_manager(t_line *line, char key_pressed, int state);
-void			clear_multi_line_cmd(t_line *ml_lines, int y, int max);
+void			clear_multi_line_cmd(int y, int max);
 void			ml_delete_char(t_line *line, int key_pressed);
 void			ml_refresh_lines(t_line *line);
 void			convert_multilines_to_line(t_line **ml_lines, t_line *line);
 void			insert_char_in_line(t_line **ml_lines, int index,
 int key_pressed);
-void			delete_char_in_line(t_line **ml_lines, int index,
-int key_pressed);
+void			delete_char_in_line(t_line **ml_lines, int index);
 
 void			ml_cm_left(t_line **ml_lines, int index);
 void			ml_cm_right(t_line **ml_lines, int index);

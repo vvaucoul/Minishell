@@ -34,6 +34,7 @@
 ** LIBS Includes
 */
 #include "libft.h"
+#include "termcaps/termcaps_bonus.h"
 
 /*
 **	Debug/TMP Includes
@@ -76,8 +77,6 @@ typedef int T_BOOL;
 #define ENV_STRING_DELIMITEUR "="
 #define RANDOM_TMP_STRING ".double_redirection"
 
-#define BONUS TRUE
-
 /*
 **	TMP
 */
@@ -117,9 +116,9 @@ int				exec_builtins(char **command, t_mns *mns);
 int				exec_system(char **command, t_mns *mns);
 int				exec_local_exec(char **command, t_mns *mns);
 int				run(t_mns *mns, char *path, char **args, char **envp);
-int				exec(char **tab, char **envp);
+int				exec(char **tabl, char **envp);
 int 			exec_pipes_redirections(char **command, t_mns *mns);
-int				run_cmd(t_mns *mns, char *cmd, char **tab);
+int				run_cmd(t_mns *mns, char *cmd, char **tabl);
 char			**get_sysbin_loc(char **envp);
 
 /*
@@ -146,19 +145,19 @@ int				is_in_quotes(char *str, int pos);
 char			*epur_b_str(char *str);
 int				display_error(char *str);
 int				display_error_cmd(char *str);
-int				print_table(char **tab, char *str);
-T_BOOL			tab_has_redirection(char **tab);
-T_BOOL			tab_has_pipe(char **tab);
-char			**r_update_redirection_tab(char **tab, char **envp, char *redirection);
-int				tab_len(char **tab);
-char 			**add_default_flag(char **tab);
+int				print_table(char **tabl, char *str);
+T_BOOL			tab_has_redirection(char **tabl);
+T_BOOL			tab_has_pipe(char **tabl);
+char			**r_update_redirection_tab(char **tabl, char **envp, char *redirection);
+int				tab_len(char **tabl);
+char 			**add_default_flag(char **tabl);
 
 /*
 **	Utils Builtins
 */
 
 char			*get_cmd_in_path(char *path);
-char			**remove_builtin_in_tab(char **tab);
+char			**remove_builtin_in_tab(char **tabl);
 T_BOOL			b_isvalid(char *str);
 
 /*
@@ -173,25 +172,25 @@ char			*get_env_name(char *str, int i);
 **	Builtins
 */
 
-int				b_echo(char **tab);
+int				b_echo(char **tabl);
 int				b_cd(t_mns *mns, char *path);
 int				b_pwd(t_mns *mns, T_BOOL using_nl);
 int				b_exit();
 int				b_env(t_mns *mns);
-int				b_export(t_mns *mns, char **tab);
-int				b_unset(char **tab, char **envp);
+int				b_export(t_mns *mns, char **tabl);
+int				b_unset(char **tabl, char **envp);
 
 /*
 **	Redirections
 */
 
 T_BOOL			r_is_redirection(char *str);
-int				p_pipe(char **tab, char **envp);
-char			**r_get_tab_without_redirection(char **tab);
-int				r_get_redirection_pos(char **tab);
-int				main_redirections(char **tab, char **envp);
-char			**r_get_tab_before_redirection(char **tab);
-char			**r_get_tab_after_redirection(char **tab);
+int				p_pipe(char **tabl, char **envp);
+char			**r_get_tab_without_redirection(char **tabl);
+int				r_get_redirection_pos(char **tabl);
+int				main_redirections(char **tabl, char **envp);
+char			**r_get_tab_before_redirection(char **tabl);
+char			**r_get_tab_after_redirection(char **tabl);
 
 /*
 **	Signaux
