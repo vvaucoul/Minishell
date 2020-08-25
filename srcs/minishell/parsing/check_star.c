@@ -6,7 +6,7 @@
 /*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 22:40:19 by mle-faou          #+#    #+#             */
-/*   Updated: 2020/07/22 14:40:42 by mle-faou         ###   ########.fr       */
+/*   Updated: 2020/08/25 17:34:43 by mle-faou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,30 +209,33 @@ char		*get_path(char *str, int start, char **new)
 	return (path);
 }
 
-char		*get_post_slash(char *str, int start)
+char		*get_post_star(char *str, int start)
 {
-	char		*post_slash;
+	char		*post_star;
 	int			i;
 	int			j;
 
+	// printf("get_post_star\n");
 	i = 0;
 	while (str[start + i] && str[start + i] != ' ' && str[start + i] != '/')
 		i++;
+	// printf("i : %d\n", i);
 	if (str[start + i] != '/')
 		return (ft_strdup(""));
 	j = 0;
 	while (str[start + i + j] && str[start + i + j] != ' ')
 		j++;
-	if (!(post_slash = ft_calloc(j, sizeof(char))))
+	// printf("j : %d\n", j);
+	if (!(post_star = ft_calloc(j + 1, sizeof(char))))
 		return (NULL);
 	j = 0;
 	while (str[start + i] && str[start + i] != ' ')
 	{
-		post_slash[j] = str[start + i];
+		post_star[j] = str[start + i];
 		i++;
 		j++;
 	}
-	return (post_slash);
+	return (post_star);
 }
 
 int			check_star(char **str, char **new, int *start, int first)
@@ -248,33 +251,28 @@ int			check_star(char **str, char **new, int *start, int first)
 
 	char		*path;
 	int			security;
-	char		*post_slash;
+	char		*post_star;
 
-	// char		*tmp_new;
-
-	// printf("old input : [%s]\n", *new);
-	if (!(post_slash = get_post_slash(*str, *start)))
+	printf("old input : [%s]\n", *new);
+	if (!(post_star = get_post_star(*str, *start)))
 		return (1);
-	// printf("post_slash : [%s]\n", post_slash);
-	// printf("get_post_slash input : [%s]\n", *new);
+	printf("post_star : [%s]\n", post_star);
 
 	if (!(filter = ft_strdup("")))
 		return (1);
 	if (!(prefilter = get_prefilter(*str, *start, new)))
 		return (1);
-	// printf("get_prefilter input : [%s]\n", *new);
+	printf("prefilter : [%s]\n", prefilter);
 
-	// printf("prefilter : [%s]\n", prefilter);
 	if (!(path = get_path(*str, *start, new)))
 		return (1);
-	// printf("path : [%s]\n", path);
-	// printf("get_path input : [%s]\n", *new);
+	printf("path : [%s]\n", path);
 
 	if (!(list = get_linkslist(path, first)))
 		return (1);
 	// printf("get_linkslist input : [%s]\n", *new);
-
 	// printf("post init input : [%s]\n", *new);
+
 	security = ft_strlen(*new);
 	// printf("security : %d\n", security);
 	// print_table(list, "table");
@@ -289,7 +287,6 @@ int			check_star(char **str, char **new, int *start, int first)
 			remove_from_tab(&list, i);
 			continue ;
 		}
-		//pseudo code
 		j = ft_strlen(prefilter) + 1; // index file
 		k = 0; //index str from start
 		// printf("pre while [%s]\n", str[0] + (*start + k));
@@ -322,7 +319,6 @@ int			check_star(char **str, char **new, int *start, int first)
 	i = 0;
 	while (list[i])
 	{
-		// printf("allo ?\n");
 		if (i != 0)
 			if (!(*new = ft_straddstr(*new, " ", 0)))
 				return (1);
@@ -331,18 +327,18 @@ int			check_star(char **str, char **new, int *start, int first)
 		if (!(*new = ft_straddstr(*new, list[i], 0)))
 			return (1);
 		j = ft_strlen(*new);
-		if (!(*new = ft_straddstr(*new, post_slash, 0)))
+		if (!(*new = ft_straddstr(*new, post_star, 0)))
 			return (1);
 		i++;
 	}
 	free(path);
-	free(post_slash);
+	free(post_star);
 	while (str[0][*start] > ' ' && str[0][*start] <= '~')
 	{
 		// printf("skip[%d] : '%c'\n", *start, str[0][*start]);
 		(*start)++;
 	}
-	// printf("new input : [%s]\n", *new);
+	printf("new input : [%s]\n", *new);
 	ft_freetab(list);
 	// printf("return\n");
 	return (0);

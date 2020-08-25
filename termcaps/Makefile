@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+         #
+#    By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/26 18:34:22 by vvaucoul          #+#    #+#              #
-#    Updated: 2020/08/06 15:57:26 by vvaucoul         ###   ########.fr        #
+#    Updated: 2020/08/21 15:54:28 by mle-faou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,8 +32,7 @@ OPTION			=	$(CFLAGS) -I$(HEADERS) -I.
 	@gcc $(OPTION) -I. -c $< -o ${<:.c=.o}
 
 all:
-	@cd ../libft && make
-	@cp ../libft/libft.a .
+	@cp ../libs/libft.a .
 	@make $(NAME)
 
 $(NAME): $(OBJS)

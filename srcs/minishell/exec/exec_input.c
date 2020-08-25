@@ -6,7 +6,7 @@
 /*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 18:43:39 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/22 16:20:07 by mle-faou         ###   ########.fr       */
+/*   Updated: 2020/08/25 16:36:36 by mle-faou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,11 @@ int				exec_input(char **commands, t_mns *mns)
 	{
 		if (!(command = quotesplit(commands[i], ' ')))
 			return (-1);
+		// print_table(command, "command");
 		ret = exec_command(command, mns);
+		// print_table(commands, "commands");
+		// print_table(command, "command");
+		// printf("ret = %d\n", ret);
 		ft_freetab(command);
 		if (ret == -1)
 			break ;

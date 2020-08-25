@@ -3,24 +3,21 @@ VIRRER TOUTE LES FONCTION USSLESS
 VIRRER TOUT LES TODO RM
 VIRRER TOUT LES COMMENTAIRE
 
-
 [V] Double redirection In
-
-exec ./
 
 compiler avec termcap : -ltermcap
 
 retourner la bonne valeur avec $?
 
-- echo sans arguments fait crash (d apres valgrind c est dans get_input) v/
+- echo bug quand "" ou test, echo enlève l'argument ?
 
 - chaque commandes apres avoir effacé des caracteres ne fonctionne plus
-	(exemple : cd -> cd        -> cd ) avec un espace ou plusieurs
+	(exemple : cd -> cd        -> cd ) avec un espace ou plusieurs : pas de bug
 
-- export crash (get_input)
+- export crash (get_input): pas compris aucun message d'erreur
 
-- ajouter ("| > >> <") dans les commandes reconnues
+- ajouter ("| > >> <") dans les commandes reconnues: pas compris
 
-- variables env miniscules
+- variables env miniscules: pas compris
 
-- cd protection, verifier dossier valide ou pas
+- cd protection, verifier dossier valide ou pas: pas de bug

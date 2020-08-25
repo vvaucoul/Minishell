@@ -6,7 +6,7 @@
 #    By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/17 10:12:54 by mle-faou          #+#    #+#              #
-#    Updated: 2020/07/22 14:34:14 by mle-faou         ###   ########.fr        #
+#    Updated: 2020/08/25 16:40:03 by mle-faou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 NAME			=	minishell
@@ -64,7 +64,6 @@ BONUS_OBJS		=	$(BONUS_SRCS:.c=.o)
 CFLAGS			=	-g3 -Wall -Wextra -Werror -D BONUS=0
 HEADERS			=	./includes/
 OPTION			=	$(CFLAGS) -I$(HEADERS) -I./libft -I$(TERMCAPS_HEADER)
-USE_LIBS		=	
 
 # This is a minimal set of ANSI/VT100 color codes
 _END=$'\033[0m
@@ -92,8 +91,10 @@ _IPURPLE=$'\033[45m
 _ICYAN=$'\033[46m
 _IWHITE=$'\033[47m
 
-cool_art :
+%.o : %.c
+	@gcc $(OPTION) -I. -c $< -o ${<:.c=.o}
 
+all:
 	@echo "$(_BOLD)$(_GREEN)        :::   :::   ::::    :::  :::::::: "
 	@echo "      :+:+: :+:+:  :+:+:   :+: :+:    :+: "
 	@echo "    +:+ +:+:+ +:+ :+:+:+  +:+ +:+         "
@@ -101,25 +102,12 @@ cool_art :
 	@echo "  +#+       +#+ +#+  +#+#+#        +#+    "
 	@echo " #+#       #+# #+#   #+#+# #+#    #+#     "
 	@echo "###       ### ###    ####  ########       $(_END)"
-
-cool_art_bonus:
-	@echo "$(_YELLOW)                                         __   ____                        "
-	@echo "                        ____ _____  ____/ /  / __ )____  ____  __  _______"
-	@echo "                       / __ \`/ __ \/ __  /  / __  / __ \/ __ \/ / / / ___/"
-	@echo "                      / /_/ / / / / /_/ /  / /_/ / /_/ / / / / /_/ (__  ) "
-	@echo "                      \__,_/_/ /_/\__,_/  /_____/\____/_/ /_/\__,_/____/  $(_END)"
-	@echo "$(_END)"
-
-%.o : %.c
-	@gcc $(OPTION) -I. -c $< -o ${<:.c=.o}
-
-all: cool_art
-	cd libft && make
-	cd termcaps && make lib
-	mkdir -p libs
-	cp ./libft/libft.a ./libs
-	cp ./termcaps/mns_termcaps_lib.a ./libs
-	make $(NAME)
+	@mkdir -p libs
+	@cd libft && make
+	@cp $(LIBFT) $(LIB_FOLDER)
+	@cd termcaps && make lib
+	@cp $(TERMCAPS_LIB) $(LIB_FOLDER)
+	@make $(NAME)
 
 $(NAME): $(OBJS)
 	@gcc $(OPTION) -lncurses -ltermcap -o $(NAME) $(OBJS)
@@ -149,7 +137,19 @@ fclean: clean
 
 re: fclean all
 
-bonus: cool_art cool_art_bonus $(BONUS_OBJS)
+bonus: $(BONUS_OBJS)
+	@echo "$(_BOLD)$(_GREEN)        :::   :::   ::::    :::  :::::::: "
+	@echo "      :+:+: :+:+:  :+:+:   :+: :+:    :+: "
+	@echo "    +:+ +:+:+ +:+ :+:+:+  +:+ +:+         "
+	@echo "   +#+  +:+  +#+ +#+ +:+ +#+ +#++:++#++   "
+	@echo "  +#+       +#+ +#+  +#+#+#        +#+    "
+	@echo " #+#       #+# #+#   #+#+# #+#    #+#     "
+	@echo "###       ### ###    ####  ########       $(_END)"
+	@echo "$(_YELLOW)                                         __   ____                        "
+	@echo "                        ____ _____  ____/ /  / __ )____  ____  __  _______"
+	@echo "                       / __ \`/ __ \/ __  /  / __  / __ \/ __ \/ / / / ___/"
+	@echo "                      / /_/ / / / / /_/ /  / /_/ / /_/ / / / / /_/ (__  ) "
+	@echo "                      \__,_/_/ /_/\__,_/  /_____/\____/_/ /_/\__,_/____/  $(_END)"
 	@gcc $(OPTION) -o $(NAME) $(BONUS_OBJS)
 
 .PHONY: all clean fclean re
