@@ -6,7 +6,7 @@
 /*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 22:40:19 by mle-faou          #+#    #+#             */
-/*   Updated: 2020/08/25 17:34:43 by mle-faou         ###   ########.fr       */
+/*   Updated: 2020/08/25 18:29:28 by mle-faou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -253,20 +253,20 @@ int			check_star(char **str, char **new, int *start, int first)
 	int			security;
 	char		*post_star;
 
-	printf("old input : [%s]\n", *new);
+	// printf("old input : [%s]\n", *new);
 	if (!(post_star = get_post_star(*str, *start)))
 		return (1);
-	printf("post_star : [%s]\n", post_star);
+	// printf("post_star : [%s]\n", post_star);
 
 	if (!(filter = ft_strdup("")))
 		return (1);
 	if (!(prefilter = get_prefilter(*str, *start, new)))
 		return (1);
-	printf("prefilter : [%s]\n", prefilter);
+	// printf("prefilter : [%s]\n", prefilter);
 
 	if (!(path = get_path(*str, *start, new)))
 		return (1);
-	printf("path : [%s]\n", path);
+	// printf("path : [%s]\n", path);
 
 	if (!(list = get_linkslist(path, first)))
 		return (1);
@@ -338,7 +338,7 @@ int			check_star(char **str, char **new, int *start, int first)
 		// printf("skip[%d] : '%c'\n", *start, str[0][*start]);
 		(*start)++;
 	}
-	printf("new input : [%s]\n", *new);
+	// printf("new input : [%s]\n", *new);
 	ft_freetab(list);
 	// printf("return\n");
 	return (0);

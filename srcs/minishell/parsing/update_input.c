@@ -6,7 +6,7 @@
 /*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 18:44:01 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/08/25 17:00:27 by mle-faou         ###   ########.fr       */
+/*   Updated: 2020/08/25 18:29:41 by mle-faou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ char		*update_star(char **str, int first)
 		// printf("newchar[%d] : [%s]\n", i, str[0] + i);
 		if (str[0][i] == '*' && !is_in_quotes(str[0], i))
 		{
-			printf("new star at %d\n", i);
+			// printf("new star at %d\n", i);
 			if (check_star(str, &new, &i, first))
 				return (NULL);
 			// printf("---> new : [%s]\n", new);
@@ -92,7 +92,7 @@ char		*update_star(char **str, int first)
 			return (NULL);
 		i++;
 	}
-	printf("end of loop\n");
+	// printf("end of loop\n");
 	free(*str);
 	return (new);
 }
@@ -120,8 +120,8 @@ int		update_input(char **str, t_mns *mns)
 	first = 1;
 	while (contain_star(*str))
 	{
-		printf("passage check star\n");
-		printf("--> str : [%s]\n", *str);
+		// printf("passage check star\n");
+		// printf("--> str : [%s]\n", *str);
 		if (!(*str = update_star(str, first)))
 			return (1);
 		first = 0;
