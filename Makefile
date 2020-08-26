@@ -6,10 +6,11 @@
 #    By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/17 10:12:54 by mle-faou          #+#    #+#              #
-#    Updated: 2020/08/25 16:40:03 by mle-faou         ###   ########.fr        #
+#    Updated: 2020/08/26 15:25:23 by mle-faou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 NAME			=	minishell
+
 SRCS			=	$(wildcard srcs/*.c)			\
 					$(wildcard srcs/builtins/*.c)	\
 					$(wildcard srcs/signals/*.c)	\
@@ -91,9 +92,6 @@ _IPURPLE=$'\033[45m
 _ICYAN=$'\033[46m
 _IWHITE=$'\033[47m
 
-%.o : %.c
-	@gcc $(OPTION) -I. -c $< -o ${<:.c=.o}
-
 all:
 	@echo "$(_BOLD)$(_GREEN)        :::   :::   ::::    :::  :::::::: "
 	@echo "      :+:+: :+:+:  :+:+:   :+: :+:    :+: "
@@ -102,15 +100,27 @@ all:
 	@echo "  +#+       +#+ +#+  +#+#+#        +#+    "
 	@echo " #+#       #+# #+#   #+#+# #+#    #+#     "
 	@echo "###       ### ###    ####  ########       $(_END)"
+	@echo "$(_PURPLE)Creating \"libs\" directory . . . $(_END)"
 	@mkdir -p libs
 	@cd libft && make
+	@echo "$(_PURPLE)Coping libft into the \"libs\" directory . . . $(_END)"
 	@cp $(LIBFT) $(LIB_FOLDER)
 	@cd termcaps && make lib
+	@echo "$(_PURPLE)Coping termcaps_lib into the \"libs\" directory . . . $(_END)"
 	@cp $(TERMCAPS_LIB) $(LIB_FOLDER)
 	@make $(NAME)
 
-$(NAME): $(OBJS)
+%.o : %.c
+	@gcc $(OPTION) -I. -c $< -o ${<:.c=.o}
+
+$(NAME):
+	@echo "$(_PURPLE)Creating pre-compilation files for minishell . . . $(_END)"
+	@make $(OBJS)
+	@echo "$(_CYAN)\tDone !$(_END)"
+	@echo "$(_PURPLE)Compiling minishell . . . $(_END)"
 	@gcc $(OPTION) -lncurses -ltermcap -o $(NAME) $(OBJS)
+	@echo "$(_BOLD)$(_GREEN)\t\tDone !$(_END)"
+
 
 clean:
 	@echo "$(_BOLD)$(_GREEN)                ||"
@@ -127,17 +137,20 @@ clean:
 	@echo "              ||||||        / ~@~ \\"
 	@echo "              ||||||       |-------|"
 	@echo "              ||||||       |_______|$(_END)"
+	@echo "$(_PURPLE)Deleting pre-compilation files for minishell . . . $(_END)"
 	@/bin/rm -f $(OBJS)
 	@cd libft && make fclean
-	@cd termcaps && make fclean_lib
+	@cd termcaps && make fclean
 
 fclean: clean
+	@echo "$(_PURPLE)Deleting executable for libft . . . $(_END)"
 	@/bin/rm -f $(NAME)
+	@echo "$(_PURPLE)Deleting the \"libs\" directory . . . $(_END)"
 	@/bin/rm -rf $(LIB_FOLDER)
 
 re: fclean all
 
-bonus: $(BONUS_OBJS)
+bonus:
 	@echo "$(_BOLD)$(_GREEN)        :::   :::   ::::    :::  :::::::: "
 	@echo "      :+:+: :+:+:  :+:+:   :+: :+:    :+: "
 	@echo "    +:+ +:+:+ +:+ :+:+:+  +:+ +:+         "
@@ -150,6 +163,11 @@ bonus: $(BONUS_OBJS)
 	@echo "                       / __ \`/ __ \/ __  /  / __  / __ \/ __ \/ / / / ___/"
 	@echo "                      / /_/ / / / / /_/ /  / /_/ / /_/ / / / / /_/ (__  ) "
 	@echo "                      \__,_/_/ /_/\__,_/  /_____/\____/_/ /_/\__,_/____/  $(_END)"
+	@echo "$(_PURPLE)Creating pre-compilation $(_YELLOW)bonus$(_PURPLE) files for minishell . . . $(_END)"
+	$(BONUS_OBJS)
+	@echo "$(_CYAN)\tDone !$(_END)"
+	@echo "$(_PURPLE)Compiling minishell with $(_YELLOW)bonus$(_PURPLE). . . $(_END)"
 	@gcc $(OPTION) -o $(NAME) $(BONUS_OBJS)
+	@echo "$(_BOLD)$(_GREEN)\t\tDone !$(_END)"
 
 .PHONY: all clean fclean re

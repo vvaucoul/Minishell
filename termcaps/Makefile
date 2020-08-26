@@ -6,7 +6,7 @@
 #    By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/26 18:34:22 by vvaucoul          #+#    #+#              #
-#    Updated: 2020/08/21 15:54:28 by mle-faou         ###   ########.fr        #
+#    Updated: 2020/08/26 15:25:50 by mle-faou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,35 +28,59 @@ CFLAGS			=	-g3 -Wall -Wextra -Werror
 HEADERS			=	../libft/
 OPTION			=	$(CFLAGS) -I$(HEADERS) -I.
 
-%.o : %.c
-	@gcc $(OPTION) -I. -c $< -o ${<:.c=.o}
+# This is a minimal set of ANSI/VT100 color codes
+_END=$'\033[0m
+_BOLD=$'\033[1m
+_UNDER=$'\033[4m
+_REV=$'\033[7m
+
+# Colors
+_GREY=$'\033[30m
+_RED=$'\033[31m
+_GREEN=$'\033[32m
+_YELLOW=$'\033[33m
+_BLUE=$'\033[34m
+_PURPLE=$'\033[35m
+_CYAN=$'\033[36m
+_WHITE=$'\033[37m
+
+# Inverted, i.e. colored backgrounds
+_IGREY=$'\033[40m
+_IRED=$'\033[41m
+_IGREEN=$'\033[42m
+_IYELLOW=$'\033[43m
+_IBLUE=$'\033[44m
+_IPURPLE=$'\033[45m
+_ICYAN=$'\033[46m
+_IWHITE=$'\033[47m
 
 all:
+	@echo "$(_PURPLE)Coping libft . . . $(_END)"
 	@cp ../libs/libft.a .
 	@make $(NAME)
 
-$(NAME): $(OBJS)
+%.o : %.c
+	@gcc $(OPTION) -I. -c $< -o ${<:.c=.o}
+
+$(NAME):
+	@echo "$(_PURPLE)Creating pre-compilation files for termcaps . . . $(_END)"
+	@make $(OBJS)
+	@echo "$(_CYAN)\tDone !$(_END)"
+	@echo "$(_PURPLE)Compiling termcaps . . . $(_END)"
 	@gcc $(OPTION) -L. -lft -ltermcap -o $(NAME) $(OBJS)
 
 lib: re
-	@echo - TERMCAPS LIB -
-	@ar rc $(LIB_NAME) $(OBJS)
-	@ranlib $(LIB_NAME)
-	@echo TERMCAPS LIB COMPLETE
-
+	@echo "$(_PURPLE)Compiling mns_termcaps_lib . . . $(_END)"
+	@ar rcs $(LIB_NAME) $(OBJS)
 
 clean:
+	@echo "$(_PURPLE)Deleting pre-compilation files for termcaps . . . $(_END)"
 	@/bin/rm -f $(OBJS)
-	@/bin/rm -f $(NAME)
-	@cd ../libft && make fclean
 
 fclean: clean
+	@echo "$(_PURPLE)Deleting executable for termcaps . . . $(_END)"
 	@/bin/rm -f $(NAME)
 
 re: fclean all
 
-fclean_lib: clean
-	@/bin/rm -f $(LIB_NAME)
-	@/bin/rm -f libft.a
-
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re lib #remove lib
