@@ -6,12 +6,11 @@
 #    By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/26 18:34:22 by vvaucoul          #+#    #+#              #
-#    Updated: 2020/08/26 16:00:56 by mle-faou         ###   ########.fr        #
+#    Updated: 2020/08/26 17:56:26 by mle-faou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME			=	termcaps
-LIB_NAME		=	mns_termcaps_lib.a
+NAME			=	mns_termcaps_lib.a
 
 SRCS			=	$(wildcard srcs/copy_paste/*.c)	\
 					$(wildcard srcs/cursor_motion/*.c)	\
@@ -67,11 +66,13 @@ $(NAME):
 	@make $(OBJS)
 	@echo "$(_CYAN)\tDone !$(_END)"
 	@echo "$(_PURPLE)Compiling mns_termcaps_lib . . . $(_END)"
-	@ar rcs $(LIB_NAME) $(OBJS)
+	@ar rcs $(NAME) $(OBJS)
 
 clean:
 	@echo "$(_PURPLE)Deleting pre-compilation files for termcaps . . . $(_END)"
 	@/bin/rm -f $(OBJS)
+	@/bin/rm -f libft.a
+
 
 fclean: clean
 	@echo "$(_PURPLE)Deleting executable for termcaps . . . $(_END)"

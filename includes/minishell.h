@@ -6,7 +6,7 @@
 /*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 18:10:28 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/22 15:21:15 by mle-faou         ###   ########.fr       */
+/*   Updated: 2020/08/26 17:31:13 by mle-faou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,16 @@ char			**get_sysbin_loc(char **envp);
 /*
 **	Parsing
 */
+
+typedef struct	s_starinfo
+{
+	int			start;
+	char		*post;
+	char		*filter;
+	char		*prefilter;
+	char		*path;
+	char		**list;
+}				t_starinfo;
 
 int				update_input(char **str, t_mns *mns);
 char			**quotesplit(char *str, char c);
