@@ -10,3 +10,5 @@ compiler avec termcap : -ltermcap
 retourner la bonne valeur avec $?
 
 - echo bug quand "" ou test, echo enlève l'argument ?
+
+- redirection < ne fonctionne pas (pas trop)
