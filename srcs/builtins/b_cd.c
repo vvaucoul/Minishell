@@ -73,7 +73,7 @@ int				b_cd(t_mns *mns, char *path)
 			if (back_to_previous_dir(mns) < 0)
 			{
 				ft_putstr_fd(ft_strjoin("cd: aucun dossier valide: ", ft_strjoin(path, "\n")), 1);
-				return (0);
+				return (1);
 			}
 			export_old_path(mns, old_path);
 			set_pwd(mns);
@@ -84,7 +84,7 @@ int				b_cd(t_mns *mns, char *path)
 	{
 
 		if (change_dir(get_env_var(mns->envp, "HOME", 0), "cd: Home indefini\n") < 0)
-		return (0);
+		return (1);
 		export_old_path(mns, old_path);
 		set_pwd(mns);
 	}
@@ -92,7 +92,7 @@ int				b_cd(t_mns *mns, char *path)
 	{
 
 		if (change_dir(path, ft_strjoin("cd: aucun dossier valide: ", ft_strjoin(path, "\n"))) < 0)
-		return (0);
+		return (1);
 		export_old_path(mns, old_path);
 		set_pwd(mns);
 	}
