@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_utils.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/11 16:15:20 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/22 16:39:33 by mle-faou         ###   ########.fr       */
+/*   Updated: 2020/08/26 16:05:26 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ char	*epur_b_str(char *str)
 		++i;
 	}
 	new_str[j] = '\0';
-	free(str);
 	return (new_str);
 }
 

@@ -40,7 +40,8 @@ int			main(int argc, char **argv, char **envp)
 	// A reactiver pour le push final
 	// init_signals_handle();
 	minishell(mns);
-	termios_reset_term();
+	if (BONUS)
+		termios_reset_term();
 	free(mns);
 	return (0);
 }

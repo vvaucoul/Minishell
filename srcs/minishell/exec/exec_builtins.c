@@ -6,7 +6,7 @@
 /*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/27 14:19:30 by mle-faou          #+#    #+#             */
-/*   Updated: 2020/08/21 16:17:18 by mle-faou         ###   ########.fr       */
+/*   Updated: 2020/08/26 16:08:02 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,8 @@
 
 int			exec_builtins(char **command, t_mns *mns)
 {
-	int i; //todo rm
 	if (ft_strequ(command[0], "echo")) // n'ecrit rien
 	{
-		// printf("return (b_echo(command, mns));\n"); //todo rm
-		// return (1); //todo rm
-		i = 0;
-		while (command[i])
-		{
-			// printf("echo commande[%d] : [%s]\n", i, command[i]);
-			i++;
-		}
 		return (b_echo(command));
 	}
 	if (ft_strequ(command[0], "cd")) // crash
@@ -44,12 +35,6 @@ int			exec_builtins(char **command, t_mns *mns)
 	{
 		// printf("return (b_export(command, mns));\n"); //todo rm
 		// return (1); //todo rm
-		i = 0;
-		while (command[i])
-		{
-			//printf("command[%d] : [%s]\n", i, command[i]);
-			i++;
-		}
 		// exit(0);
 		return (b_export(mns, command));
 	}
@@ -57,12 +42,6 @@ int			exec_builtins(char **command, t_mns *mns)
 	{
 		// printf("return (b_unset(command, mns));\n"); //todo rm
 		// return (1); //todo rm
-		i = 0;
-		while (command[i])
-		{
-			//printf("command[%d] : [%s]\n", i, command[i]);
-			i++;
-		}
 		return (b_unset(command, mns->envp));
 	}
 	if (ft_strequ(command[0], "env")) // okay

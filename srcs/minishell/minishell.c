@@ -31,8 +31,13 @@ int		minishell(t_mns *mns)
 	{
 		display_prompt(mns);
 		
-		if ((get_input(&input, mns)) == -1)
-			return (-1);
+		if (!BONUS)
+		{
+			if ((get_input(&input, mns)) == -1)
+				return (-1);
+		}
+		else
+			term_read_line(&input);
 		if (ft_strisempty(input) || is_in_quotes(input, ft_strlen(input)))
 		{
 			if (is_in_quotes(input, ft_strlen(input)))

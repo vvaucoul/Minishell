@@ -108,7 +108,7 @@
 **	DEFINE TERM
 */
 
-# define PROMPT_LEN 3
+# define PROMPT_LEN 44
 
 /*
 ** DEFINE HISTORY
@@ -195,6 +195,7 @@ typedef	struct	s_term
 t_term			*get_term_struct();
 int				tc_putc(int c);
 int				termios_reset_term();
+void			term_read_line();
 
 /*
 **	Termios
