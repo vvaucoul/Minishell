@@ -6,7 +6,7 @@
 /*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/27 14:19:30 by mle-faou          #+#    #+#             */
-/*   Updated: 2020/08/26 16:08:02 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/08/26 16:12:47 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int			exec_builtins(char **command, t_mns *mns)
 	}
 	if (ft_strequ(command[0], "pwd")) // crash
 	{
-		// printf("return (b_pwd(command, mns));\n"); //todo rm
+		// printf("return (b_pwd(command, mns)s);\n"); //todo rm
 		// return (1); //todo rm
 		return (b_pwd(mns, 1));
 	}
