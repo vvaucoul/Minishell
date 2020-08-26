@@ -6,7 +6,7 @@
 #    By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/26 18:34:22 by vvaucoul          #+#    #+#              #
-#    Updated: 2020/08/26 15:25:50 by mle-faou         ###   ########.fr        #
+#    Updated: 2020/08/26 16:00:56 by mle-faou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,7 +55,7 @@ _ICYAN=$'\033[46m
 _IWHITE=$'\033[47m
 
 all:
-	@echo "$(_PURPLE)Coping libft . . . $(_END)"
+	@echo "$(_PURPLE)Copying libft into termcaps. . . $(_END)"
 	@cp ../libs/libft.a .
 	@make $(NAME)
 
@@ -66,10 +66,6 @@ $(NAME):
 	@echo "$(_PURPLE)Creating pre-compilation files for termcaps . . . $(_END)"
 	@make $(OBJS)
 	@echo "$(_CYAN)\tDone !$(_END)"
-	@echo "$(_PURPLE)Compiling termcaps . . . $(_END)"
-	@gcc $(OPTION) -L. -lft -ltermcap -o $(NAME) $(OBJS)
-
-lib: re
 	@echo "$(_PURPLE)Compiling mns_termcaps_lib . . . $(_END)"
 	@ar rcs $(LIB_NAME) $(OBJS)
 
@@ -83,4 +79,6 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re lib #remove lib
+.PHONY: all clean fclean re
+
+	# @gcc $(OPTION) -L. -lft -ltermcap -o $(NAME) $(OBJS)

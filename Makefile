@@ -6,7 +6,7 @@
 #    By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/17 10:12:54 by mle-faou          #+#    #+#              #
-#    Updated: 2020/08/26 15:42:26 by mle-faou         ###   ########.fr        #
+#    Updated: 2020/08/26 16:00:11 by mle-faou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 NAME			=	minishell
@@ -103,10 +103,10 @@ all:
 	@echo "$(_PURPLE)Creating \"libs\" directory . . . $(_END)"
 	@mkdir -p libs
 	@cd libft && make
-	@echo "$(_PURPLE)Coping libft into the \"libs\" directory . . . $(_END)"
+	@echo "$(_PURPLE)Copying libft into \"libs\" directory . . . $(_END)"
 	@cp $(LIBFT) $(LIB_FOLDER)
-	@cd termcaps && make lib
-	@echo "$(_PURPLE)Coping termcaps_lib into the \"libs\" directory . . . $(_END)"
+	@cd termcaps && make
+	@echo "$(_PURPLE)Copying termcaps_lib into \"libs\" directory . . . $(_END)"
 	@cp $(TERMCAPS_LIB) $(LIB_FOLDER)
 	@make $(NAME)
 
@@ -146,10 +146,11 @@ clean:
 	@cd termcaps && make fclean
 
 fclean: clean
-	@echo "$(_PURPLE)Deleting executable for libft . . . $(_END)"
-	@/bin/rm -f $(NAME)
-	@echo "$(_PURPLE)Deleting the \"libs\" directory . . . $(_END)"
+	@echo "$(_PURPLE)Deleting \"libs\" content . . . $(_END)"
+	@echo "$(_PURPLE)Deleting \"libs\" directory . . . $(_END)"
 	@/bin/rm -rf $(LIB_FOLDER)
+	@echo "$(_PURPLE)Deleting executable for minishell . . . $(_END)"
+	@/bin/rm -f $(NAME)
 
 re: fclean all
 
