@@ -6,7 +6,7 @@
 #    By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/17 10:12:54 by mle-faou          #+#    #+#              #
-#    Updated: 2020/08/26 15:25:23 by mle-faou         ###   ########.fr        #
+#    Updated: 2020/08/26 15:42:26 by mle-faou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 NAME			=	minishell
@@ -119,7 +119,10 @@ $(NAME):
 	@echo "$(_CYAN)\tDone !$(_END)"
 	@echo "$(_PURPLE)Compiling minishell . . . $(_END)"
 	@gcc $(OPTION) -lncurses -ltermcap -o $(NAME) $(OBJS)
-	@echo "$(_BOLD)$(_GREEN)\t\tDone !$(_END)"
+		@echo "$(_BOLD)$(_GREEN)   ___                  __"
+	@echo "  / _ \___  ___  ___   / /"
+	@echo " / // / _ \/ _ \/ -_) /_/"
+	@echo "/____/\___/_//_/\__/ (_)$(_END)"
 
 
 clean:
@@ -168,6 +171,9 @@ bonus:
 	@echo "$(_CYAN)\tDone !$(_END)"
 	@echo "$(_PURPLE)Compiling minishell with $(_YELLOW)bonus$(_PURPLE). . . $(_END)"
 	@gcc $(OPTION) -o $(NAME) $(BONUS_OBJS)
-	@echo "$(_BOLD)$(_GREEN)\t\tDone !$(_END)"
+	@echo "$(_BOLD)$(_GREEN)   ___                  __"
+	@echo "  / _ \___  ___  ___   / /"
+	@echo " / // / _ \/ _ \/ -_) /_/"
+	@echo "/____/\___/_//_/\__/ (_)$(_END)"
 
 .PHONY: all clean fclean re
