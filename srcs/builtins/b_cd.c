@@ -49,13 +49,13 @@ static	int		change_dir(char *path, char *error)
 		if (chdir(path) < 0)
 		{
 			ft_putstr_fd(error, 1);
-			return (0);
+			return (-1);
 		}
 	}
 	else
 	{
 		ft_putstr_fd(error, 1);
-		return (0);
+		return (-1);
 	}
 	return (0);
 }
@@ -69,7 +69,6 @@ int				b_cd(t_mns *mns, char *path)
 	{
 		if (!(ft_strcmp(path, "-")))
 		{
-
 			if (back_to_previous_dir(mns) < 0)
 			{
 				ft_putstr_fd(ft_strjoin("cd: aucun dossier valide: ", ft_strjoin(path, "\n")), 1);

@@ -26,7 +26,7 @@ static void 	do_pipes(char ***tabl, char **envp)
 			exit(EXIT_FAILURE);
 		else if (!pid)
 		{
-			print_table((*tabl), "Pipe tabl : ");
+			// print_table((*tabl), "Pipe tabl : ");
 			dup2(fd_in, 0);
 			if (*(tabl + 1) != NULL)
 				dup2(p[1], 1);
@@ -91,11 +91,11 @@ int		p_pipe(char **tab_exec, char **envp)
 {
 	char ***pipe_tab;
 
-	print_table(tab_exec, "Pipe Table : ");
+	// print_table(tab_exec, "Pipe Table : ");
 
 	tab_exec = r_update_redirection_tab(tab_exec, envp, "|");
 
-	print_table(tab_exec, "Pipe Table after update : ");
+	// print_table(tab_exec, "Pipe Table after update : ");
 
 	pipe_tab = make_pipe_tab(tab_exec, tab_len(tab_exec));
 

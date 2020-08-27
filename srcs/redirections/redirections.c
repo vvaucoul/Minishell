@@ -84,7 +84,7 @@ static int		redirection_02(char **tab_exec, char **envp)
 	tab_exec = r_get_tab_without_redirection(tab_exec);
 	fd = open(tab_exec[1], O_RDONLY);
 	tab_exec[1] = NULL;
-	print_table(tab_exec, "tabl exec redirection");
+	// print_table(tab_exec, "tabl exec redirection");
 	if (!(pid = fork()))
 	{
 		dup2(fd, 0);

@@ -11,4 +11,4 @@ retourner la bonne valeur avec $?
 
 - echo bug quand "" ou test, echo enlève l'argument ?
 
-- redirection < ne fonctionne pas (pas trop)
+- cd return 0 alors qu il faut return
