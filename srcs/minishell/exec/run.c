@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 15:34:18 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/13 17:21:41 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/08/27 16:46:20 by mle-faou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static	int		run_builtins(t_mns *mns, char *cmd, char **args)
 	return (ret);
 }
 
-int		run(t_mns *mns, char *cmd, char **args, char **envp)
+int		run(t_mns *mns, char *cmd, char **args)
 {
 	int		*contain_args;
 	char	*tmp;
@@ -45,17 +45,17 @@ int		run(t_mns *mns, char *cmd, char **args, char **envp)
 	cmd = tmp;
 	if (contain_args[1])
 	{
-		main_redirections(args, envp);
+		main_redirections(args, mns->envp);
 		return (0);
 	}
 	else if (contain_args[2])
 	{
-		p_pipe(args, envp);
+		p_pipe(args, mns->envp);
 		return (0);
 	}
 	if (contain_args[0])
 	run_builtins(mns, cmd, args);
-	else if ((exec(args, envp)) < 0)
+	else if ((exec(args, mns)) < 0)
 	{
 		ft_putstr_fd("Error execution\n", 1);
 		return (-1);
@@ -86,17 +86,19 @@ int		run_cmd(t_mns *mns, char *cmd, char **tabl)
 	return (0);
 }
 
-int		exec(char **tabl, char **envp)
+int		exec(char **tabl, t_mns *mns)
 {
 	pid_t	pid;
-	int	state;
-	int ret;
+	int		state;
+	int		ret;
 
 	ret = 0;
+	state = 0;
 	pid = fork();
 	if (pid == 0)
 	{
-		ret = execve(tabl[0], tabl, envp);
+		printf("wtf ?\n");
+		ret = execve(tabl[0], tabl, mns->envp);
 	}
 	else if (pid > 0)
 		waitpid(pid, &state, WUNTRACED);
@@ -105,5 +107,6 @@ int		exec(char **tabl, char **envp)
 		ft_putstr_fd("Error fork", 1);
 		return (-1);
 	}
+	mns->last_return = WEXITSTATUS(state);
 	return (ret);
 }

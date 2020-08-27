@@ -6,7 +6,7 @@
 /*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 18:10:28 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/08/26 17:31:13 by mle-faou         ###   ########.fr       */
+/*   Updated: 2020/08/27 16:28:30 by mle-faou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,8 +115,8 @@ int				exec_input(char **commands, t_mns *mns);
 int				exec_builtins(char **command, t_mns *mns);
 int				exec_system(char **command, t_mns *mns);
 int				exec_local_exec(char **command, t_mns *mns);
-int				run(t_mns *mns, char *path, char **args, char **envp);
-int				exec(char **tabl, char **envp);
+int				run(t_mns *mns, char *path, char **args);
+int				exec(char **tabl, t_mns *mns);
 int 			exec_pipes_redirections(char **command, t_mns *mns);
 int				run_cmd(t_mns *mns, char *cmd, char **tabl);
 char			**get_sysbin_loc(char **envp);

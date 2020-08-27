@@ -6,7 +6,7 @@
 /*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/27 16:14:43 by mle-faou          #+#    #+#             */
-/*   Updated: 2020/07/12 16:53:07 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/08/27 16:33:24 by mle-faou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,13 @@
 
 int			is_exec(char **command, char *path, t_mns *mns, struct stat stat)
 {
-	// print_table(command, "command");
-
 	if (stat.st_mode & S_IFREG)
 	{
 		if (stat.st_mode & S_IXUSR)
 		{
-			// printf("check commandes [path : %s] | [cmd : %s]\n", path, command[0]);
 			command[0] = path;
-			return (exec(command, mns->envp));
+			printf("allo ?\n");
+			return (exec(command, mns));
 		}
 		ft_putstr("minishell: permission denied: ");
 		ft_putstr(path);
@@ -56,32 +54,23 @@ int			exec_system(char **command, t_mns *mns)
 	char			*path;
 	struct stat		stat;
 
-	// print_table(command, "command_system");
-
 	if (!(sysbin_loc = get_sysbin_loc(mns->envp)))
 		return (-1);
 	i = -1;
 	while (sysbin_loc && sysbin_loc[++i])
 	{
-		// printf("{%s}\n", sysbin_loc[i]);
 		if (ft_strstartswith(command[0], sysbin_loc[i], 0, 0))
 			path = ft_strdup(command[0]);
 		else
 			path = ft_strjoin(sysbin_loc[i], command[0]);
-		// printf("[%s]\n", path);
 		if (lstat(path, &stat) == -1)
-		{
-			// printf("allo ?");
 			free(path);
-		}
 		else
 		{
 			ft_freetab(sysbin_loc);
-			// printf("system command\n");
 			return (is_exec(command, path, mns, stat));
 		}
 	}
-	// printf("not a system command\n");
 	ft_freetab(sysbin_loc);
 	return (1);
 }
@@ -97,7 +86,6 @@ int			exec_local_exec(char **command, t_mns *mns)
 		path = ft_strdup(command[0]);
 	else
 		path = ft_strjoin(pwd, command[0]);
-	// printf("path : [%s]\n", path);
 	if (lstat(path, &stat) == -1)
 		free(path);
 	else
