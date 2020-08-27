@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 15:34:18 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/08/27 16:46:20 by mle-faou         ###   ########.fr       */
+/*   Updated: 2020/08/27 16:49:48 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int		run(t_mns *mns, char *cmd, char **args)
 		return (0);
 	}
 	if (contain_args[0])
-	run_builtins(mns, cmd, args);
+		run_builtins(mns, cmd, args);
 	else if ((exec(args, mns)) < 0)
 	{
 		ft_putstr_fd("Error execution\n", 1);
@@ -83,6 +83,7 @@ int		run_cmd(t_mns *mns, char *cmd, char **tabl)
 		ft_putstr_fd("Error fork", 1);
 		return (-1);
 	}
+	mns->last_return = WEXITSTATUS(state);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 16:32:45 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/14 17:25:52 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/08/27 16:54:32 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ static int		redirection_01(char **tab_exec, char *output_file, char **envp, T_BO
 		close(fd);
 	}
 	else
-	waitpid(pid, &state, WUNTRACED);
-	return (0);
+		waitpid(pid, &state, WUNTRACED);
+	return (WEXITSTATUS(state));
 }
 
 /*
@@ -96,7 +96,7 @@ static int		redirection_02(char **tab_exec, char **envp)
 		close(fd);
 		waitpid(pid, &state, WUNTRACED);
 	}
-	return (0);
+	return (WEXITSTATUS(state));
 }
 
 

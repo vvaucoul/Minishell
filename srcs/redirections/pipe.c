@@ -6,18 +6,18 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 19:23:09 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/14 17:19:42 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/08/27 16:58:25 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void 	do_pipes(char ***tabl, char **envp)
+static int	do_pipes(char ***tabl, char **envp)
 {
 	int		p[2];
 	pid_t	pid;
 	int		fd_in = 0;
-	int state;
+	int 	state;
 
 	while (*tabl != NULL)
 	{
@@ -44,6 +44,7 @@ static void 	do_pipes(char ***tabl, char **envp)
 			tabl++;
 		}
 	}
+	return (WEXITSTATUS(state));
 }
 
 static char	***make_pipe_tab(char **tab_exec, int maxsize)
@@ -99,6 +100,5 @@ int		p_pipe(char **tab_exec, char **envp)
 
 	pipe_tab = make_pipe_tab(tab_exec, tab_len(tab_exec));
 
-	do_pipes(pipe_tab, envp);
-	return (0);
+	return(do_pipes(pipe_tab, envp)); // return la valeur de retour du dernier pipe
 }
