@@ -6,29 +6,19 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/26 16:40:05 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/22 16:59:57 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/08/27 18:06:50 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int			export_old_path(t_mns *mns, char *old_path)
-{
-	char	*export_path[2];
-
-	export_path[0] = ft_strjoin("OLD_PWD=", ft_strdup(old_path));
-	export_path[1] = NULL;
-	b_export(mns, export_path);
-	return (0);
-}
-
-static		int back_to_previous_dir(t_mns *mns)
+static int			back_to_previous_dir(t_mns *mns)
 {
 	chdir(get_env_var(mns->envp, "OLD_PWD", 0));
 	return (0);
 }
 
-static	int		set_pwd(t_mns *mns)
+static int			set_pwd(t_mns *mns)
 {
 	char	actu_dir[4096];
 	char	*export_path[2];
@@ -40,7 +30,7 @@ static	int		set_pwd(t_mns *mns)
 	return (0);
 }
 
-static	int		change_dir(char *path, char *error)
+static int			change_dir(char *path, char *error)
 {
 	struct stat sb;
 
@@ -60,7 +50,28 @@ static	int		change_dir(char *path, char *error)
 	return (0);
 }
 
-int				b_cd(t_mns *mns, char *path)
+static int			check_path(t_mns *mns, char *path, char *old_path)
+{
+	if (!path)
+	{
+		if (change_dir(get_env_var(mns->envp, "HOME", 0)
+		, "cd: Home indefini\n") < 0)
+			return (1);
+		export_old_path(mns, old_path);
+		set_pwd(mns);
+	}
+	else
+	{
+		if (change_dir(path, ft_strjoin("cd: aucun dossier valide: "
+		, ft_strjoin(path, "\n"))) < 0)
+			return (1);
+		export_old_path(mns, old_path);
+		set_pwd(mns);
+	}
+	return (0);
+}
+
+int					b_cd(t_mns *mns, char *path)
 {
 	char	old_path[4096];
 
@@ -71,7 +82,8 @@ int				b_cd(t_mns *mns, char *path)
 		{
 			if (back_to_previous_dir(mns) < 0)
 			{
-				ft_putstr_fd(ft_strjoin("cd: aucun dossier valide: ", ft_strjoin(path, "\n")), 1);
+				ft_putstr_fd(ft_strjoin("cd: aucun dossier valide: "
+				, ft_strjoin(path, "\n")), 1);
 				return (1);
 			}
 			export_old_path(mns, old_path);
@@ -79,21 +91,5 @@ int				b_cd(t_mns *mns, char *path)
 			return (0);
 		}
 	}
-	if (!path)
-	{
-
-		if (change_dir(get_env_var(mns->envp, "HOME", 0), "cd: Home indefini\n") < 0)
-		return (1);
-		export_old_path(mns, old_path);
-		set_pwd(mns);
-	}
-	else
-	{
-
-		if (change_dir(path, ft_strjoin("cd: aucun dossier valide: ", ft_strjoin(path, "\n"))) < 0)
-		return (1);
-		export_old_path(mns, old_path);
-		set_pwd(mns);
-	}
-	return (0);
+	return (check_path(mns, path, old_path));
 }

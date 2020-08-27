@@ -6,13 +6,13 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/26 15:27:30 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/08/26 16:07:53 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/08/27 18:09:02 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	find_first_arg(char **tabl, T_BOOL has_argument)
+static int		find_first_arg(char **tabl, T_BOOL has_argument)
 {
 	int i;
 
@@ -20,32 +20,32 @@ static int	find_first_arg(char **tabl, T_BOOL has_argument)
 	while (tabl[i])
 	{
 		if (!(ft_strcmp(tabl[i], "echo")))
-		return (i + (has_argument ? 2 : 1));
+			return (i + (has_argument ? 2 : 1));
 		++i;
 	}
 	return (i);
 }
 
-static	T_BOOL	cmd_has_argument(char **tabl)
+static T_BOOL	cmd_has_argument(char **tabl)
 {
 	int i;
 
 	i = 0;
-	while(tabl[i])
+	while (tabl[i])
 	{
-		if (!(ft_strcmp(tabl[i], "-n")) && (!(ft_strcmp(tabl[i - 1], "echo"))) &&
-		i == 1)
-		return (TRUE);
+		if (!(ft_strcmp(tabl[i], "-n")) && (!(ft_strcmp(tabl[i - 1], "echo")))
+		&& i == 1)
+			return (TRUE);
 		++i;
 	}
 	return (FALSE);
 }
 
-int		b_echo(char **tabl)
+int				b_echo(char **tabl)
 {
 	T_BOOL	has_argument;
 	char	*epured_str;
-	int i;
+	int		i;
 
 	if (!tabl)
 		return (0);

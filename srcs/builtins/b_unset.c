@@ -6,57 +6,18 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/27 16:30:05 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/07/09 19:22:33 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/08/27 18:40:31 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// static	T_BOOL is_valid_parameter(char *str)
-// {
-// 	int i;
-
-// 	i = 0;
-// 	while (str[i])
-// 	{
-// 		if ((str[i] >= 'A' && str[i] <= 'Z') || (str[i] >= 'a' && str[i] <= 'z')
-// 		|| (str[i] >= '0' && str[i] <= '9'))
-// 		++i;
-// 		else
-// 		return (FALSE);
-// 	}
-// 	return (TRUE);
-// }
-
-/*
-**	Tab envp functions
-*/
-
-static int		get_envp_line(char *line, char **envp)
-{
-	int i;
-
-	i = 0;
-	while (envp[i])
-	{
-		if (!(ft_strncmp(line, envp[i], ft_strlen(line))))
-		return (i);
-		++i;
-	}
-	return (-1);
-}
 
 int		unset_remove(char *line, char **envp)
 {
 	int envp_line;
 
 	envp_line = get_envp_line(line, envp);
-	//printf(MNS_COLOR_CYAN); printf("Unset | Line = %d |\n", envp_line);
-
-
 	envp[envp_line] = NULL;
-
-
 	return (0);
 }
 
@@ -65,23 +26,9 @@ int		b_unset(char **tabl, char **envp)
 	int i;
 
 	i = 0;
-	//printf(MNS_COLOR_CYAN); printf("UNSET");
 	while (tabl[i])
 	{
-
-		// desactivation temporaire des tests si c est une bonne ligne de commande
-
-		// if (!(is_valid_parameter(tabl[i])))
-		// {
-		// 	ft_putstr_fd("unset: ", 1);
-		// 	ft_putstr_fd(tabl[i], 1);
-		// 	ft_putstr_fd(": invalid parameter name\n", 1);
-		// 	return (-1);
-		// }
-		// else
-		// {
-			unset_remove(tabl[i], envp);
-		// }
+		unset_remove(tabl[i], envp);
 		++i;
 	}
 	return (0);

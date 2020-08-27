@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 15:34:18 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/08/27 16:49:48 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/08/27 18:22:21 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static	int		run_builtins(t_mns *mns, char *cmd, char **args)
 	if (!(ft_strcmp(cmd, "env")))
 	ret = b_env(mns);
 	if (!(ft_strcmp(cmd, "exit")))
-	ret = b_exit();
+	ret = b_exit(mns);
 	return (ret);
 }
 

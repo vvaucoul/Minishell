@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 18:10:28 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/08/27 16:28:30 by mle-faou         ###   ########.fr       */
+/*   Updated: 2020/08/27 18:31:36 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,12 +163,25 @@ int				tab_len(char **tabl);
 char 			**add_default_flag(char **tabl);
 
 /*
-**	Utils Builtins
+**	Builtins Utils
 */
 
+int				export_old_path(t_mns *mns, char *old_path);
 char			*get_cmd_in_path(char *path);
 char			**remove_builtin_in_tab(char **tabl);
 T_BOOL			b_isvalid(char *str);
+
+/*
+**	Builtin Export Utils
+*/
+
+T_BOOL			str_has_equal(char *str);
+char			*get_export_cmd(char *line);
+char			*get_export_value(char *str);
+T_BOOL			value_already_existing(char **envp, char *str);
+int				get_envp_line(char *cmd, char **envp);
+int		set_envp_value(char *cmd, char *value, T_BOOL already_existing,
+char ***envp);
 
 /*
 **	Utils Envp
@@ -185,7 +198,7 @@ char			*get_env_name(char *str, int i);
 int				b_echo(char **tabl);
 int				b_cd(t_mns *mns, char *path);
 int				b_pwd(t_mns *mns, T_BOOL using_nl);
-int				b_exit();
+int				b_exit(t_mns *mns);
 int				b_env(t_mns *mns);
 int				b_export(t_mns *mns, char **tabl);
 int				b_unset(char **tabl, char **envp);

@@ -6,7 +6,7 @@
 /*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/27 14:19:30 by mle-faou          #+#    #+#             */
-/*   Updated: 2020/08/26 16:12:47 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/08/27 18:22:09 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int			exec_builtins(char **command, t_mns *mns)
 	{
 		// printf("return (b_exit(command, mns));\n"); //todo rm
 		// return (1); //todo rm
-		return (b_exit());
+		return (b_exit(mns));
 	}
 	return (2);
 }
