@@ -56,5 +56,5 @@ int			exec_builtins(char **command, t_mns *mns)
 		// return (1); //todo rm
 		return (b_exit());
 	}
-	return (1);
+	return (2);
 }

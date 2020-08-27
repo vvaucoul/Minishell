@@ -9,6 +9,4 @@ compiler avec termcap : -ltermcap
 
 retourner la bonne valeur avec $?
 
-- echo bug quand "" ou test, echo enlève l'argument ?
-
-- cd return 0 alors qu il faut return
+- le path absolu ne fonctionne plus (ex : /bin/ls)
