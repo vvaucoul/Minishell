@@ -6,7 +6,7 @@
 #    By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/17 10:12:54 by mle-faou          #+#    #+#              #
-#    Updated: 2020/08/26 18:44:28 by mle-faou         ###   ########.fr        #
+#    Updated: 2020/08/27 18:54:11 by mle-faou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 NAME			=	minishell
@@ -20,51 +20,25 @@ SRCS			=	$(wildcard srcs/*.c)			\
 					$(wildcard srcs/minishell/parsing/*.c)	\
 					$(wildcard srcs/minishell/input/*.c)	\
 					$(wildcard srcs/minishell/exec/*.c)	\
-					$(wildcard srcs/bonus/*.c)	\
+					$(LIBS_FOLDER)libft.a
+BONUS_SRCS		=	$(wildcard srcs/bonus/*.c)	\
 					$(wildcard srcs/bonus/termcaps/*.c)	\
-					$(LIB_FOLDER)libft.a	\
-					$(LIB_FOLDER)mns_termcaps_lib.a
-					# libft/libft.a \
-					# $(SRCS_FOLDER)main.c \
-					# $(SRCS_FOLDER)envp.c \
-					# $(SRCS_FOLDER)exec_builtins.c \
-					# $(SRCS_FOLDER)exec_system.c \
-					# $(SRCS_FOLDER)util1.c \
-					# $(SRCS_FOLDER)quotesplit.c \
-					# $(SRCS_FOLDER)get_input.c \
-					# $(SRCS_FOLDER)parse_arguments.c \
-					# $(SRCS_FOLDER)run.c \
-					# $(SRCS_FOLDER)/builtins/b_echo.c \
-					# $(SRCS_FOLDER)/builtins/b_cd.c \
-					# $(SRCS_FOLDER)/builtins/b_pwd.c \
-					# $(SRCS_FOLDER)/builtins/b_export.c \
-					# $(SRCS_FOLDER)/builtins/b_unset.c \
-					# $(SRCS_FOLDER)/builtins/b_env.c \
-					# $(SRCS_FOLDER)/builtins/b_exit.c \
-					# $(SRCS_FOLDER)/redirections/redirections.c \
-					# $(SRCS_FOLDER)/redirections/redirections_utils.c \
-					# $(SRCS_FOLDER)/redirections/pipe.c \
-# BONUS_SRCS		=	$(SRCS_FOLDER)main.c \
-# 					$(SRCS_FOLDER)envp.c \
-# 					$(SRCS_FOLDER)exec_builtins.c \
-# 					$(SRCS_FOLDER)exec_system.c \
-# 					$(SRCS_FOLDER)util1.c \
-# 					$(SRCS_FOLDER)quotesplit.c \
-# 					libft/libft.a
-					# $(SRCS_FOLDER)termcaps_bonus.c \
-					# $(SRCS_FOLDER)get_input_bonus.c \
+					$(LIBS_FOLDER)mns_termcaps_lib.a
 
-SRCS_FOLDER		=	srcs/
-TERMCAPS_LIB	=	termcaps/mns_termcaps_lib.a
-TERMCAPS_HEADER	=	./termcaps/termcaps_bonus.h
-LIBFT			=	libft/libft.a
-LIB_FOLDER		=	libs/
+SRCS_FOLDER		=	./srcs/
+LIBS_FOLDER		=	./libs/
+LIBFT_FOLDER	=	./libft/
+LIBFT_LIB		=	$(LIBFT_FOLDER)libft.a
+TERMCAPS_FOLDER	=	./termcaps/
+TERMCAPS_LIB	=	$(TERMCAPS_FOLDER)mns_termcaps_lib.a
 
 OBJS			=	$(SRCS:.c=.o)
 BONUS_OBJS		=	$(BONUS_SRCS:.c=.o)
 CFLAGS			=	-g3 -Wall -Wextra -Werror -D BONUS=0
+CFLAGS_BONUS	=	-g3 -Wall -Wextra -Werror -D BONUS=1
 HEADERS			=	./includes/
-OPTION			=	$(CFLAGS) -I$(HEADERS) -I./libft -I$(TERMCAPS_HEADER)
+OPTION			=	$(CFLAGS) -I$(HEADERS) -I$(LIBFT_FOLDER)
+OPTION_BONUS	=	$(CFLAGS_BONUS) -I$(HEADERS) -I$(LIBFT_FOLDER) -I$(TERMCAPS_FOLDER) -lncurses -ltermcap
 
 # This is a minimal set of ANSI/VT100 color codes
 _END=$'\033[0m
@@ -104,22 +78,20 @@ all:
 	@mkdir -p libs
 	@cd libft && make
 	@echo "$(_PURPLE)Copying libft into \"libs\" directory . . . $(_END)"
-	@cp $(LIBFT) $(LIB_FOLDER)
-	@cd termcaps && make
-	@echo "$(_PURPLE)Copying termcaps_lib into \"libs\" directory . . . $(_END)"
-	@cp $(TERMCAPS_LIB) $(LIB_FOLDER)
+	@cp $(LIBFT_LIB) $(LIBS_FOLDER)
 	@make $(NAME)
 
 %.o : %.c
 	@gcc $(OPTION) -I. -c $< -o ${<:.c=.o}
 
 $(NAME):
+	@echo "$(_PURPLE)Keeping code under control . . . $(_END)"
 	@echo "$(_PURPLE)Creating pre-compilation files for minishell . . . $(_END)"
 	@make $(OBJS)
 	@echo "$(_CYAN)\tDone !$(_END)"
 	@echo "$(_PURPLE)Compiling minishell . . . $(_END)"
-	@gcc $(OPTION) -lncurses -ltermcap -o $(NAME) $(OBJS)
-		@echo "$(_BOLD)$(_GREEN)   ___                  __"
+	@gcc $(OPTION) -o $(NAME) $(OBJS)
+	@echo "$(_BOLD)$(_GREEN)   ___                  __"
 	@echo "  / _ \___  ___  ___   / /"
 	@echo " / // / _ \/ _ \/ -_) /_/"
 	@echo "/____/\___/_//_/\__/ (_)$(_END)"
@@ -148,7 +120,7 @@ clean:
 fclean: clean
 	@echo "$(_PURPLE)Deleting \"libs\" content . . . $(_END)"
 	@echo "$(_PURPLE)Deleting \"libs\" directory . . . $(_END)"
-	@/bin/rm -rf $(LIB_FOLDER)
+	@/bin/rm -rf $(LIBS_FOLDER)
 	@echo "$(_PURPLE)Deleting executable for minishell . . . $(_END)"
 	@/bin/rm -f $(NAME)
 
@@ -162,17 +134,29 @@ bonus:
 	@echo "  +#+       +#+ +#+  +#+#+#        +#+    "
 	@echo " #+#       #+# #+#   #+#+# #+#    #+#     "
 	@echo "###       ### ###    ####  ########       $(_END)"
-	@echo "$(_YELLOW)                                         __   ____                        "
+	@echo "$(_BOLD)$(_YELLOW)                                         __   ____                        "
 	@echo "                        ____ _____  ____/ /  / __ )____  ____  __  _______"
 	@echo "                       / __ \`/ __ \/ __  /  / __  / __ \/ __ \/ / / / ___/"
 	@echo "                      / /_/ / / / / /_/ /  / /_/ / /_/ / / / / /_/ (__  ) "
 	@echo "                      \__,_/_/ /_/\__,_/  /_____/\____/_/ /_/\__,_/____/  $(_END)"
+	@echo "$(_PURPLE)Creating \"libs\" directory . . . $(_END)"
+	@mkdir -p libs
+	@cd libft && make
+	@echo "$(_PURPLE)Copying libft into \"libs\" directory . . . $(_END)"
+	@cp $(LIBFT_LIB) $(LIBS_FOLDER)
+	@cd termcaps && make
+	@echo "$(_PURPLE)Copying termcaps_lib into \"libs\" directory . . . $(_END)"
+	@cp $(TERMCAPS_LIB) $(LIBS_FOLDER)
+	@echo "$(_PURPLE)Activating $(_YELLOW)bonus$(_PURPLE) for minishell . . . $(_END)"
+	@echo "$(_PURPLE)Creating pre-compilation files for minishell . . . $(_END)"
+	@make $(OBJS)
+	@echo "$(_CYAN)\tDone !$(_END)"
 	@echo "$(_PURPLE)Creating pre-compilation $(_YELLOW)bonus$(_PURPLE) files for minishell . . . $(_END)"
-	$(BONUS_OBJS)
+	@make $(BONUS_OBJS)
 	@echo "$(_CYAN)\tDone !$(_END)"
 	@echo "$(_PURPLE)Compiling minishell with $(_YELLOW)bonus$(_PURPLE). . . $(_END)"
-	@gcc $(OPTION) -o $(NAME) $(BONUS_OBJS)
-	@echo "$(_BOLD)$(_GREEN)   ___                  __"
+	@gcc $(OPTION_BONUS) -o $(NAME) $(OBJS) $(BONUS_OBJS)
+	@echo "$(_BOLD)$(_YELLOW)   ___                  __"
 	@echo "  / _ \___  ___  ___   / /"
 	@echo " / // / _ \/ _ \/ -_) /_/"
 	@echo "/____/\___/_//_/\__/ (_)$(_END)"
