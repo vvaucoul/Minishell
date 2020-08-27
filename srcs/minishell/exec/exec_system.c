@@ -6,7 +6,7 @@
 /*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/27 16:14:43 by mle-faou          #+#    #+#             */
-/*   Updated: 2020/08/27 16:33:24 by mle-faou         ###   ########.fr       */
+/*   Updated: 2020/08/27 16:58:54 by mle-faou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,17 +82,14 @@ int			exec_local_exec(char **command, t_mns *mns)
 	char 			*pwd;
 
 	pwd = ft_straddchar(get_env_var(mns->envp, "PWD", 0), '/');
-	if (ft_strstartswith(command[0], pwd, 0, 0))
+	if (ft_strstartswith(command[0], pwd, 0, 0) || command[0][0] == '/')
 		path = ft_strdup(command[0]);
 	else
 		path = ft_strjoin(pwd, command[0]);
+	free(pwd);
 	if (lstat(path, &stat) == -1)
 		free(path);
 	else
-	{
-		free(pwd);
 		return (is_exec(command, path, mns, stat));
-	}
-	free(pwd);
 	return (1);
 }

@@ -8,5 +8,3 @@ VIRRER TOUT LES COMMENTAIRE
 compiler avec termcap : -ltermcap
 
 retourner la bonne valeur avec $?
-
-- le path absolu ne fonctionne plus (ex : /bin/ls)
