@@ -15,5 +15,6 @@
 int		b_exit()
 {
 	// system("leaks minishell");
+	ft_putstr_fd("exit\n", 1);
 	exit(EXIT_SUCCESS);
 }
