@@ -6,29 +6,28 @@
 /*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 14:08:37 by mle-faou          #+#    #+#             */
-/*   Updated: 2020/07/14 14:26:39 by mle-faou         ###   ########.fr       */
+/*   Updated: 2020/10/21 15:40:03 by mle-faou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_strchangelen(char **ptr, size_t size)
+char		*ft_strchangelen(char *str, int size)
 {
 	char	*new_ptr;
 	int		i;
 
 	if (!(new_ptr = ft_calloc(size + 1, (sizeof(char)))))
-		return (1);
-	if (ptr[0])
+		return (NULL);
+	if (str)
 	{
 		i = 0;
-		while (ptr[0][i] && (size_t)i < size)
+		while (str[i] && i < size)
 		{
-			new_ptr[i] = ptr[0][i];
+			new_ptr[i] = str[i];
 			i++;
 		}
-		free(ptr[0]);
+		free(str);
 	}
-	ptr[0] = new_ptr;
-	return (0);
+	return (new_ptr);
 }

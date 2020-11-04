@@ -6,13 +6,13 @@
 /*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/27 14:18:07 by mle-faou          #+#    #+#             */
-/*   Updated: 2020/08/27 18:37:39 by mle-faou         ###   ########.fr       */
+/*   Updated: 2020/11/03 22:40:11 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static t_mns	*init_mns(char **envp, int argc, char **argv)
+static t_mns	*init_mns(int argc, char **argv)
 {
 	t_mns	*mns;
 
@@ -20,18 +20,16 @@ static t_mns	*init_mns(char **envp, int argc, char **argv)
 	(void)argv;
 	if (!(mns = malloc(sizeof(t_mns))))
 		return (NULL);
-	mns->envp = envp;
-	mns->last_return = 0;
+	update_last_return(mns, 0);
+	mns->use_ctrl_d = FALSE;
 	return (mns);
 }
 
-int			main(int argc, char **argv, char **envp)
+int				main(int argc, char **argv, char **envp)
 {
 	t_mns	*mns;
 
-	printf("test : %d\n", BONUS);
-
-	if ((mns = init_mns(envp, argc, argv)) == NULL)
+	if ((mns = init_mns(argc, argv)) == NULL)
 		return (-1);
 	if (BONUS)
 	{
@@ -39,9 +37,16 @@ int			main(int argc, char **argv, char **envp)
 		term_get_info();
 		termios_init();
 	}
-	// A reactiver pour le push final
-	// init_signals_handle();
-	minishell(mns);
+	init_signals_handle(mns);
+	if (start_minishell(mns, envp) < 0)
+	{
+		display_malloc_error();
+		return (-1);
+	}
+	if (!BONUS)
+		minishell(mns);
+	if (BONUS)
+		minishell_bonus(mns);
 	if (BONUS)
 		termios_reset_term();
 	free(mns);

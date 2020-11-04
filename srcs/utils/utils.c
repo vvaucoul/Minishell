@@ -6,46 +6,64 @@
 /*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/26 15:22:26 by mle-faou          #+#    #+#             */
-/*   Updated: 2020/07/22 16:39:56 by mle-faou         ###   ########.fr       */
+/*   Updated: 2020/10/21 17:07:57 by mle-faou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void			exit_shell(void)
-{
-	write(1, "\n", 1);
-	exit(0);
-}
-
 int				is_in_quotes(char *str, int pos)
 {
-	int		quote;
-	int		i;
+	int	quote;
+	int	i;
+	int	add_quotes;
 
+	add_quotes = 0;
 	quote = 0;
 	i = 0;
 	while (i <= pos)
 	{
-		(quote < 0) ? quote *= -1 : 0;
+		if (add_quotes)
+		{
+			quote = add_quotes;
+			add_quotes = 0;
+		}
 		if ((str[i] == '\'' && quote == 1) || (str[i] == '"' && quote == 2))
 			quote = 0;
 		else if (str[i] == '\'' && quote == 0)
-			quote = -1;
+			add_quotes = 1;
 		else if (str[i] == '"' && quote == 0)
-			quote = -2;
+			add_quotes = 2;
 		i++;
 	}
-	i--;
-	return ((quote > 0) ? 1 : 0);
+	return (quote);
+}
+
+char			*rm_quotes(char *str)
+{
+	char	*new_str;
+	int		i;
+
+	if (!(new_str = malloc(sizeof(char))))
+		return (NULL);
+	new_str[0] = '\0';
+	i = 0;
+	while (str[i])
+	{
+		if (is_in_quotes(str, i)
+		|| (!is_in_quotes(str, i) && (str[i] != '\'' && str[i] != '"')))
+			new_str = ft_straddchar(new_str, str[i]);
+		i++;
+	}
+	return (new_str);
 }
 
 char			*get_cmd_in_path(char *path)
 {
-	char *cmd;
-	int i;
-	int j;
-	int k;
+	char	*cmd;
+	int		i;
+	int		j;
+	int		k;
 
 	i = ft_strlen(path);
 	j = i;
@@ -65,25 +83,7 @@ char			*get_cmd_in_path(char *path)
 	return (cmd);
 }
 
-/*
-static char	**sort_tab(char **tabl, int size, int i)
-{
-	int si;
-
-	si = 0;
-	tabl[i] = NULL;
-	++i;
-	while (si < size)
-	{
-		tabl[si] = tabl[si + 1];
-		++si;
-	}
-	tabl[si] = NULL;
-	return (tabl);
-}
-*/
-
-T_BOOL		b_isvalid(char *str)
+t_bool			b_isvalid(char *str)
 {
 	if (!(ft_strcmp(str, "echo")))
 		return (TRUE);

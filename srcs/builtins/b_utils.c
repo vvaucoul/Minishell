@@ -6,57 +6,32 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/02 16:14:45 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/08/27 18:49:25 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/11/03 19:48:42 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static	char	**sort_tab(char **tabl, int size, int i)
-{
-	int si;
-
-	si = 0;
-	tabl[i] = NULL;
-	++i;
-	while (si < size)
-	{
-		tabl[si] = tabl[si + 1];
-		++si;
-	}
-	tabl[si] = NULL;
-	return (tabl);
-}
-
 char			**remove_builtin_in_tab(char **tabl)
 {
-	int i;
-	int j;
+	char	**new_tab;
+	int		i;
+	int		j;
 
 	i = 0;
 	j = 0;
-	while (tabl[j])
-		++j;
-	--j;
+	if (!(new_tab = malloc(sizeof(char *) * ft_full_tablen(tabl))))
+		return (NULL);
 	while (tabl[i])
 	{
-		if (b_isvalid(tabl[i]))
-			return (sort_tab(tabl, j, i));
+		if (!(b_isvalid(tabl[i])))
+		{
+			if (!(new_tab[j] = ft_strdup(tabl[i])))
+				return (NULL);
+			++j;
+		}
 		++i;
 	}
-	return (tabl);
-}
-
-/*
-**	CD Utils
-*/
-
-int				export_old_path(t_mns *mns, char *old_path)
-{
-	char	*export_path[2];
-
-	export_path[0] = ft_strjoin("OLD_PWD=", ft_strdup(old_path));
-	export_path[1] = NULL;
-	b_export(mns, export_path);
-	return (0);
+	new_tab[j] = NULL;
+	return (new_tab);
 }

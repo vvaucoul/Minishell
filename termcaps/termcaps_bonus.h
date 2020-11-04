@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   termcaps_bonus.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/15 17:07:13 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/08/06 18:07:13 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/11/04 13:23:52 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,6 @@
 
 # include "libft.h"
 
-# include <stdio.h>
-# include <string.h>
-# include <ctype.h>
-
 # include <curses.h>
 # include <termios.h>
 # include <term.h>
@@ -43,6 +39,8 @@
 /*
 **	Defines
 */
+
+# define MULTILINE 0
 
 /*
 ** Key codes Defines (get key from keyboard)
@@ -63,24 +61,42 @@
 # define KEY_CODE_SRI "\x1b\x1b\x5b\x43"
 # define KEY_CODE_SLE "\x1b\x1b\x5b\x44"
 
-# define KEY_CODE_SHIFT_LEFT "\x1b\x32\x44\x3b\0"
-# define KEY_CODE_SHIFT_RIGHT "\x1b\x32\x43\x3b\0"
+# define KEY_CODE_SHIFT_LEFT "\x1b\x35\x44\x3b\0"
+# define KEY_CODE_SHIFT_RIGHT "\x1b\x35\x43\x3b\0"
 
-# define KEY_CODE_SHIFT_UP		"\x1b\x32\x41\x3b\0"
-# define KEY_CODE_SHIFT_DOWN	"\x1b\x32\x42\x3b\0"
+# define KEY_CODE_SHIFT_UP		"\x1b\x35\x41\x3b\0"
+# define KEY_CODE_SHIFT_DOWN	"\x1b\x35\x42\x3b\0"
 
 /*
 ** copy cut & paste
-** position 1 & 2 : shift + I [shift index]
-** copier : shift + C [shift copy]		MODE -> [0]
-** couper : shift + X [shift cut]		MODE -> [1]
-** coller : shift + V [shift paste]		MODE -> [2]
+** position 1 & 2 : ALT + I [shift index]
+** copier : ALT + C [shift copy]		MODE -> [0]
+** couper : ALT + X [shift cut]		MODE -> [1]
+** coller : ALT + V [shift paste]		MODE -> [2]
 */
 
-# define KEY_CODE_INSERT_INDEX "\x49\0"
-# define KEY_CODE_COPY "\x43\0"
-# define KEY_CODE_CUT "\x58\0"
-# define KEY_CODE_PASTE "\x56\0"
+/*
+** MAC - KEYS
+**
+** //# define KEY_CODE_INSERT_INDEX "\x49\0"
+** //# define KEY_CODE_COPY "\x43\0"
+** //# define KEY_CODE_CUT "\x58\0"
+** //# define KEY_CODE_PASTE "\x56\0"
+*/
+
+/*
+** MAC - KEYS
+**
+** //# define KEY_CODE_SHIFT_LEFT "\x1b\x32\x44\x3b\0"
+** //# define KEY_CODE_SHIFT_RIGHT "\x1b\x32\x43\x3b\0"
+** //# define KEY_CODE_SHIFT_UP		"\x1b\x32\x41\x3b\0"
+** //# define KEY_CODE_SHIFT_DOWN	"\x1b\x32\x42\x3b\0"
+*/
+
+# define KEY_CODE_INSERT_INDEX "\x1b\x69\0\0"
+# define KEY_CODE_COPY "\x1b\x63\0\0"
+# define KEY_CODE_CUT "\x1b\x78\0\0"
+# define KEY_CODE_PASTE "\x1b\x76\0\0"
 
 # define KEY_INSERT_INDEX 540
 # define KEY_CCOPY 541
@@ -94,6 +110,7 @@
 # define START_SHIFT_CHAR '\x31'
 
 # define KEY_CTRLL 12
+# define KEY_CTRL_D	0x4
 # define KEY_SHIFT 27
 
 /*
@@ -108,7 +125,7 @@
 **	DEFINE TERM
 */
 
-# define PROMPT_LEN 44
+# define PROMPT_LEN 34
 
 /*
 ** DEFINE HISTORY
@@ -176,7 +193,9 @@ typedef	struct	s_size
 typedef	struct	s_line
 {
 	t_size		start;
+	t_size		origin;
 	int			cursor_position;
+	int			max_row;
 	int			len;
 	char		cmd[MAX_LINE_LEN];
 	char		copy_cmd[MAX_LINE_LEN];
@@ -186,6 +205,7 @@ typedef	struct	s_term
 {
 	t_size		term_size;
 	char		*term_type;
+	int			prompt_len;
 }				t_term;
 
 /*
@@ -195,7 +215,9 @@ typedef	struct	s_term
 t_term			*get_term_struct();
 int				tc_putc(int c);
 int				termios_reset_term();
-void			term_read_line();
+int				term_read_line();
+int				termcaps_update_prompt_len(char *str, int size_to_add,
+t_bool to_free);
 
 /*
 **	Termios
@@ -214,6 +236,8 @@ int				exit_error(char *str);
 void			sig_handler(int signal);
 char			*ft_newstr(int size);
 int				term_putchar(int c);
+int				get_next_line(int fd, char **line);
+void			get_cursor_position(t_size *size);
 
 /*
 **	Read & CMP Keys
@@ -267,6 +291,9 @@ int				get_last_history_line(void);
 int				shift_word_left(t_line *line);
 int				shift_word_right(t_line *line);
 
+void			swl_dw(t_line **line);
+void			swr_dw(t_line **line);
+
 /*
 ** copy & paste line
 */
@@ -286,26 +313,41 @@ void			swap_index(int **index);
 ** Multi line edition
 */
 
-int				term_get_multiline(t_line *line, t_bool *use_multilines,
-int key_pressed);
-int				multi_line_manager(t_line *line, char key_pressed, int state);
-void			clear_multi_line_cmd(int y, int max);
-void			ml_delete_char(t_line *line, int key_pressed);
-void			ml_refresh_lines(t_line *line);
-void			convert_multilines_to_line(t_line **ml_lines, t_line *line);
-void			insert_char_in_line(t_line **ml_lines, int index,
-int key_pressed);
-void			delete_char_in_line(t_line **ml_lines, int index);
+void			multi_line_manager(t_line *line);
+void			ml_line_prev(t_line *line);
+void			ml_line_next(t_line *line);
 
-void			ml_cm_left(t_line **ml_lines, int index);
-void			ml_cm_right(t_line **ml_lines, int index);
-void			ml_cm_start(t_line **ml_lines, int index);
-void			ml_cm_end(t_line **ml_lines, int index);
+int				get_cursor_row_position(t_line *line);
 
-int				mlm_shift_word_left(t_line **ml_lines, int index);
-int				mlm_shift_word_right(t_line **ml_lines, int index);
+int				mlm_add_new_line(t_line *line);
 
-void			display_prompt_line(int line);
-void			update_cursor_position(t_size cp);
+/*
+** Multi line edition [OLD SYSTEM !]
+*/
+
+/*
+** int				term_get_multiline(t_line *line, t_bool *use_multilines,
+** int key_pressed);
+** int				multi_line_manager(t_line *line,
+**	char key_pressed, int state);
+** void			clear_multi_line_cmd(int y, int max);
+** void			ml_delete_char(t_line *line, int key_pressed);
+** void			ml_refresh_lines(t_line *line);
+** void			convert_multilines_to_line(t_line **ml_lines, t_line *line);
+** void			insert_char_in_line(t_line **ml_lines, int index,
+** int key_pressed);
+** void			delete_char_in_line(t_line **ml_lines, int index);
+**
+** void			ml_cm_left(t_line **ml_lines, int index);
+** void			ml_cm_right(t_line **ml_lines, int index);
+** void			ml_cm_start(t_line **ml_lines, int index);
+** void			ml_cm_end(t_line **ml_lines, int index);
+**
+** int				mlm_shift_word_left(t_line **ml_lines, int index);
+** int				mlm_shift_word_right(t_line **ml_lines, int index);
+**
+** void			display_prompt_line(int line);
+** void			update_cursor_position(t_size cp);
+*/
 
 #endif

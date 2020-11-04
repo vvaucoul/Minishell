@@ -6,22 +6,22 @@
 /*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 10:32:18 by mle-faou          #+#    #+#             */
-/*   Updated: 2019/11/08 10:32:41 by mle-faou         ###   ########.fr       */
+/*   Updated: 2020/09/24 19:55:22 by mle-faou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstadd_back(t_list **alst, t_list *new)
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	if (!alst)
+	if (!lst)
 		return ;
-	if (!*alst)
+	if (!*lst)
 	{
-		(*alst) = new;
+		(*lst) = new;
 		return ;
 	}
-	while ((*alst)->next)
-		alst = &(*alst)->next;
-	(*alst)->next = new;
+	while ((*lst)->next)
+		lst = &(*lst)->next;
+	(*lst)->next = new;
 }

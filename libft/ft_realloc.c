@@ -6,7 +6,7 @@
 /*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/26 15:18:22 by mle-faou          #+#    #+#             */
-/*   Updated: 2020/07/22 14:55:40 by mle-faou         ###   ########.fr       */
+/*   Updated: 2020/10/08 13:15:04 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ char	*ft_realloc(char *ptr, size_t size)
 	}
 	else
 	{
-		// if (!(new_ptr = ft_calloc(ft_strlen(ptr) + size + 1, sizeof(char))))
 		if (!(new_ptr = ft_calloc(size + 1, sizeof(char))))
 			return (NULL);
 		i = 0;

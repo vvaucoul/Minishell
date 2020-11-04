@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/27 17:25:08 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/08/06 16:14:27 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/10/21 15:28:49 by vvaucoul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ int		termios_init(void)
 	s_term.c_lflag &= ~(ICANON | ECHO);
 	tcsetattr(STDIN_FILENO, TCSADRAIN, &s_term);
 	tgetent(NULL, getenv("TERM"));
-	printf("termios init successfuly\n");
 	return (0);
 }
 
@@ -43,8 +42,6 @@ void	term_get_info(void)
 {
 	get_term_struct()->term_size.row = tgetnum("li");
 	get_term_struct()->term_size.col = tgetnum("co");
-	printf("term has [%d] lines\n", get_term_struct()->term_size.row);
-	printf("term has [%d] columns\n", get_term_struct()->term_size.col);
 }
 
 int		termcaps_init(void)
@@ -52,9 +49,7 @@ int		termcaps_init(void)
 	int ret;
 
 	get_term_struct()->term_type = getenv("TERM");
-	printf("term type : %s\n", get_term_struct()->term_type);
 	ret = tgetent(NULL, get_term_struct()->term_type);
-	printf("ret : %d\n", ret);
 	if (ret == -1)
 		exit_error("la base de données n’est pas accessible.");
 	if (ret == 0)

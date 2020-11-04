@@ -6,13 +6,12 @@
 #    By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/17 10:12:54 by mle-faou          #+#    #+#              #
-#    Updated: 2020/08/26 15:24:02 by mle-faou         ###   ########.fr        #
+#    Updated: 2020/11/03 17:11:37 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME			=	libft.a
-SRCS			=	get_next_line.c \
-					ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c \
+SRCS			=	ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c \
 					ft_memmove.c ft_memchr.c ft_memcmp.c ft_strlen.c \
 					ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c \
 					ft_isprint.c ft_toupper.c ft_tolower.c ft_strchr.c \
@@ -28,7 +27,9 @@ SRCS			=	get_next_line.c \
 					ft_strequ.c ft_putstr.c ft_strstartswith.c ft_strcut.c \
 					ft_straddchar.c ft_isupper.c ft_islower.c ft_straddstr.c \
 					ft_strcat.c ft_strtrunc_del.c ft_strchangelen.c \
-					ft_tablen.c
+					ft_tablen.c  ft_lstadd_here.c ft_freetab_onsize.c \
+					ft_strrange.c ft_get_next_line.c ft_freetab_ret.c
+
 OBJ				=	$(SRCS:.c=.o)
 CFLAGS			=	-Wall -Wextra -Werror
 HEADERS			=	./
@@ -40,24 +41,24 @@ _UNDER=$'\033[4m
 _REV=$'\033[7m
 
 # Colors
-_GREY=$'\033[30m
-_RED=$'\033[31m
-_GREEN=$'\033[32m
-_YELLOW=$'\033[33m
-_BLUE=$'\033[34m
-_PURPLE=$'\033[35m
-_CYAN=$'\033[36m
-_WHITE=$'\033[37m
+_GREY=$'\033[1;30m
+_RED=$'\033[1;31m
+_GREEN=$'\033[1;32m
+_YELLOW=$'\033[1;33m
+_BLUE=$'\033[1;34m
+_PURPLE=$'\033[1;35m
+_CYAN=$'\033[1;36m
+_WHITE=$'\033[1;37m
 
 # Inverted, i.e. colored backgrounds
-_IGREY=$'\033[40m
-_IRED=$'\033[41m
-_IGREEN=$'\033[42m
-_IYELLOW=$'\033[43m
-_IBLUE=$'\033[44m
-_IPURPLE=$'\033[45m
-_ICYAN=$'\033[46m
-_IWHITE=$'\033[47m
+_IGREY=$'\033[1;40m
+_IRED=$'\033[1;41m
+_IGREEN=$'\033[1;42m
+_IYELLOW=$'\033[1;43m
+_IBLUE=$'\033[1;44m
+_IPURPLE=$'\033[1;45m
+_ICYAN=$'\033[1;46m
+_IWHITE=$'\033[1;47m
 
 all: $(NAME)
 

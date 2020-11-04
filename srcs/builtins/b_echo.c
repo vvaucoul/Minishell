@@ -6,64 +6,81 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/26 15:27:30 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/08/27 18:09:02 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/10/31 22:50:52 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int		find_first_arg(char **tabl, T_BOOL has_argument)
+static int		find_first_arg(char **tabl)
 {
 	int i;
 
-	i = 0;
+	i = 1;
 	while (tabl[i])
 	{
-		if (!(ft_strcmp(tabl[i], "echo")))
-			return (i + (has_argument ? 2 : 1));
+		if ((ft_strcmp(tabl[i], "-n")))
+			return (i);
 		++i;
 	}
 	return (i);
 }
 
-static T_BOOL	cmd_has_argument(char **tabl)
+static int		cmd_has_arg(char **tabl)
 {
 	int i;
 
-	i = 0;
+	if ((ft_strcmp(tabl[0], "echo")))
+		return (-1);
+	i = 1;
 	while (tabl[i])
 	{
-		if (!(ft_strcmp(tabl[i], "-n")) && (!(ft_strcmp(tabl[i - 1], "echo")))
-		&& i == 1)
+		if (!(ft_strcmp(tabl[i], "-n")))
 			return (TRUE);
+		else
+			return (FALSE);
 		++i;
 	}
 	return (FALSE);
 }
 
-int				b_echo(char **tabl)
+static int		init_echo(t_mns *mns, char **tabl, int *has_arg, int *i)
 {
-	T_BOOL	has_argument;
+	update_last_return(mns, 0);
+	if (!tabl)
+	{
+		ft_putstr_fd("\n", 1);
+		return (FALSE);
+	}
+	*i = find_first_arg(tabl);
+	if (((*has_arg) = cmd_has_arg(tabl)) < 0 || (!tabl[*i] && !(*has_arg)))
+	{
+		ft_putstr_fd("\n", 1);
+		return (FALSE);
+	}
+	update_last_return(mns, 1);
+	return (TRUE);
+}
+
+int				b_echo(t_mns *mns, char **tabl)
+{
+	int		has_arg;
 	char	*epured_str;
 	int		i;
 
-	if (!tabl)
-		return (0);
-	has_argument = cmd_has_argument(tabl);
-	i = find_first_arg(tabl, has_argument);
-	if (!tabl[i] && has_argument)
-		return (0);
+	if ((init_echo(mns, tabl, &has_arg, &i)) != TRUE)
+		return (1);
 	while (tabl[i])
 	{
-		if (!(epured_str = epur_b_str(tabl[i])))
-			return (-1);
+		epured_str = rm_quotes(tabl[i]);
 		ft_putstr_fd(epured_str, 1);
 		free(epured_str);
 		if (tabl[i + 1])
 			ft_putchar_fd(' ', 1);
 		++i;
 	}
-	if (!has_argument)
+	if (!has_arg)
 		ft_putchar_fd('\n', 1);
-	return (0);
+	update_last_return(mns, 0);
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/27 17:35:28 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/08/06 16:55:21 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/11/04 00:12:18 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,32 @@ int		cmp_specials_keys(t_line *line, int key_pressed)
 		copy_paste_manager(line, FALSE, 1);
 	else if (key_pressed == KEY_PASTE)
 		copy_paste_manager(line, FALSE, 2);
+	else if (key_pressed == KEY_SHIFT_UP)
+		ml_line_prev(line);
+	else if (key_pressed == KEY_SHIFT_DOWN)
+		ml_line_next(line);
 	return (0);
+}
+
+int		cmp_basics_keys(t_line *line, int key_pressed)
+{
+	if (key_pressed == KEY_CTRLL)
+	{
+		tputs(tgoto(tgetstr("SF", NULL), 0, line->start.row - 1)
+		, 1, &term_putchar);
+		line->start.row = 1;
+		set_curpos(line);
+		return (TRUE);
+	}
+	else if (key_pressed == KEY_CTRL_D)
+		return (2);
+	else if (key_pressed == '\n')
+	{
+		add_in_history(line->cmd);
+		history_manager(line, FALSE, TRUE);
+		return (FALSE);
+	}
+	return (TRUE);
 }
 
 int		cmp_keys(t_line *line, int key_pressed)
@@ -48,18 +73,5 @@ int		cmp_keys(t_line *line, int key_pressed)
 	else if (key_pressed == KEY_RIGHT)
 		cursor_to_right(line);
 	cmp_specials_keys(line, key_pressed);
-	if (key_pressed == KEY_CTRLL)
-	{
-		tputs(tgoto(tgetstr("SF", NULL), 0, line->start.row - 1)
-		, 1, &term_putchar);
-		line->start.row = 1;
-		set_curpos(line);
-	}
-	else if (key_pressed == '\n')
-	{
-		add_in_history(line->cmd);
-		history_manager(line, FALSE, TRUE);
-		return (FALSE);
-	}
-	return (TRUE);
+	return (cmp_basics_keys(line, key_pressed));
 }

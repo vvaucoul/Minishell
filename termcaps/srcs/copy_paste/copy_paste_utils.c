@@ -32,7 +32,7 @@ void		insert_copy_character(t_line *line, int index, t_bool reset)
 		i = 0;
 		return ;
 	}
-	line->copy_cmd[i] = line->cmd[index - PROMPT_LEN];
+	line->copy_cmd[i] = line->cmd[index - get_term_struct()->prompt_len];
 	line->copy_cmd[i + 1] = '\0';
 	++i;
 }

@@ -6,7 +6,7 @@
 /*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/27 17:25:51 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/08/06 16:51:55 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/11/03 19:18:15 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,25 +29,25 @@
 
 int		compare_keys_01(char *str_buffer)
 {
-	if (!(memcmp(str_buffer, KEY_CODE_SHIFT_LEFT, ADD_KEY_SHIFT_LEN +
+	if (!(ft_memcmp(str_buffer, KEY_CODE_SHIFT_LEFT, ADD_KEY_SHIFT_LEN +
 		ADD_KEY_SHIFT_LEN)))
 		return (KEY_SLEFT);
-	else if (!(memcmp(str_buffer, KEY_CODE_SHIFT_RIGHT, MAX_KEY_LEN +
+	else if (!(ft_memcmp(str_buffer, KEY_CODE_SHIFT_RIGHT, MAX_KEY_LEN +
 		ADD_KEY_SHIFT_LEN)))
 		return (KEY_SRIGHT);
-	else if (!(memcmp(str_buffer, KEY_CODE_SHIFT_UP, MAX_KEY_LEN +
+	else if (!(ft_memcmp(str_buffer, KEY_CODE_SHIFT_UP, MAX_KEY_LEN +
 		ADD_KEY_SHIFT_LEN)))
 		return (KEY_SHIFT_UP);
-	else if (!(memcmp(str_buffer, KEY_CODE_SHIFT_DOWN, MAX_KEY_LEN +
+	else if (!(ft_memcmp(str_buffer, KEY_CODE_SHIFT_DOWN, MAX_KEY_LEN +
 		ADD_KEY_SHIFT_LEN)))
 		return (KEY_SHIFT_DOWN);
-	else if (!(memcmp(str_buffer, KEY_CODE_INSERT_INDEX, MAX_KEY_LEN)))
+	else if (!(ft_memcmp(str_buffer, KEY_CODE_INSERT_INDEX, MAX_KEY_LEN)))
 		return (KEY_INSERT_INDEX);
-	else if (!(memcmp(str_buffer, KEY_CODE_COPY, MAX_KEY_LEN)))
+	else if (!(ft_memcmp(str_buffer, KEY_CODE_COPY, MAX_KEY_LEN)))
 		return (KEY_CCOPY);
-	else if (!(memcmp(str_buffer, KEY_CODE_CUT, MAX_KEY_LEN)))
+	else if (!(ft_memcmp(str_buffer, KEY_CODE_CUT, MAX_KEY_LEN)))
 		return (KEY_CUT);
-	else if (!(memcmp(str_buffer, KEY_CODE_PASTE, MAX_KEY_LEN)))
+	else if (!(ft_memcmp(str_buffer, KEY_CODE_PASTE, MAX_KEY_LEN)))
 		return (KEY_PASTE);
 	return (0);
 }
@@ -56,17 +56,17 @@ int		compare_keys(char *str_buffer)
 {
 	int tmp;
 
-	if (!(memcmp(str_buffer, KEY_CODE_UP, MAX_KEY_LEN)))
+	if (!(ft_memcmp(str_buffer, KEY_CODE_UP, MAX_KEY_LEN)))
 		return (KEY_UP);
-	else if (!(memcmp(str_buffer, KEY_CODE_DO, MAX_KEY_LEN)))
+	else if (!(ft_memcmp(str_buffer, KEY_CODE_DO, MAX_KEY_LEN)))
 		return (KEY_DOWN);
-	else if (!(memcmp(str_buffer, KEY_CODE_RI, MAX_KEY_LEN)))
+	else if (!(ft_memcmp(str_buffer, KEY_CODE_RI, MAX_KEY_LEN)))
 		return (KEY_RIGHT);
-	else if (!(memcmp(str_buffer, KEY_CODE_LE, MAX_KEY_LEN)))
+	else if (!(ft_memcmp(str_buffer, KEY_CODE_LE, MAX_KEY_LEN)))
 		return (KEY_LEFT);
-	else if (!(memcmp(str_buffer, KEY_CODE_HOME, MAX_KEY_LEN)))
+	else if (!(ft_memcmp(str_buffer, KEY_CODE_HOME, MAX_KEY_LEN)))
 		return (KEY_HOME);
-	else if (!(memcmp(str_buffer, KEY_CODE_END, MAX_KEY_LEN)))
+	else if (!(ft_memcmp(str_buffer, KEY_CODE_END, MAX_KEY_LEN)))
 		return (KEY_END);
 	else if ((tmp = compare_keys_01(str_buffer)))
 		return (tmp);

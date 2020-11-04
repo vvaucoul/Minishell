@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_freetab.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/26 15:32:06 by mle-faou          #+#    #+#             */
-/*   Updated: 2020/08/26 16:04:19 by vvaucoul         ###   ########.fr       */
+/*   Updated: 2020/11/03 16:04:15 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-#include <stdio.h>
 
 void	ft_freetab(char **array)
 {
@@ -28,5 +26,4 @@ void	ft_freetab(char **array)
 	}
 	free(array[i]);
 	free(array);
-	array = NULL;
 }

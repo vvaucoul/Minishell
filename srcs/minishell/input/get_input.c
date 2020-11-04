@@ -3,23 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   get_input.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 15:12:33 by mle-faou          #+#    #+#             */
-/*   Updated: 2020/08/21 15:58:31 by mle-faou         ###   ########.fr       */
+/*   Updated: 2020/11/03 16:03:11 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		get_input(char **input, t_mns *mns)
+int				get_input(t_mns *mns, char **input)
 {
 	char	buf;
 	int		i;
 	int		count;
 	int		n_read;
 
-	if (!(*input = ft_strnew(0)))
+	display_prompt(mns);
+	if (!(*input = ft_strnew(1)))
 		return (-1);
 	count = 1;
 	i = 0;
@@ -30,13 +31,12 @@ int		get_input(char **input, t_mns *mns)
 			return (-1);
 		count++;
 	}
-	*(*input + i) = '\0';
 	if (!n_read)
 	{
 		free(*input);
-		exit_shell();
+		mns->use_ctrl_d = TRUE;
+		return (0);
 	}
-	if (update_input(input, mns))
-		return (-1);
+	*(*input + i) = '\0';
 	return (0);
 }

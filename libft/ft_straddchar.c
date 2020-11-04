@@ -6,7 +6,7 @@
 /*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/02 14:44:20 by mle-faou          #+#    #+#             */
-/*   Updated: 2020/07/08 19:33:48 by mle-faou         ###   ########.fr       */
+/*   Updated: 2020/10/20 15:35:59 by mle-faou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 char		*ft_straddchar(char *str, char c)
 {
-	int i;
-	char *new;
+	int		i;
+	char	*new;
 
 	i = ft_strlen(str);
 	if (!(new = ft_realloc(str, i + 2)))

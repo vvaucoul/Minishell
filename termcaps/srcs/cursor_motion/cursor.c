@@ -20,19 +20,19 @@ void	set_curpos(t_line *line)
 
 void	cursor_to_end(t_line *line)
 {
-	line->cursor_position = line->len + PROMPT_LEN;
+	line->cursor_position = line->len + get_term_struct()->prompt_len;
 	set_curpos(line);
 }
 
 void	cursor_to_start(t_line *line)
 {
-	line->cursor_position = PROMPT_LEN;
+	line->cursor_position = get_term_struct()->prompt_len;
 	set_curpos(line);
 }
 
 void	cursor_to_left(t_line *line)
 {
-	if (line->cursor_position <= PROMPT_LEN)
+	if (line->cursor_position <= get_term_struct()->prompt_len)
 		return ;
 	--line->cursor_position;
 	set_curpos(line);
@@ -40,7 +40,7 @@ void	cursor_to_left(t_line *line)
 
 void	cursor_to_right(t_line *line)
 {
-	if (line->cursor_position >= line->len + PROMPT_LEN)
+	if (line->cursor_position >= line->len + get_term_struct()->prompt_len)
 		return ;
 	++line->cursor_position;
 	set_curpos(line);

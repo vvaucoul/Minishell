@@ -6,12 +6,11 @@
 /*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/27 16:39:51 by mle-faou          #+#    #+#             */
-/*   Updated: 2020/06/30 14:58:29 by mle-faou         ###   ########.fr       */
+/*   Updated: 2020/10/08 14:27:17 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
 
 char		*ft_strcut(const char *str, char c)
 {

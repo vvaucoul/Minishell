@@ -3,41 +3,45 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 18:03:46 by vvaucoul          #+#    #+#             */
-/*   Updated: 2020/08/26 18:44:37 by mle-faou         ###   ########.fr       */
+/*   Updated: 2020/11/03 16:52:22 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void 	display_prompt(t_mns *mns)
+void		display_prompt(t_mns *mns)
 {
-	ft_putstr_fd(MNS_COLOR_GREEN, 1);
-	ft_putstr_fd("🛠️  ", 1);
+	ft_putstr_fd(MNS_COLOR_GREEN, 2);
+	ft_putstr_fd("", 2);
 	b_pwd(mns, FALSE);
-	ft_putstr_fd(MNS_COLOR_CYAN, 1);
-	ft_putstr_fd(" 🖥️  ➜  ", 1);
-	ft_putstr_fd(MNS_COLOR_NOC, 1);
+	ft_putstr_fd(MNS_COLOR_CYAN, 2);
+	ft_putstr_fd(" ➜ ", 2);
+	ft_putstr_fd(MNS_COLOR_NOC, 2);
 }
 
-int		minishell(t_mns *mns)
+int			mns_exit(char **input)
 {
-	char	*input;
-	char	**commands;
+	write(2, "exit\n", 5);
+	if (!(*input = ft_strdup("exit")))
+		return (1);
+	return (0);
+}
+
+int			minishell(t_mns *mns)
+{
+	char		*input;
+	char		**commands;
 
 	while (1)
 	{
-		display_prompt(mns);
-		
-		if (!BONUS)
-		{
-			if ((get_input(&input, mns)) == -1)
+		if ((get_input(mns, &input)) == -1)
+			return (-1);
+		if (mns->use_ctrl_d)
+			if (mns_exit(&input))
 				return (-1);
-		}
-		else
-			term_read_line(&input);
 		if (ft_strisempty(input) || is_in_quotes(input, ft_strlen(input)))
 		{
 			if (is_in_quotes(input, ft_strlen(input)))
@@ -45,11 +49,12 @@ int		minishell(t_mns *mns)
 			free(input);
 			continue ;
 		}
-		commands = quotesplit(input, ';');
-		free(input); //todo free in split :)
-		if ((exec_input(commands, mns)) == -1)
+		if (!(commands = check_semicolon(&input, mns)))
+			continue ;
+		if (exec_input(commands, mns))
 			return (-1);
-		ft_freetab(commands);
+		if (mns->exit.exit_shell)
+			b_exit(mns, mns->use_ctrl_d ? FALSE : TRUE);
 	}
 	return (0);
 }

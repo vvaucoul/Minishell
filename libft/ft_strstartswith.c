@@ -6,7 +6,7 @@
 /*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/27 15:43:10 by mle-faou          #+#    #+#             */
-/*   Updated: 2020/07/02 16:17:25 by mle-faou         ###   ########.fr       */
+/*   Updated: 2020/10/20 15:36:43 by mle-faou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,11 @@ int		ft_strstartswith(char *s1, char *s2, int free_s1, int free_s2)
 	i = 0;
 	while (s2[i])
 	{
+		if (!s1[i])
+		{
+			ret = 0;
+			break ;
+		}
 		if (s1[i] != s2[i])
 			ret = 0;
 		i++;

@@ -6,14 +6,14 @@
 /*   By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 10:11:49 by mle-faou          #+#    #+#             */
-/*   Updated: 2019/11/08 15:31:15 by mle-faou         ###   ########.fr       */
+/*   Updated: 2020/09/24 19:56:49 by mle-faou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstadd_front(t_list **alst, t_list *new)
+void	ft_lstadd_front(t_list **lst, t_list *new)
 {
-	new->next = *alst;
-	*alst = new;
+	new->next = *lst;
+	*lst = new;
 }
