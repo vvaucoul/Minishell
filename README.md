@@ -77,5 +77,5 @@ flowchart LR
    
    StartMinishell --> InitMinishell
    
-   MinishellLoop --> WaitInput --> ParseInput --> ExecuteInput
+   MinishellLoop --> WaitInput --> ParseInput --> ExecuteInput --> MinishellLoop
 ```
