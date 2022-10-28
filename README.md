@@ -8,8 +8,10 @@ Minishell is a lightweight shell with some functionnalities, like:
   - Operators (**;** , **&&**, **||**)
   - Termcaps management
   - and other things...
-  
- ## Usage
+
+---
+
+## Usage
 
 - Clone Repository
 ```bash
@@ -64,6 +66,8 @@ make
 ### Parenthesis
 
 - **(,)**
+
+---
 
 ### Shell System
 
