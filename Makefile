@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+         #
+#    By: vvaucoul <vvaucoul@student.42.Fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/17 10:12:54 by mle-faou          #+#    #+#              #
-#    Updated: 2020/11/04 10:50:02 by user42           ###   ########.fr        #
+#    Updated: 2022/10/28 17:29:47 by vvaucoul         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -128,18 +128,18 @@ _ICYAN=$'\033[1;46m
 _IWHITE=$'\033[1;47m
 
 all:
-	@echo "0" > .bonus
-	@echo "\n\n\n$(_BOLD)$(_GREEN)        :::   :::   ::::    :::  :::::::: "
-	@echo "      :+:+: :+:+:  :+:+:   :+: :+:    :+: "
-	@echo "    +:+ +:+:+ +:+ :+:+:+  +:+ +:+         "
-	@echo "   +#+  +:+  +#+ +#+ +:+ +#+ +#++:++#++   "
-	@echo "  +#+       +#+ +#+  +#+#+#        +#+    "
-	@echo " #+#       #+# #+#   #+#+# #+#    #+#     "
-	@echo "###       ### ###    ####  ########       $(_END)\n\n\n"
-	@echo "$(_PURPLE)Creating \"libs\" directory . . . $(_END)"
+	@printf "0" > .bonus
+	@printf "\n\n\n$(_BOLD)$(_GREEN)        :::   :::   ::::    :::  :::::::: \n"
+	@printf "      :+:+: :+:+:  :+:+:   :+: :+:    :+: \n"
+	@printf "    +:+ +:+:+ +:+ :+:+:+  +:+ +:+         \n"
+	@printf "   +#+  +:+  +#+ +#+ +:+ +#+ +#++:++#++   \n"
+	@printf "  +#+       +#+ +#+  +#+#+#        +#+    \n"
+	@printf " #+#       #+# #+#   #+#+# #+#    #+#     \n"
+	@printf "###       ### ###    ####  ########       $(_END)\n\n\n\n"
+	@printf "$(_PURPLE)Creating \"libs\" directory . . . $(_END)\n"
 	@mkdir -p libs
 	@cd libft && make -s
-	@echo "$(_PURPLE)Copying libft into \"libs\" directory . . . $(_END)"
+	@printf "$(_PURPLE)Copying libft into \"libs\" directory . . . $(_END)\n"
 	@cp $(LIBFT_LIB) $(LIBS_FOLDER)
 	@make -s $(NAME)
 
@@ -147,70 +147,70 @@ all:
 	@gcc $(OPTION) -I. -c $< -o ${<:.c=.o}
 
 $(NAME):
-	@echo "$(_PURPLE)Keeping code under control . . . $(_END)"
-	@echo "$(_PURPLE)Creating pre-compilation files for minishell . . . $(_END)"
+	@printf "$(_PURPLE)Keeping code under control . . . $(_END)\n"
+	@printf "$(_PURPLE)Creating pre-compilation files for minishell . . . $(_END)\n"
 	@make $(OBJS)
 	@/bin/rm .bonus
-	@echo "$(_PURPLE)Compiling minishell . . . $(_END)"
+	@printf "$(_PURPLE)Compiling minishell . . . $(_END)\n"
 	@gcc $(OPTION) -o $(NAME) $(OBJS)
-	@echo "$(_BOLD)$(_GREEN)   ___                  __"
-	@echo "  / _ \___  ___  ___   / /"
-	@echo " / // / _ \/ _ \/ -_) /_/"
-	@echo "/____/\___/_//_/\__/ (_)$(_END)"
+	@printf "$(_BOLD)$(_GREEN)   ___                  __\n"
+	@printf "  / _ \___  ___  ___   / /\n"
+	@printf " / // / _ \/ _ \/ -_) /_/\n"
+	@printf "/____/\___/_//_/\__/ (_)$(_END)\n"
 
 clean:
 	@cd libft && make -s fclean
 	@cd termcaps && make -s fclean
-	@echo "$(_PURPLE)Deleting \"libs\" content . . . $(_END)"
-	@echo "$(_PURPLE)Deleting \"libs\" directory . . . $(_END)"
+	@printf "$(_PURPLE)Deleting \"libs\" content . . . $(_END)\n"
+	@printf "$(_PURPLE)Deleting \"libs\" directory . . . $(_END)\n"
 	@/bin/rm -rf $(LIBS_FOLDER)
-	@echo "$(_PURPLE)Deleting pre-compilation files for minishell . . . $(_END)"
+	@printf "$(_PURPLE)Deleting pre-compilation files for minishell . . . $(_END)\n"
 	@/bin/rm -f $(OBJS)
 	@/bin/rm -f $(BONUS_OBJS)
 
 fclean: clean
-	@echo "$(_PURPLE)Deleting executable for minishell . . . $(_END)"
+	@printf "$(_PURPLE)Deleting executable for minishell . . . $(_END)\n"
 	@/bin/rm -f $(NAME)
 
 re: fclean all
 
 bonus:
-	@echo "$(_BOLD)$(_GREEN)        :::   :::   ::::    :::  :::::::: "
-	@echo "      :+:+: :+:+:  :+:+:   :+: :+:    :+: "
-	@echo "    +:+ +:+:+ +:+ :+:+:+  +:+ +:+         "
-	@echo "   +#+  +:+  +#+ +#+ +:+ +#+ +#++:++#++   "
-	@echo "  +#+       +#+ +#+  +#+#+#        +#+    "
-	@echo " #+#       #+# #+#   #+#+# #+#    #+#     "
-	@echo "###       ### ###    ####  ########       $(_END)"
-	@echo "$(_BOLD)$(_YELLOW)                                         __   ____                        "
-	@echo "                        ____ _____  ____/ /  / __ )____  ____  __  _______"
-	@echo "                       / __ \`/ __ \/ __  /  / __  / __ \/ __ \/ / / / ___/"
-	@echo "                      / /_/ / / / / /_/ /  / /_/ / /_/ / / / / /_/ (__  ) "
-	@echo "                      \__,_/_/ /_/\__,_/  /_____/\____/_/ /_/\__,_/____/  $(_END)"
-	@echo "$(_PURPLE)Cleaning . . . $(_END)"
+	@printf "$(_BOLD)$(_GREEN)        :::   :::   ::::    :::  :::::::: \n"
+	@printf "      :+:+: :+:+:  :+:+:   :+: :+:    :+: \n"
+	@printf "    +:+ +:+:+ +:+ :+:+:+  +:+ +:+         \n"
+	@printf "   +#+  +:+  +#+ +#+ +:+ +#+ +#++:++#++   \n"
+	@printf "  +#+       +#+ +#+  +#+#+#        +#+    \n"
+	@printf " #+#       #+# #+#   #+#+# #+#    #+#     \n"
+	@printf "###       ### ###    ####  ########       $(_END)\n"
+	@printf "$(_BOLD)$(_YELLOW)                                         __   ____                        \n"
+	@printf "                        ____ _____  ____/ /  / __ )____  ____  __  _______\n"
+	@printf "                       / __ \`/ __ \/ __  /  / __  / __ \/ __ \/ / / / ___/\n"
+	@printf "                      / /_/ / / / / /_/ /  / /_/ / /_/ / / / / /_/ (__  ) \n"
+	@printf "                      \__,_/_/ /_/\__,_/  /_____/\____/_/ /_/\__,_/____/  $(_END)\n"
+	@printf "$(_PURPLE)Cleaning . . . $(_END)\n"
 	@make -s fclean
-	@echo "$(_PURPLE)Creating \"libs\" directory . . . $(_END)"
+	@printf "$(_PURPLE)Creating \"libs\" directory . . . $(_END)\n"
 	@mkdir -p libs
 	@cd libft && make -s
-	@echo "$(_PURPLE)Copying libft into \"libs\" directory . . . $(_END)"
+	@printf "$(_PURPLE)Copying libft into \"libs\" directory . . . $(_END)\n"
 	@cp $(LIBFT_LIB) $(LIBS_FOLDER)
 	@cd termcaps && make -s
-	@echo "$(_PURPLE)Copying termcaps_lib into \"libs\" directory . . . $(_END)"
+	@printf "$(_PURPLE)Copying termcaps_lib into \"libs\" directory . . . $(_END)\n"
 	@cp $(TERMCAPS_LIB) $(LIBS_FOLDER)
-	@echo "$(_PURPLE)Activating $(_YELLOW)bonus$(_PURPLE) for minishell . . . $(_END)"
-	@echo "1" > .bonus
-	@echo "$(_PURPLE)Creating pre-compilation files for minishell . . . $(_END)"
+	@printf "$(_PURPLE)Activating $(_YELLOW)bonus$(_PURPLE) for minishell . . . $(_END)\n"
+	@printf "1" > .bonu\ns
+	@printf "$(_PURPLE)Creating pre-compilation files for minishell . . . $(_END)\n"
 	@make -s $(OBJS)
-	@echo "$(_CYAN)\tDone !$(_END)"
-	@echo "$(_PURPLE)Creating pre-compilation $(_YELLOW)bonus$(_PURPLE) files for minishell . . . $(_END)"
+	@printf "$(_CYAN)\tDone !$(_END)\n"
+	@printf "$(_PURPLE)Creating pre-compilation $(_YELLOW)bonus$(_PURPLE) files for minishell . . . $(_END)\n"
 	@make -s $(BONUS_OBJS)
 	@/bin/rm .bonus
-	@echo "$(_CYAN)\tDone !$(_END)"
-	@echo "$(_PURPLE)Compiling minishell with $(_YELLOW)bonus$(_PURPLE). . . $(_END)"
+	@printf "$(_CYAN)\tDone !$(_END)\n"
+	@printf "$(_PURPLE)Compiling minishell with $(_YELLOW)bonus$(_PURPLE). . . $(_END)\n"
 	@gcc $(OBJS) $(BONUS_OBJS) $(OPTION_BONUS) -o $(NAME)
-	@echo "$(_BOLD)$(_YELLOW)   ___                  __"
-	@echo "  / _ \___  ___  ___   / /"
-	@echo " / // / _ \/ _ \/ -_) /_/"
-	@echo "/____/\___/_//_/\__/ (_)$(_END)"
+	@printf "$(_BOLD)$(_YELLOW)   ___                  __\n"
+	@printf "  / _ \___  ___  ___   / /\n"
+	@printf " / // / _ \/ _ \/ -_) /_/\n"
+	@printf "/____/\___/_//_/\__/ (_)$(_END)\n"
 
 .PHONY: all clean fclean re

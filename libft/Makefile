@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mle-faou <mle-faou@student.42.fr>          +#+  +:+       +#+         #
+#    By: vvaucoul <vvaucoul@student.42.Fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/17 10:12:54 by mle-faou          #+#    #+#              #
-#    Updated: 2020/11/03 17:11:37 by user42           ###   ########.fr        #
+#    Updated: 2022/10/28 17:30:11 by vvaucoul         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,18 +66,18 @@ all: $(NAME)
 	@gcc $(CFLAGS) -I. -c $< -o ${<:.c=.o}
 
 $(NAME):
-	@echo "$(_PURPLE)Creating pre-compilation files for libft . . . $(_END)"
+	@printf "$(_PURPLE)Creating pre-compilation files for libft . . . $(_END)\n"
 	@make $(OBJ)
-	@echo "$(_CYAN)\tDone !$(_END)"
-	@echo "$(_PURPLE)Compiling libft . . . $(_END)"
+	@printf "$(_CYAN)\tDone !$(_END)\n"
+	@printf "$(_PURPLE)Compiling libft . . . $(_END)\n"
 	@ar rcs $(NAME) $(OBJ)
 
 clean:
-	@echo "$(_PURPLE)Deleting pre-compilation files for libft . . . $(_END)"
+	@printf "$(_PURPLE)Deleting pre-compilation files for libft . . . $(_END)\n"
 	@/bin/rm -f $(OBJ) $(OBJ_BONUS)
 
 fclean: clean
-	@echo "$(_PURPLE)Deleting executable for libft . . . $(_END)"
+	@printf "$(_PURPLE)Deleting executable for libft . . . $(_END)\n"
 	@/bin/rm -f $(NAME) $(NAME:.a=.so)
 
 re: fclean all

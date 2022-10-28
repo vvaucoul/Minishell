@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vvaucoul <vvaucoul@student.42.fr>          +#+  +:+       +#+         #
+#    By: vvaucoul <vvaucoul@student.42.Fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/26 18:34:22 by vvaucoul          #+#    #+#              #
-#    Updated: 2020/11/04 10:47:48 by user42           ###   ########.fr        #
+#    Updated: 2022/10/28 17:30:24 by vvaucoul         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,35 +68,35 @@ _ICYAN=$'\033[1;46m
 _IWHITE=$'\033[1;47m
 
 all:
-	@echo "$(_PURPLE)Copying libft into termcaps. . . $(_END)"
+	@printf "$(_PURPLE)Copying libft into termcaps. . . $(_END)\n"
 	@cp $(LIBFT_PATH)$(LIBFT) .
 	@make $(NAME)
-	@echo "$(_CYAN)\tDone !$(_END)"
+	@printf "$(_CYAN)\tDone !$(_END)\n"
 
 %.o : %.c
 	@gcc $(OPTION) -c $< -o ${<:.c=.o}
 
 $(NAME):
-	@echo "$(_PURPLE)Creating pre-compilation files for termcaps . . . $(_END)"
+	@printf "$(_PURPLE)Creating pre-compilation files for termcaps . . . $(_END)\n"
 	@make $(OBJS)
-	@echo "$(_CYAN)\tDone !$(_END)"
-	@echo "$(_PURPLE)Compiling mns_termcaps_lib . . . $(_END)"
+	@printf "$(_CYAN)\tDone !$(_END)\n"
+	@printf "$(_PURPLE)Compiling mns_termcaps_lib . . . $(_END)\n"
 	@ar rcs $(NAME) $(OBJS)
 
 test:
 # 	@make $(HEADERS)
-	@echo "$(_PURPLE)Creating test for termcaps lib. . . $(_END)"
+	@printf "$(_PURPLE)Creating test for termcaps lib. . . $(_END)\n"
 	@make
 	@gcc srcs/main.c -I. $(LIBS_OPTIONS) -I../libft ../libft/libft.a $(OPTION) -o termcaps_test
 
 clean:
-	@echo "$(_PURPLE)Deleting pre-compilation files for termcaps . . . $(_END)"
+	@printf "$(_PURPLE)Deleting pre-compilation files for termcaps . . . $(_END)\n"
 	@/bin/rm -f $(OBJS)
-	@echo "$(_PURPLE)Deleting libft copy . . . $(_END)"
+	@printf "$(_PURPLE)Deleting libft copy . . . $(_END)\n"
 	@/bin/rm -f libft.a
 
 fclean: clean
-	@echo "$(_PURPLE)Deleting executable for termcaps . . . $(_END)"
+	@printf "$(_PURPLE)Deleting executable for termcaps . . . $(_END)\n"
 	@/bin/rm -f $(NAME)
 	@/bin/rm -f termcaps_test
 
